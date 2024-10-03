@@ -1,6 +1,5 @@
 ﻿using Aletheia.Domain.Entities;
-using Aletheia.Domain.IRepository;
-using Aletheia.Infrastructure.Repository;
+using Aletheia.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aletheia.Infra.Repositories
