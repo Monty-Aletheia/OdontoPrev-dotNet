@@ -2,7 +2,7 @@
 
 namespace Aletheia.Domain.IRepository
 {
-    public interface IClaimRepository : IRepository<Claim>
+    public interface IDentistRepository : IRepository<Dentist>
     {
     }
 }

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Aletheia.Domain.Entities;
 
 namespace Aletheia.Domain.IRepository
 {
-    internal interface IConsultaion
+    public interface IConsultationRepository : IRepository<Consultation>
     {
     }
 }
