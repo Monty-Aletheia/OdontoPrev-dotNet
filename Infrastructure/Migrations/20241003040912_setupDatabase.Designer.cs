@@ -12,7 +12,7 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace Aletheia.Infra.Migrations
 {
     [DbContext(typeof(FIAPDbContext))]
-    [Migration("20241003035214_setupDatabase")]
+    [Migration("20241003040912_setupDatabase")]
     partial class setupDatabase
     {
         /// <inheritdoc />

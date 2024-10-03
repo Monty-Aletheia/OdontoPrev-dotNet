@@ -36,8 +36,8 @@ namespace Aletheia.Infra.Migrations
                     Birthday = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
                     Gender = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     risk_status = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    consultation_frequency = table.Column<int>(type: "int", nullable: true),
-                    associated_claims = table.Column<string>(type: "text(2000)", nullable: true)
+                    consultation_frequency = table.Column<int>(type: "NUMBER", nullable: true),
+                    associated_claims = table.Column<string>(type: "CLOB", nullable: true)
                 },
                 constraints: table =>
                 {

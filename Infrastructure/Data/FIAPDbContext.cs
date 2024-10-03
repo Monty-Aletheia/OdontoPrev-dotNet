@@ -1,5 +1,4 @@
 ﻿using Aletheia.Domain.Entities;
-using Aletheia.Domain.Entities.Enum;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aletheia.Infra.Data
