@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Aletheia.Domain.Entities
 {
+    [Table("tb_claims")]
     public class Claim
     {
         [Key]

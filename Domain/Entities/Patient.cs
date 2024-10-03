@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Aletheia.Domain.Entities
 {
+    [Table("tb_patient")]
     public class Patient
     {
         [Key]
@@ -27,7 +28,7 @@ namespace Aletheia.Domain.Entities
         public int? ConsultationFrequency { get; set; } = 0;
 
         [Column("associated_claims", TypeName = "text")]
-        public string AssociatedClaims { get; set; }
+        public string? AssociatedClaims { get; set; }
 
         public virtual ICollection<Consultation> Consultations { get; set; }
     }
