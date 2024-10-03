@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aletheia.API", "Aletheia.Application\Aletheia.API.csproj", "{C27C0320-6097-4BFD-8B65-3C794BE8B15B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aletheia.Presentation", "Aletheia.Application\Aletheia.Presentation.csproj", "{C27C0320-6097-4BFD-8B65-3C794BE8B15B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aletheia.Domain", "Domain\Aletheia.Domain.csproj", "{BCBFF5BD-8615-4F15-A39B-1F5CBF7F3364}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aletheia.Domain", "Domain\Aletheia.Domain.csproj", "{BCBFF5BD-8615-4F15-A39B-1F5CBF7F3364}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aletheia.Infra", "Infrastructure\Aletheia.Infra.csproj", "{00374B7A-7A03-401D-9B57-FF946F29B9C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aletheia.Infra", "Infrastructure\Aletheia.Infra.csproj", "{00374B7A-7A03-401D-9B57-FF946F29B9C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aletheia.Application", "Application\Aletheia.Application.csproj", "{F895CA68-56AF-45EE-9DD6-A225D88490B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aletheia.Application", "Application\Aletheia.Application.csproj", "{F895CA68-56AF-45EE-9DD6-A225D88490B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,4 @@
-﻿namespace Aletheia.Domain.IRepository
+﻿namespace Aletheia.Domain.Interfaces
 {
     public interface IRepository<T> where T : class
     {

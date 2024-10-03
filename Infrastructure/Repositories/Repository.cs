@@ -1,7 +1,7 @@
-﻿using Aletheia.Domain.IRepository;
+﻿using Aletheia.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Aletheia.Infrastructure.Repository
+namespace Aletheia.Infra.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
