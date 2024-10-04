@@ -3,17 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-<<<<<<< HEAD
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aletheia.Presentation", "Aletheia.Application\Aletheia.Presentation.csproj", "{C27C0320-6097-4BFD-8B65-3C794BE8B15B}"
-=======
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aletheia.Api", "Aletheia.Application\Aletheia.Api.csproj", "{C27C0320-6097-4BFD-8B65-3C794BE8B15B}"
->>>>>>> b5870aae946d38e35396df19c24be7ef99f7c7d5
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aletheia.Domain", "Domain\Aletheia.Domain.csproj", "{BCBFF5BD-8615-4F15-A39B-1F5CBF7F3364}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aletheia.Infra", "Infrastructure\Aletheia.Infra.csproj", "{00374B7A-7A03-401D-9B57-FF946F29B9C8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aletheia.Application", "Application\Aletheia.Application.csproj", "{F895CA68-56AF-45EE-9DD6-A225D88490B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aletheia.Presentation", "Presentation\Aletheia.Presentation.csproj", "{E7C1080A-38F5-431A-986C-BD045C155304}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C27C0320-6097-4BFD-8B65-3C794BE8B15B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C27C0320-6097-4BFD-8B65-3C794BE8B15B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C27C0320-6097-4BFD-8B65-3C794BE8B15B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C27C0320-6097-4BFD-8B65-3C794BE8B15B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BCBFF5BD-8615-4F15-A39B-1F5CBF7F3364}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BCBFF5BD-8615-4F15-A39B-1F5CBF7F3364}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCBFF5BD-8615-4F15-A39B-1F5CBF7F3364}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -37,6 +29,10 @@ Global
 		{F895CA68-56AF-45EE-9DD6-A225D88490B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F895CA68-56AF-45EE-9DD6-A225D88490B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F895CA68-56AF-45EE-9DD6-A225D88490B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7C1080A-38F5-431A-986C-BD045C155304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7C1080A-38F5-431A-986C-BD045C155304}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7C1080A-38F5-431A-986C-BD045C155304}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7C1080A-38F5-431A-986C-BD045C155304}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
