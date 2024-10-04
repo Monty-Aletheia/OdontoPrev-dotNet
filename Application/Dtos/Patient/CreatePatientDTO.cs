@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Aletheia.Application.Dtos.Patient
 {
-    public class CreatePatientRequestDTO
+    public class CreatePatientDTO
     {
         [Required]
         public string Name { get; set; }
