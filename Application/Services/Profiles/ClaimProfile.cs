@@ -1,4 +1,5 @@
 ﻿using Aletheia.Application.Dtos.Claim;
+using Aletheia.Application.Dtos.Consultation;
 using Aletheia.Domain.Entities;
 using AutoMapper;
 
@@ -8,8 +9,12 @@ namespace Aletheia.Application.Services.Mappers
     {
         public ClaimProfile()
         {
-            CreateMap<Claim, CreateClaimDTO>();
-            CreateMap<ClaimResponseDTO, Claim>();
+            CreateMap<Claim, ClaimResponseDTO>()
+                .ForMember(dest => dest.Consultation, opt => opt.MapFrom(src => src.Consultation));
+
+            CreateMap<Consultation, ConsultationSummaryDTO>();
+
+            CreateMap<CreateClaimDTO, Claim>();
         }
     }
 }

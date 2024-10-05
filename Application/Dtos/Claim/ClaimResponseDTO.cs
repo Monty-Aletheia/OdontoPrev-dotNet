@@ -1,4 +1,5 @@
-﻿using Aletheia.Domain.Entities.Enum;
+﻿using Aletheia.Application.Dtos.Consultation;
+using Aletheia.Domain.Entities.Enum;
 
 namespace Aletheia.Application.Dtos.Claim
 {
@@ -12,8 +13,8 @@ namespace Aletheia.Application.Dtos.Claim
 
         public ClaimType ClaimType { get; set; } 
 
-        public string SuggestedPreventiveAction { get; set; } 
+        public string SuggestedPreventiveAction { get; set; }
 
-        public Guid ConsultationId { get; set; }
+        public ConsultationSummaryDTO Consultation { get; set; }
     }
 }

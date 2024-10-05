@@ -1,4 +1,6 @@
 ﻿using Aletheia.Application.Dtos.Consultation;
+using Aletheia.Application.Dtos.Dentist;
+using Aletheia.Application.Dtos.Patient;
 using Aletheia.Domain.Entities;
 using AutoMapper;
 
@@ -8,8 +10,13 @@ namespace Aletheia.Application.Services.Mappers
     {
         public ConsultationProfile()
         {
-            CreateMap<Consultation, CreateConsultationDTO>();
-            CreateMap<ConsultationResponseDTO, Consultation>();
+            CreateMap<CreateConsultationDTO, Consultation>();
+            CreateMap<Consultation, ConsultationResponseDTO>()
+             .ForMember(dest => dest.Patient, opt => opt.MapFrom(src => src.Patient))
+             .ForMember(dest => dest.Dentists, opt => opt.MapFrom(src => src.Dentists));
+
+            CreateMap<Patient, PatientResponseDTO>(); 
+            CreateMap<Dentist, DentistResponseDTO>();
         }
     }
 }

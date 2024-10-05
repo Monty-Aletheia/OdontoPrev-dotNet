@@ -16,13 +16,13 @@ namespace Aletheia.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<List<PatientResponseDTO>> GetAllPatients()
+        public async Task<IEnumerable<PatientResponseDTO>> GetAllPatientsAsync()
         {
             var patients = await _patientRepository.GetAllAsync();
-            return patients.Select(patient => _mapper.Map<PatientResponseDTO>(patient)).ToList();
+            return _mapper.Map<IEnumerable<PatientResponseDTO>>(patients);
         }
 
-        public async Task<PatientResponseDTO> GetPatientsById(Guid id)
+        public async Task<PatientResponseDTO> GetPatientsByIdAsync(Guid id)
         {
             var patient = await _patientRepository.GetByIdAsync(id);
 
@@ -31,7 +31,7 @@ namespace Aletheia.Application.Services
             return _mapper.Map<PatientResponseDTO>(patient);
         }
 
-        public async Task<PatientResponseDTO> CreatePatient(CreatePatientDTO dto)
+        public async Task<PatientResponseDTO> CreatePatientAsync(CreatePatientDTO dto)
         {
             var patient = _mapper.Map<Patient>(dto);
             await _patientRepository.AddAsync(patient);

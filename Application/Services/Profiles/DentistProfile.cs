@@ -8,8 +8,8 @@ namespace Aletheia.Application.Services.Mappers
     {
         public DentistProfile()
         {
-            CreateMap<Dentist, CreateDentistDTO>();
-            CreateMap<DentistResponseDTO, Dentist>();
+            CreateMap<CreateDentistDTO, Dentist>();
+            CreateMap<Dentist, DentistResponseDTO>();
         }
     }
 }
