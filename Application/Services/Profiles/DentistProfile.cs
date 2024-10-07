@@ -2,7 +2,7 @@
 using Aletheia.Domain.Entities;
 using AutoMapper;
 
-namespace Aletheia.Application.Services.Mappers
+namespace Aletheia.Application.Services.Profiles
 {
     public class DentistProfile : Profile
     {

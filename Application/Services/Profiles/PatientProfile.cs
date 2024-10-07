@@ -2,9 +2,9 @@
 using Aletheia.Domain.Entities;
 using AutoMapper;
 
-namespace Aletheia.Application.Services.Mappers
+namespace Aletheia.Application.Services.Profiles
 {
-    public class PatientProfile: Profile
+    public class PatientProfile : Profile
     {
         public PatientProfile()
         {
