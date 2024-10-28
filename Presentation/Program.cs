@@ -1,24 +1,17 @@
-using Aletheia.Infra.Data;
-using Microsoft.EntityFrameworkCore;
+using Aletheia.Presentation.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Dependency Injections
+builder.Services.AddDatabaseConfiguration(builder.Configuration);
+builder.Services.AddInfraRepositories();
+builder.Services.AddApplicationServices();
+builder.Services.AddAutoMapperProfiles();
+
 // Add services to the container.
-
-// Auto mapper config
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// banco
-builder.Services.AddDbContext<FIAPDbContext>(options =>
-{
-    options.UseOracle(builder.Configuration.GetConnectionString("OracleFIAPDbContext"));
-});
-
 
 var app = builder.Build();
 
@@ -30,9 +23,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

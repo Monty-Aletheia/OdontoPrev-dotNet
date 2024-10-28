@@ -9,7 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aletheia.Infra", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aletheia.Application", "Application\Aletheia.Application.csproj", "{F895CA68-56AF-45EE-9DD6-A225D88490B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aletheia.Presentation", "Presentation\Aletheia.Presentation.csproj", "{E7C1080A-38F5-431A-986C-BD045C155304}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aletheia.Presentation", "Presentation\Aletheia.Presentation.csproj", "{E7C1080A-38F5-431A-986C-BD045C155304}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F895CA68-56AF-45EE-9DD6-A225D88490B4} = {F895CA68-56AF-45EE-9DD6-A225D88490B4}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

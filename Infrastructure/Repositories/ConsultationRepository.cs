@@ -1,10 +1,10 @@
 ﻿using Aletheia.Domain.Entities;
 using Aletheia.Domain.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using Aletheia.Infra.Data;
 
 namespace Aletheia.Infra.Repositories
 {
-    public class ConsultationRepository(DbContext context) : Repository<Consultation>(context), IConsultationRepository
+    public class ConsultationRepository(FIAPDbContext context) : Repository<Consultation>(context), IConsultationRepository
     {
     }
 }

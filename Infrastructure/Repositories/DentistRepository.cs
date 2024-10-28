@@ -1,10 +1,10 @@
 ﻿using Aletheia.Domain.Entities;
 using Aletheia.Domain.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using Aletheia.Infra.Data;
 
 namespace Aletheia.Infra.Repositories
 {
-    public class DentistRepository(DbContext context) : Repository<Dentist>(context), IDentistRepository
+    public class DentistRepository(FIAPDbContext context) : Repository<Dentist>(context), IDentistRepository
     {
     }
 }
