@@ -1,6 +1,7 @@
-﻿using Aletheia.Application.Dtos.Consultation;
-using Aletheia.Application.Services;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Aletheia.Application.Services;
+using Aletheia.Application.Dtos.Consultation;
 
 namespace Aletheia.Presentation.Controllers
 {
@@ -9,10 +10,12 @@ namespace Aletheia.Presentation.Controllers
     public class ConsultationController : ControllerBase
     {
         private readonly ConsultationService _consultationService;
+        private readonly IMapper _mapper;
 
-        public ConsultationController(ConsultationService consultationService)
+        public ConsultationController(ConsultationService consultationService, IMapper mapper)
         {
             _consultationService = consultationService;
+            _mapper = mapper;
         }
 
         // GET: api/Consultation
@@ -20,17 +23,22 @@ namespace Aletheia.Presentation.Controllers
         public async Task<IActionResult> GetConsultations()
         {
             var consultations = await _consultationService.GetConsultationsAsync();
-            return Ok(consultations);
+            var consultationDtos = _mapper.Map<IEnumerable<ConsultationResponseDTO>>(consultations);
+            return Ok(consultationDtos);
         }
 
-        // GET: api/Consultation/2
+        // GET: api/Consultation/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetConsultationById(Guid id)
         {
             try
             {
                 var consultation = await _consultationService.GetConsultationByIdAsync(id);
-                return Ok(consultation);
+                if (consultation == null)
+                    return NotFound();
+
+                var consultationDto = _mapper.Map<ConsultationResponseDTO>(consultation);
+                return Ok(consultationDto);
             }
             catch (KeyNotFoundException ex)
             {
@@ -42,21 +50,12 @@ namespace Aletheia.Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateConsultation([FromBody] CreateConsultationDTO dto)
         {
-            if (dto == null)
-            {
-                return BadRequest("Invalid data.");
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            try
-            {
-                var consultation = await _consultationService.CreateConsultationAsync(dto);
-                return CreatedAtAction(nameof(GetConsultationById), new { id = consultation.Id }, consultation);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            var consultation = await _consultationService.CreateConsultationAsync(dto);
+            var createdConsultationDto = _mapper.Map<ConsultationResponseDTO>(consultation);
+            return CreatedAtAction(nameof(GetConsultationById), new { id = createdConsultationDto.Id }, createdConsultationDto);
         }
-    
     }
 }

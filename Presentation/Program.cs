@@ -5,8 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Dependency Injections
 builder.Services.AddDatabaseConfiguration(builder.Configuration);
 builder.Services.AddInfraRepositories();
-builder.Services.AddApplicationServices();
 builder.Services.AddAutoMapperProfiles();
+builder.Services.AddApplicationServices();
 
 // Add services to the container.
 builder.Services.AddControllers();

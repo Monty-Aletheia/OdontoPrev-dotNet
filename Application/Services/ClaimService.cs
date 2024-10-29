@@ -22,13 +22,13 @@ namespace Aletheia.Application.Services
 
         public async Task<IEnumerable<ClaimResponseDTO>> GetAllClaimsAsync()
         {
-            var claims = await _claimRepository.GetAllAsync();
+            var claims = await _claimRepository.GetClaimWithConsultationAsync();
             return _mapper.Map<IEnumerable<ClaimResponseDTO>>(claims);
         }
 
         public async Task<ClaimResponseDTO> GetClaimByIdAsync(Guid id)
         {
-            var claim = await _claimRepository.GetByIdAsync(id);
+            var claim = await _claimRepository.GetClaimWithConsultationByIdAsync(id);
 
             if (claim == null)
                 throw new KeyNotFoundException($"Claim with id {id} not found.");

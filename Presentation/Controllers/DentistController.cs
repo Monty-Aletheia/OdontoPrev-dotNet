@@ -1,6 +1,7 @@
-﻿using Aletheia.Application.Dtos.Dentist;
-using Aletheia.Application.Services;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Aletheia.Application.Services;
+using Aletheia.Application.Dtos.Dentist;
 
 namespace Aletheia.Presentation.Controllers
 {
@@ -9,10 +10,12 @@ namespace Aletheia.Presentation.Controllers
     public class DentistController : ControllerBase
     {
         private readonly DentistService _dentistService;
+        private readonly IMapper _mapper;
 
-        public DentistController(DentistService dentistService)
+        public DentistController(DentistService dentistService, IMapper mapper)
         {
             _dentistService = dentistService;
+            _mapper = mapper;
         }
 
         // GET: api/Dentist
@@ -20,17 +23,22 @@ namespace Aletheia.Presentation.Controllers
         public async Task<IActionResult> GetAllDentists()
         {
             var dentists = await _dentistService.GetAllDentintsAsync();
-            return Ok(dentists);
+            var dentistDtos = _mapper.Map<IEnumerable<DentistResponseDTO>>(dentists);
+            return Ok(dentistDtos);
         }
 
-        // GET: api/Dentist/2
+        // GET: api/Dentist/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDentistById(Guid id)
         {
             try
             {
                 var dentist = await _dentistService.GetPatientByIdAsync(id);
-                return Ok(dentist);
+                if (dentist == null)
+                    return NotFound();
+
+                var dentistDto = _mapper.Map<DentistResponseDTO>(dentist);
+                return Ok(dentistDto);
             }
             catch (KeyNotFoundException ex)
             {
@@ -42,13 +50,12 @@ namespace Aletheia.Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateDentist([FromBody] CreateDentistDTO dto)
         {
-            if (dto == null)
-            {
-                return BadRequest("Invalid data.");
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             var dentist = await _dentistService.CreateDentistAsync(dto);
-            return CreatedAtAction(nameof(GetDentistById), new { id = dentist.Id }, dentist);
+            var createdDentistDto = _mapper.Map<DentistResponseDTO>(dentist);
+            return CreatedAtAction(nameof(GetDentistById), new { id = createdDentistDto.Id }, createdDentistDto);
         }
     }
 }

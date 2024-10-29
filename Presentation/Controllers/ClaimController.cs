@@ -1,4 +1,5 @@
-﻿using Aletheia.Application.Dtos.Claim;
+﻿using AutoMapper;
+using Aletheia.Application.Dtos.Claim;
 using Aletheia.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +10,12 @@ namespace Aletheia.Presentation.Controllers
     public class ClaimController : ControllerBase
     {
         private readonly ClaimService _claimService;
+        private readonly IMapper _mapper;
 
-        public ClaimController(ClaimService claimService)
+        public ClaimController(ClaimService claimService, IMapper mapper)
         {
             _claimService = claimService;
+            _mapper = mapper;
         }
 
         // GET: api/Claim
@@ -20,17 +23,19 @@ namespace Aletheia.Presentation.Controllers
         public async Task<IActionResult> GetAllClaims()
         {
             var claims = await _claimService.GetAllClaimsAsync();
-            return Ok(claims);
+            var claimDtos = _mapper.Map<IEnumerable<ClaimResponseDTO>>(claims);
+            return Ok(claimDtos);
         }
 
-        // GET: api/Claim/2
+        // GET: api/Claim/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetClaimById(Guid id)
         {
             try
             {
                 var claim = await _claimService.GetClaimByIdAsync(id);
-                return Ok(claim);
+                var claimDto = _mapper.Map<ClaimResponseDTO>(claim);
+                return Ok(claimDto);
             }
             catch (KeyNotFoundException ex)
             {
@@ -50,7 +55,8 @@ namespace Aletheia.Presentation.Controllers
             try
             {
                 var claim = await _claimService.CreateClaimAsync(dto);
-                return CreatedAtAction(nameof(GetClaimById), new { id = claim.Id }, claim);
+                var claimDto = _mapper.Map<ClaimResponseDTO>(claim);
+                return CreatedAtAction(nameof(GetClaimById), new { id = claimDto.Id }, claimDto);
             }
             catch (KeyNotFoundException ex)
             {
