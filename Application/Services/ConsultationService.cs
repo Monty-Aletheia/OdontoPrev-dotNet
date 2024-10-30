@@ -23,13 +23,13 @@ namespace Aletheia.Application.Services
 
         public async Task<IEnumerable<ConsultationResponseDTO>> GetConsultationsAsync()
         {
-            var consultations = await _consultationRepository.GetAllAsync();
+            var consultations = await _consultationRepository.GetConsultationWithPatientAndDentistsAsync();
             return _mapper.Map<IEnumerable<ConsultationResponseDTO>>(consultations);
         }
 
         public async Task<ConsultationResponseDTO> GetConsultationByIdAsync(Guid id)
         {
-            var consultation = await _consultationRepository.GetByIdAsync(id);
+            var consultation = await _consultationRepository.GetConsultationWithPatientAndDentistsByIdAsync(id);
             if (consultation == null) throw new KeyNotFoundException($"Consultation with id {id} not found.");
             
             return _mapper.Map<ConsultationResponseDTO>(consultation);
