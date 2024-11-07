@@ -7,29 +7,43 @@ médicos e consultas, para posteriormente utilizando Inteligência Artificial e 
 Dados, prever classificar padrões de consultas que indicam fraudes ou golpes que
 possam prejudicar uma empresa
 
-## Escopo
+## Visão Geral do Projeto
+O sistema é composto por uma API desenvolvida em .NET, que possui endpoints documentados via Swagger, 
+facilitando o acesso e testes de funcionalidades. As principais entidades do sistema incluem clientes, 
+médicos, consultas e sinistros, e a API permite a gestão desses dados, garantindo a escalabilidade e o suporte necessário 
+para análises futuras de padrões suspeitos.
 
-O escopo do projeto Aletheia inclui:
+## Funcionalidades
+- Cadastro e Gestão de Clientes, Médicos, Consultas e Sinistros: Endpoints para inserir, atualizar e consultar informações de clientes, médicos, consultas e sinistros.
+- Documentação via Swagger: Todos os endpoints da API são documentados e acessíveis através de uma interface gráfica do Swagger.
 
- 1. **Cadastro de Clientes:** Um módulo para registrar informações sobre os clientes, como nome, contato, e histórico médico.
- 2. **Cadastro de Dentistas:** Um módulo para registrar informações sobre Dentistas.
- 3. **Agendamento de Consultas:** Funcionalidade para que clientes possam agendar consultas, incluindo a seleção de médicos e horários disponíveis.
- 4. **Coleta de Dados de Consultas:** Registro de informações de cada consulta, como diagnóstico, tratamentos recomendados e histórico de consultas.
- 5. **Análise de Dados:** Implementação de algoritmos de inteligência artificial e ciência de dados para analisar os dados coletados e identificar padrões que possam indicar fraudes.
- 6. **Relatórios:** Geração de relatórios que mostrem as análises realizadas, com visualizações de dados e indicadores de possíveis fraudes.
+## Como Rodar:
+1. Clone o Repositório:
 
-## Requisitos Funcionais
+  ```bash
+  git clone https://github.com/seu-usuario/seu-repositorio.git
+  cd seu-repositorio
+  ```
 
-Os requisitos funcionais que a aplicação deve cumprir incluem:
+2. Configuração do Ambiente:
 
-- **Cadastro de Clientes:** Permitir o registro de novos clientes com validação de dados.
-- **Cadastro de Dentistas:** Permitir o registro de médicos com validação de dados.
-- **Registro de Consultas:** Registrar informações detalhadas de cada consulta realizada.
-- **Registro de Sinistros:** Registrar caso haja um sinistro em uma consulta
+  - Certifique-se de ter o .NET SDK instalado.
+  - Configure as variáveis de ambiente necessárias (como strings de conexão).
 
-## Requisitos Não Funcionais
+3. Instale as Dependências: Execute o seguinte comando para instalar as dependências do projeto:
 
-Os requisitos não funcionais que a aplicação deve cumprir incluem:
+  ```bash
+  dotnet restore
+  ```
 
-- **Escalabilidade:** A arquitetura do sistema deve permitir a adição de novos recursos e usuários sem comprometer o desempenho.
-- **Manutenibilidade:** O código deve ser bem documentado e seguir boas práticas de desenvolvimento para facilitar manutenções futuras.
+4. Execute o Projeto: Inicie o projeto utilizando o comando:
+
+  ```bash
+  dotnet run
+  ```
+
+5. Acesse a Documentação da API: A documentação Swagger estará disponível em:
+
+  ```bash
+  http://localhost:{porta}/swagger
+  ```
