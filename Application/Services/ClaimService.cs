@@ -51,10 +51,10 @@ namespace Aletheia.Application.Services
 
         public async Task<ClaimResponseDTO> UpdateClaimAsync(Guid id, UpdateClaimDTO dto)
         {
-            var claim = await _claimRepository.GetByIdAsync(id)
+            var claim = await _claimRepository.GetClaimWithConsultationByIdAsync(id)
                 ?? throw new KeyNotFoundException($"Claim with id {id} not found.");
 
-            if (dto.ConsultationId != null && dto.ConsultationId != claim.Consultation.Id)
+            if (dto.ConsultationId != null)
             {
                 var consultation = await _consultationRepository.GetByIdAsync(dto.ConsultationId.Value)
                     ?? throw new KeyNotFoundException($"Consultation with id {dto.ConsultationId} not found.");

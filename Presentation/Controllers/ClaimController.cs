@@ -45,10 +45,8 @@ namespace Aletheia.Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateClaim([FromBody] CreateClaimDTO dto)
         {
-            if (dto == null)
-            {
-                return BadRequest("Invalid data.");
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             try
             {
@@ -65,10 +63,8 @@ namespace Aletheia.Presentation.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateClaim(Guid id, [FromBody] UpdateClaimDTO dto)
         {
-            if (dto == null)
-            {
-                return BadRequest("Invalid data.");
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             try
             {
