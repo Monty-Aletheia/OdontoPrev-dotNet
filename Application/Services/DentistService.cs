@@ -16,16 +16,15 @@ namespace Aletheia.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<DentistResponseDTO>> GetAllDentintsAsync()
+        public async Task<IEnumerable<DentistResponseDTO>> GetAllDentistsAsync()
         {
-            var dentints = await _dentistRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<DentistResponseDTO>>(dentints);
+            var dentists = await _dentistRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<DentistResponseDTO>>(dentists);
         }
 
-        public async Task<DentistResponseDTO> GetPatientByIdAsync(Guid id)
+        public async Task<DentistResponseDTO> GetDentistByIdAsync(Guid id)
         {
             var dentist = await _dentistRepository.GetByIdAsync(id);
-
             if (dentist == null) throw new KeyNotFoundException($"Dentist with id {id} not found.");
 
             return _mapper.Map<DentistResponseDTO>(dentist);
@@ -37,6 +36,25 @@ namespace Aletheia.Application.Services
             await _dentistRepository.AddAsync(dentist);
 
             return _mapper.Map<DentistResponseDTO>(dentist);
+        }
+
+        public async Task<DentistResponseDTO> UpdateDentistAsync(Guid id, UpdateDentistDTO dto)
+        {
+            var dentist = await _dentistRepository.GetByIdAsync(id);
+            if (dentist == null) throw new KeyNotFoundException($"Dentist with id {id} not found.");
+
+            _mapper.Map(dto, dentist);
+            await _dentistRepository.UpdateAsync(dentist);
+
+            return _mapper.Map<DentistResponseDTO>(dentist);
+        }
+
+        public async Task DeleteDentistAsync(Guid id)
+        {
+            var dentist = await _dentistRepository.GetByIdAsync(id);
+            if (dentist == null) throw new KeyNotFoundException($"Dentist with id {id} not found.");
+
+            await _dentistRepository.DeleteAsync(dentist);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Aletheia.Application.Services
             return _mapper.Map<IEnumerable<PatientResponseDTO>>(patients);
         }
 
-        public async Task<PatientResponseDTO> GetPatientsByIdAsync(Guid id)
+        public async Task<PatientResponseDTO> GetPatientByIdAsync(Guid id)
         {
             var patient = await _patientRepository.GetByIdAsync(id);
 
@@ -39,5 +39,24 @@ namespace Aletheia.Application.Services
             return _mapper.Map<PatientResponseDTO>(patient);
         }
 
+        public async Task<PatientResponseDTO> UpdatePatientAsync(Guid id, UpdatePatientDTO dto)
+        {
+            var patient = await _patientRepository.GetByIdAsync(id);
+            if (patient == null) throw new KeyNotFoundException($"Patient with id {id} not found.");
+
+            _mapper.Map(dto, patient);  
+            await _patientRepository.UpdateAsync(patient);
+
+            return _mapper.Map<PatientResponseDTO>(patient);
+        }
+
+        public async Task<bool> DeletePatientAsync(Guid id)
+        {
+            var patient = await _patientRepository.GetByIdAsync(id);
+            if (patient == null) throw new KeyNotFoundException($"Patient with id {id} not found.");
+
+            await _patientRepository.DeleteAsync(patient);
+            return true;
+        }
     }
 }

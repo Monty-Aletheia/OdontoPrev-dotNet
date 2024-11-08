@@ -12,7 +12,10 @@ namespace Aletheia.Application.Services.Profiles
             CreateMap<Claim, ClaimResponseDTO>()
                 .ForMember(dest => dest.Consultation, opt => opt.MapFrom(src => src.Consultation));
 
+
             CreateMap<Consultation, ConsultationSummaryDTO>();
+
+            CreateMap<UpdateClaimDTO, Claim>();
 
             CreateMap<CreateClaimDTO, Claim>();
         }
