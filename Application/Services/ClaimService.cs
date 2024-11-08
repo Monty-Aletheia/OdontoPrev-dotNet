@@ -5,7 +5,7 @@ using AutoMapper;
 
 namespace Aletheia.Application.Services
 {
-    public class ClaimService 
+    public class ClaimService
     {
         private readonly IClaimRepository _claimRepository;
         private readonly IConsultationRepository _consultationRepository;
@@ -13,11 +13,11 @@ namespace Aletheia.Application.Services
 
         public ClaimService(IClaimRepository claimRepository,
                             IConsultationRepository consultationRepository,
-                            IMapper mapper)  
+                            IMapper mapper)
         {
             _claimRepository = claimRepository;
             _consultationRepository = consultationRepository;
-            _mapper = mapper;  
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<ClaimResponseDTO>> GetAllClaimsAsync()
@@ -47,6 +47,32 @@ namespace Aletheia.Application.Services
             await _claimRepository.AddAsync(claim);
 
             return _mapper.Map<ClaimResponseDTO>(claim);
+        }
+
+        public async Task<ClaimResponseDTO> UpdateClaimAsync(Guid id, UpdateClaimDTO dto)
+        {
+            var claim = await _claimRepository.GetByIdAsync(id)
+                ?? throw new KeyNotFoundException($"Claim with id {id} not found.");
+
+            if (dto.ConsultationId != null && dto.ConsultationId != claim.Consultation.Id)
+            {
+                var consultation = await _consultationRepository.GetByIdAsync(dto.ConsultationId.Value)
+                    ?? throw new KeyNotFoundException($"Consultation with id {dto.ConsultationId} not found.");
+                claim.Consultation = consultation;
+            }
+
+            _mapper.Map(dto, claim);
+            await _claimRepository.UpdateAsync(claim);
+
+            return _mapper.Map<ClaimResponseDTO>(claim);
+        }
+
+        public async Task DeleteClaimAsync(Guid id)
+        {
+            var claim = await _claimRepository.GetByIdAsync(id)
+                ?? throw new KeyNotFoundException($"Claim with id {id} not found.");
+
+            await _claimRepository.DeleteAsync(claim);
         }
     }
 }

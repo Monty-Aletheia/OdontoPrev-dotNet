@@ -1,6 +1,5 @@
 ﻿using Aletheia.Application.Dtos.Consultation;
 using Aletheia.Domain.Entities;
-using Aletheia.Domain.Entities.Enum;
 using Aletheia.Domain.Interfaces;
 using AutoMapper;
 
@@ -13,9 +12,13 @@ namespace Aletheia.Application.Services
         private readonly IConsultationRepository _consultationRepository;
         private readonly IMapper _mapper;
 
-        public ConsultationService(IPatientRepository petientRepository, IDentistRepository dentistRepository, IConsultationRepository consultationRepository, IMapper mapper)
+        public ConsultationService(
+            IPatientRepository patientRepository,
+            IDentistRepository dentistRepository,
+            IConsultationRepository consultationRepository,
+            IMapper mapper)
         {
-            _patientRepository = petientRepository;
+            _patientRepository = patientRepository;
             _dentistRepository = dentistRepository;
             _consultationRepository = consultationRepository;
             _mapper = mapper;
@@ -31,7 +34,7 @@ namespace Aletheia.Application.Services
         {
             var consultation = await _consultationRepository.GetConsultationWithPatientAndDentistsByIdAsync(id);
             if (consultation == null) throw new KeyNotFoundException($"Consultation with id {id} not found.");
-            
+
             return _mapper.Map<ConsultationResponseDTO>(consultation);
         }
 
@@ -44,7 +47,7 @@ namespace Aletheia.Application.Services
             foreach (var dentistId in dto.DentistIds)
             {
                 var dentist = await _dentistRepository.GetByIdAsync(dentistId)
-                ?? throw new KeyNotFoundException($"Dentist with id {dentistId} not found.");
+                    ?? throw new KeyNotFoundException($"Dentist with id {dentistId} not found.");
                 dentists.Add(dentist);
             }
 
@@ -57,5 +60,43 @@ namespace Aletheia.Application.Services
             return _mapper.Map<ConsultationResponseDTO>(consultation);
         }
 
+        public async Task<ConsultationResponseDTO> UpdateConsultationAsync(Guid id, UpdateConsultationDTO dto)
+        {
+            var consultation = await _consultationRepository.GetConsultationWithPatientAndDentistsByIdAsync(id);
+            if (consultation == null) throw new KeyNotFoundException($"Consultation with id {id} not found.");
+
+            if (dto.PatientId != null)
+            {
+                var patient = await _patientRepository.GetByIdAsync(dto.PatientId.Value);
+                if (patient == null) throw new KeyNotFoundException($"Patient with id {dto.PatientId} not found.");
+                consultation.Patient = patient;
+            }
+
+            if (dto.DentistIds != null && dto.DentistIds.Any())
+            {
+                var dentists = new List<Dentist>();
+                foreach (var dentistId in dto.DentistIds)
+                {
+                    var dentist = await _dentistRepository.GetByIdAsync(dentistId)
+                        ?? throw new KeyNotFoundException($"Dentist with id {dentistId} not found.");
+                    dentists.Add(dentist);
+                }
+                consultation.Dentists = dentists;
+            }
+
+            _mapper.Map(dto, consultation);
+
+            await _consultationRepository.UpdateAsync(consultation);
+
+            return _mapper.Map<ConsultationResponseDTO>(consultation);
+        }
+
+        public async Task DeleteConsultationAsync(Guid id)
+        {
+            var consultation = await _consultationRepository.GetByIdAsync(id);
+            if (consultation == null) throw new KeyNotFoundException($"Consultation with id {id} not found.");
+
+            await _consultationRepository.DeleteAsync(consultation);
+        }
     }
 }

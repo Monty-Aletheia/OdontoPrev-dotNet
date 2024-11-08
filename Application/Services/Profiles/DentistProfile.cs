@@ -10,6 +10,7 @@ namespace Aletheia.Application.Services.Profiles
         {
             CreateMap<CreateDentistDTO, Dentist>();
             CreateMap<Dentist, DentistResponseDTO>();
+            CreateMap<UpdateDentistDTO, Dentist>();
         }
     }
 }

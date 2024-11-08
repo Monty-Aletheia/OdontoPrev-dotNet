@@ -57,5 +57,39 @@ namespace Aletheia.Presentation.Controllers
             var createdConsultationDto = _mapper.Map<ConsultationResponseDTO>(consultation);
             return CreatedAtAction(nameof(GetConsultationById), new { id = createdConsultationDto.Id }, createdConsultationDto);
         }
+
+        // PUT: api/Consultation/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateConsultation(Guid id, [FromBody] UpdateConsultationDTO dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var updatedConsultation = await _consultationService.UpdateConsultationAsync(id, dto);
+                var updatedConsultationDto = _mapper.Map<ConsultationResponseDTO>(updatedConsultation);
+                return Ok(updatedConsultationDto);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        // DELETE: api/Consultation/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteConsultation(Guid id)
+        {
+            try
+            {
+                await _consultationService.DeleteConsultationAsync(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
     }
 }

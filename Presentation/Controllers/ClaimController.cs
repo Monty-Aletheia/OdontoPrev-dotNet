@@ -23,8 +23,7 @@ namespace Aletheia.Presentation.Controllers
         public async Task<IActionResult> GetAllClaims()
         {
             var claims = await _claimService.GetAllClaimsAsync();
-            var claimDtos = _mapper.Map<IEnumerable<ClaimResponseDTO>>(claims);
-            return Ok(claimDtos);
+            return Ok(claims);
         }
 
         // GET: api/Claim/{id}
@@ -34,8 +33,7 @@ namespace Aletheia.Presentation.Controllers
             try
             {
                 var claim = await _claimService.GetClaimByIdAsync(id);
-                var claimDto = _mapper.Map<ClaimResponseDTO>(claim);
-                return Ok(claimDto);
+                return Ok(claim);
             }
             catch (KeyNotFoundException ex)
             {
@@ -55,8 +53,42 @@ namespace Aletheia.Presentation.Controllers
             try
             {
                 var claim = await _claimService.CreateClaimAsync(dto);
-                var claimDto = _mapper.Map<ClaimResponseDTO>(claim);
-                return CreatedAtAction(nameof(GetClaimById), new { id = claimDto.Id }, claimDto);
+                return CreatedAtAction(nameof(GetClaimById), new { id = claim.Id }, claim);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        // PUT: api/Claim/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateClaim(Guid id, [FromBody] UpdateClaimDTO dto)
+        {
+            if (dto == null)
+            {
+                return BadRequest("Invalid data.");
+            }
+
+            try
+            {
+                var updatedClaim = await _claimService.UpdateClaimAsync(id, dto);
+                return Ok(updatedClaim);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        // DELETE: api/Claim/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteClaim(Guid id)
+        {
+            try
+            {
+                await _claimService.DeleteClaimAsync(id);
+                return NoContent();
             }
             catch (KeyNotFoundException ex)
             {

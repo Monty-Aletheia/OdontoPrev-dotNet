@@ -22,7 +22,7 @@ namespace Aletheia.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllDentists()
         {
-            var dentists = await _dentistService.GetAllDentintsAsync();
+            var dentists = await _dentistService.GetAllDentistsAsync();
             var dentistDtos = _mapper.Map<IEnumerable<DentistResponseDTO>>(dentists);
             return Ok(dentistDtos);
         }
@@ -33,7 +33,7 @@ namespace Aletheia.Presentation.Controllers
         {
             try
             {
-                var dentist = await _dentistService.GetPatientByIdAsync(id);
+                var dentist = await _dentistService.GetDentistByIdAsync(id);
                 if (dentist == null)
                     return NotFound();
 
@@ -56,6 +56,43 @@ namespace Aletheia.Presentation.Controllers
             var dentist = await _dentistService.CreateDentistAsync(dto);
             var createdDentistDto = _mapper.Map<DentistResponseDTO>(dentist);
             return CreatedAtAction(nameof(GetDentistById), new { id = createdDentistDto.Id }, createdDentistDto);
+        }
+
+        // PUT: api/Dentist/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDentist(Guid id, [FromBody] UpdateDentistDTO dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var dentist = await _dentistService.UpdateDentistAsync(id, dto);
+                if (dentist == null)
+                    return NotFound($"Dentist with id {id} not found.");
+
+                var updatedDentistDto = _mapper.Map<DentistResponseDTO>(dentist);
+                return Ok(updatedDentistDto);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        // DELETE: api/Dentist/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDentist(Guid id)
+        {
+            try
+            {
+                await _dentistService.GetDentistByIdAsync(id);
+                return NoContent(); 
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }
