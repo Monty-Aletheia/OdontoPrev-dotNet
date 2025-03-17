@@ -1,4 +1,4 @@
-﻿namespace Aletheia.Domain.Entities.Enum
+﻿namespace Shared.Enum
 {
     public enum RiskStatus
     {

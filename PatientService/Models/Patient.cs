@@ -1,9 +1,10 @@
-﻿using Aletheia.Domain.Entities.Enum;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using Shared.Enum;
 
-namespace Aletheia.Domain.Entities
+namespace PatientService.Models
 {
+    
     [Table("tb_patient")]
     public class Patient
     {
@@ -29,7 +30,6 @@ namespace Aletheia.Domain.Entities
 
         [Column("associated_claims", TypeName = "text")]
         public string? AssociatedClaims { get; set; }
-
-        public virtual ICollection<Consultation> Consultations { get; set; }
     }
 }
+

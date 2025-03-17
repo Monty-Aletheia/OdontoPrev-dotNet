@@ -1,8 +1,8 @@
-﻿using Aletheia.Domain.Entities.Enum;
+﻿using Shared.Enum;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Aletheia.Domain.Entities
+namespace DentistService.Models
 {
     [Table("tb_dentist")]
 
@@ -28,6 +28,5 @@ namespace Aletheia.Domain.Entities
         [Column("risk_status")]
         public RiskStatus RiskStatus { get; set; }
 
-        public virtual ICollection<Consultation> Consultations { get; set; }
     }
 }

@@ -1,8 +1,8 @@
-﻿using Aletheia.Domain.Entities.Enum;
+﻿using Shared.Enum;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Aletheia.Domain.Entities
+namespace ConsultationService.Models
 {
     [Table("tb_consultations")]
     public class Consultation
@@ -28,10 +28,5 @@ namespace Aletheia.Domain.Entities
         [Required]
         [ForeignKey("Patient")]
         public Guid PatientId { get; set; }
-        public virtual Patient Patient { get; set; }
-
-        public virtual ICollection<Dentist> Dentists { get; set; }
-
-        public virtual ICollection<Claim> Claims { get; set; }
     }
 }
