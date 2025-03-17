@@ -1,4 +1,4 @@
-﻿using ConsultationService.Data;
+﻿using ConsultationService.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConsultationService.Config

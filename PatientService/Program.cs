@@ -1,4 +1,4 @@
-using PatientService.Configs;
+using PatientService;
 
 var builder = WebApplication.CreateBuilder(args);
 

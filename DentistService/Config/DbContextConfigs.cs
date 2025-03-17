@@ -1,4 +1,4 @@
-﻿using DentistService.Data;
+﻿using DentistService.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace DentistService.Config

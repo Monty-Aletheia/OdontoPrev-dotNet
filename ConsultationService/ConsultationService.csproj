@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Migrations\" />
+    <Folder Include="Infra\Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
