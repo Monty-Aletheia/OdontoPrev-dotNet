@@ -1,20 +1,20 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Aletheia.Application.Services;
-using Aletheia.Application.Dtos.Consultation;
+using ConsultationService.Application.Dtos;
+using ConsultationService.Application.Services;
 
-namespace Aletheia.Presentation.Controllers
+namespace ConsultationService.Application.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ConsultationController : ControllerBase
     {
-        private readonly ConsultationService _consultationService;
+        private readonly ConsultationAppService _service;
         private readonly IMapper _mapper;
 
-        public ConsultationController(ConsultationService consultationService, IMapper mapper)
+        public ConsultationController(ConsultationAppService consultationService, IMapper mapper)
         {
-            _consultationService = consultationService;
+            _service = consultationService;
             _mapper = mapper;
         }
 
@@ -22,7 +22,7 @@ namespace Aletheia.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetConsultations()
         {
-            var consultations = await _consultationService.GetConsultationsAsync();
+            var consultations = await _service.GetConsultationsAsync();
             var consultationDtos = _mapper.Map<IEnumerable<ConsultationResponseDTO>>(consultations);
             return Ok(consultationDtos);
         }
@@ -33,7 +33,7 @@ namespace Aletheia.Presentation.Controllers
         {
             try
             {
-                var consultation = await _consultationService.GetConsultationByIdAsync(id);
+                var consultation = await _service.GetConsultationByIdAsync(id);
                 if (consultation == null)
                     return NotFound();
 
@@ -53,7 +53,7 @@ namespace Aletheia.Presentation.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var consultation = await _consultationService.CreateConsultationAsync(dto);
+            var consultation = await _service.CreateConsultationAsync(dto);
             var createdConsultationDto = _mapper.Map<ConsultationResponseDTO>(consultation);
             return CreatedAtAction(nameof(GetConsultationById), new { id = createdConsultationDto.Id }, createdConsultationDto);
         }
@@ -67,7 +67,7 @@ namespace Aletheia.Presentation.Controllers
 
             try
             {
-                var updatedConsultation = await _consultationService.UpdateConsultationAsync(id, dto);
+                var updatedConsultation = await _service.UpdateConsultationAsync(id, dto);
                 var updatedConsultationDto = _mapper.Map<ConsultationResponseDTO>(updatedConsultation);
                 return Ok(updatedConsultationDto);
             }
@@ -83,7 +83,7 @@ namespace Aletheia.Presentation.Controllers
         {
             try
             {
-                await _consultationService.DeleteConsultationAsync(id);
+                await _service.DeleteConsultationAsync(id);
                 return NoContent();
             }
             catch (KeyNotFoundException ex)

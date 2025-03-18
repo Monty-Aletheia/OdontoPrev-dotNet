@@ -1,4 +1,3 @@
-using ConsultationService.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 

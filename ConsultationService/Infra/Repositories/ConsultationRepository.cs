@@ -1,9 +1,10 @@
-﻿using Aletheia.Domain.Entities;
-using Aletheia.Domain.Interfaces;
-using Aletheia.Infra.Data;
+﻿using ConsultationService.Domain.Interfaces;
+using ConsultationService.Domain.Models;
+using ConsultationService.Infra.Data;
+using DentistService.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace Aletheia.Infra.Repositories
+namespace ConsultationService.Infra.Repositories
 {
     public class ConsultationRepository : Repository<Consultation>, IConsultationRepository
     {
@@ -18,16 +19,12 @@ namespace Aletheia.Infra.Repositories
         public async Task<Consultation> GetConsultationWithPatientAndDentistsByIdAsync(Guid id)
         {
             return await _context.Set<Consultation>()
-                .Include(c => c.Patient)
-                .Include(c => c.Dentists)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<IEnumerable<Consultation>> GetConsultationWithPatientAndDentistsAsync()
         {
             return await _context.Set<Consultation>()
-                .Include(c => c.Patient)
-                .Include(c => c.Dentists)
                 .ToListAsync();
         }
     }

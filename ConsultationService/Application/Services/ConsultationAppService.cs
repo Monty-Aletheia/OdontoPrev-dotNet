@@ -1,18 +1,18 @@
-﻿using Aletheia.Application.Dtos.Consultation;
-using Aletheia.Domain.Entities;
-using Aletheia.Domain.Interfaces;
-using AutoMapper;
+﻿using AutoMapper;
+using ConsultationService.Application.Dtos;
+using ConsultationService.Domain.Interfaces;
+using ConsultationService.Domain.Models;
 
-namespace Aletheia.Application.Services
+namespace ConsultationService.Application.Services
 {
-    public class ConsultationService
+    public class ConsultationAppService
     {
         private readonly IPatientRepository _patientRepository;
         private readonly IDentistRepository _dentistRepository;
         private readonly IConsultationRepository _consultationRepository;
         private readonly IMapper _mapper;
 
-        public ConsultationService(
+        public ConsultationAppService(
             IPatientRepository patientRepository,
             IDentistRepository dentistRepository,
             IConsultationRepository consultationRepository,

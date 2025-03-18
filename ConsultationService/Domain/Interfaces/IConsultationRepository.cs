@@ -1,6 +1,7 @@
-﻿using Aletheia.Domain.Entities;
+﻿using ConsultationService.Domain.Models;
+using Shared.Interfaces;
 
-namespace Aletheia.Domain.Interfaces
+namespace ConsultationService.Domain.Interfaces
 {
     public interface IConsultationRepository : IRepository<Consultation>
     {

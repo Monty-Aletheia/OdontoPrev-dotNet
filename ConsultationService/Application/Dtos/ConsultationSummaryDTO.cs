@@ -1,4 +1,4 @@
-﻿namespace Aletheia.Application.Dtos.Consultation
+﻿namespace ConsultationService.Application.Dtos
 {
     public class ConsultationSummaryDTO
     {

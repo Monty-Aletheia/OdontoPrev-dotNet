@@ -1,5 +1,4 @@
 ﻿using Aletheia.Application.Dtos.Claim;
-using Aletheia.Domain.Entities;
 using Aletheia.Domain.Interfaces;
 using AutoMapper;
 
