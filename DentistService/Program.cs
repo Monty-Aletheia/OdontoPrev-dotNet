@@ -1,4 +1,4 @@
-using DentistService.Config;
+using DentistService;
 
 var builder = WebApplication.CreateBuilder(args);
 

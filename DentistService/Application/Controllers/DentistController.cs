@@ -1,20 +1,20 @@
 ﻿using AutoMapper;
+using DentistService.Application.Dtos;
+using DentistService.Application.Services;
 using Microsoft.AspNetCore.Mvc;
-using Aletheia.Application.Services;
-using Aletheia.Application.Dtos.Dentist;
 
-namespace Aletheia.Presentation.Controllers
+namespace DentistService.Application.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class DentistController : ControllerBase
     {
-        private readonly DentistService _dentistService;
+        private readonly DentistAppService _service;
         private readonly IMapper _mapper;
 
-        public DentistController(DentistService dentistService, IMapper mapper)
+        public DentistController(DentistAppService dentistService, IMapper mapper)
         {
-            _dentistService = dentistService;
+            _service = dentistService;
             _mapper = mapper;
         }
 
@@ -22,7 +22,7 @@ namespace Aletheia.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllDentists()
         {
-            var dentists = await _dentistService.GetAllDentistsAsync();
+            var dentists = await _service.GetAllDentistsAsync();
             var dentistDtos = _mapper.Map<IEnumerable<DentistResponseDTO>>(dentists);
             return Ok(dentistDtos);
         }
@@ -33,7 +33,7 @@ namespace Aletheia.Presentation.Controllers
         {
             try
             {
-                var dentist = await _dentistService.GetDentistByIdAsync(id);
+                var dentist = await _service.GetDentistByIdAsync(id);
                 if (dentist == null)
                     return NotFound();
 
@@ -53,7 +53,7 @@ namespace Aletheia.Presentation.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var dentist = await _dentistService.CreateDentistAsync(dto);
+            var dentist = await _service.CreateDentistAsync(dto);
             var createdDentistDto = _mapper.Map<DentistResponseDTO>(dentist);
             return CreatedAtAction(nameof(GetDentistById), new { id = createdDentistDto.Id }, createdDentistDto);
         }
@@ -67,7 +67,7 @@ namespace Aletheia.Presentation.Controllers
 
             try
             {
-                var dentist = await _dentistService.UpdateDentistAsync(id, dto);
+                var dentist = await _service.UpdateDentistAsync(id, dto);
                 if (dentist == null)
                     return NotFound($"Dentist with id {id} not found.");
 
@@ -86,8 +86,8 @@ namespace Aletheia.Presentation.Controllers
         {
             try
             {
-                await _dentistService.GetDentistByIdAsync(id);
-                return NoContent(); 
+                await _service.GetDentistByIdAsync(id);
+                return NoContent();
             }
             catch (KeyNotFoundException ex)
             {

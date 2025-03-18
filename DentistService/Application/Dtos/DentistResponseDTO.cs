@@ -1,6 +1,6 @@
-﻿using Aletheia.Domain.Entities.Enum;
+﻿using Shared.Enum;
 
-namespace Aletheia.Application.Dtos.Dentist
+namespace DentistService.Application.Dtos
 {
     public class DentistResponseDTO
     {

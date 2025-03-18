@@ -1,16 +1,16 @@
-﻿using Aletheia.Application.Dtos.Dentist;
-using Aletheia.Domain.Entities;
-using Aletheia.Domain.Interfaces;
-using AutoMapper;
+﻿using AutoMapper;
+using DentistService.Application.Dtos;
+using DentistService.Domain.Interfaces;
+using DentistService.Domain.Models;
 
-namespace Aletheia.Application.Services
+namespace DentistService.Application.Services
 {
-    public class DentistService
+    public class DentistAppService
     {
         private readonly IDentistRepository _dentistRepository;
         private readonly IMapper _mapper;
 
-        public DentistService(IDentistRepository dentistRepository, IMapper mapper)
+        public DentistAppService(IDentistRepository dentistRepository, IMapper mapper)
         {
             _dentistRepository = dentistRepository;
             _mapper = mapper;

@@ -1,8 +1,8 @@
-﻿using Aletheia.Application.Dtos.Dentist;
-using Aletheia.Domain.Entities;
-using AutoMapper;
+﻿using AutoMapper;
+using DentistService.Application.Dtos;
+using DentistService.Domain.Models;
 
-namespace Aletheia.Application.Services.Profiles
+namespace DentistService.Application.Services.Profiles
 {
     public class DentistProfile : Profile
     {
