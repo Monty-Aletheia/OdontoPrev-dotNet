@@ -18,7 +18,7 @@ namespace ConsultationService.Application.Dtos
         public Guid PatientId { get; set; }
 
         [Required]
-        public required List<Guid> DentistIds { get; set; }
+        public required ICollection<Guid> DentistIds { get; set; }
 
         public string? Description { get; set; }
 

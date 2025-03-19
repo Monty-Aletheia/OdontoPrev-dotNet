@@ -25,8 +25,28 @@ namespace ConsultationService.Domain.Models
 
         public string Description { get; set; }
 
+        // Mantendo apenas o ID do paciente — a consulta ao paciente fica para outro microserviço
         [Required]
-        [ForeignKey("Patient")]
+        [Column("patient_id")]
         public Guid PatientId { get; set; }
+        public ICollection<ConsultationDentist> ConsultationDentists { get; set; } = new List<ConsultationDentist>();
+    }
+
+    // Tabela de junção para Consulta-Dentista (n:n)
+    [Table("tb_consultation_dentists")]
+    public class ConsultationDentist
+    {
+        [Key]
+        public Guid Id { get; set; }
+
+        [Required]
+        [ForeignKey("Consultation")]
+        public Guid ConsultationId { get; set; }
+
+        [Required]
+        [Column("dentist_id")]
+        public Guid DentistId { get; set; }
+
+        public Consultation Consultation { get; set; }
     }
 }

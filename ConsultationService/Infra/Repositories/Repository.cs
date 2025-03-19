@@ -1,4 +1,4 @@
-﻿using DentistService.Infra.Data;
+﻿using ConsultationService.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Shared.Interfaces;
 

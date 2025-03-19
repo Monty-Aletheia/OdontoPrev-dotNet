@@ -2,37 +2,36 @@
 using ConsultationService.Application.Dtos;
 using ConsultationService.Domain.Interfaces;
 using ConsultationService.Domain.Models;
+using System.Net.Http;
+using System.Text.Json;
 
 namespace ConsultationService.Application.Services
 {
     public class ConsultationAppService
     {
-        private readonly IPatientRepository _patientRepository;
-        private readonly IDentistRepository _dentistRepository;
         private readonly IConsultationRepository _consultationRepository;
         private readonly IMapper _mapper;
+        private readonly HttpClient _httpClient;
 
         public ConsultationAppService(
-            IPatientRepository patientRepository,
-            IDentistRepository dentistRepository,
             IConsultationRepository consultationRepository,
-            IMapper mapper)
+            IMapper mapper,
+            HttpClient httpClient)
         {
-            _patientRepository = patientRepository;
-            _dentistRepository = dentistRepository;
             _consultationRepository = consultationRepository;
             _mapper = mapper;
+            _httpClient = httpClient;
         }
 
         public async Task<IEnumerable<ConsultationResponseDTO>> GetConsultationsAsync()
         {
-            var consultations = await _consultationRepository.GetConsultationWithPatientAndDentistsAsync();
+            var consultations = await _consultationRepository.GetAllAsync();
             return _mapper.Map<IEnumerable<ConsultationResponseDTO>>(consultations);
         }
 
         public async Task<ConsultationResponseDTO> GetConsultationByIdAsync(Guid id)
         {
-            var consultation = await _consultationRepository.GetConsultationWithPatientAndDentistsByIdAsync(id);
+            var consultation = await _consultationRepository.GetByIdAsync(id);
             if (consultation == null) throw new KeyNotFoundException($"Consultation with id {id} not found.");
 
             return _mapper.Map<ConsultationResponseDTO>(consultation);
@@ -40,20 +39,21 @@ namespace ConsultationService.Application.Services
 
         public async Task<ConsultationResponseDTO> CreateConsultationAsync(CreateConsultationDTO dto)
         {
-            var patient = await _patientRepository.GetByIdAsync(dto.PatientId);
-            if (patient == null) throw new KeyNotFoundException($"Patient with id {dto.PatientId} not found.");
+            // Validando o paciente via PatientService
+            if (!await ValidatePatient(dto.PatientId))
+                throw new KeyNotFoundException($"Patient with id {dto.PatientId} not found.");
 
-            var dentists = new List<Dentist>();
+            // Validando dentistas via DentistService
             foreach (var dentistId in dto.DentistIds)
             {
-                var dentist = await _dentistRepository.GetByIdAsync(dentistId)
-                    ?? throw new KeyNotFoundException($"Dentist with id {dentistId} not found.");
-                dentists.Add(dentist);
+                if (!await ValidateDentist(dentistId))
+                    throw new KeyNotFoundException($"Dentist with id {dentistId} not found.");
             }
 
             var consultation = _mapper.Map<Consultation>(dto);
-            consultation.Patient = patient;
-            consultation.Dentists = dentists;
+            consultation.ConsultationDentists = dto.DentistIds
+                .Select(dentistId => new ConsultationDentist { DentistId = dentistId })
+                .ToList();
 
             await _consultationRepository.AddAsync(consultation);
 
@@ -62,26 +62,23 @@ namespace ConsultationService.Application.Services
 
         public async Task<ConsultationResponseDTO> UpdateConsultationAsync(Guid id, UpdateConsultationDTO dto)
         {
-            var consultation = await _consultationRepository.GetConsultationWithPatientAndDentistsByIdAsync(id);
+            var consultation = await _consultationRepository.GetByIdAsync(id);
             if (consultation == null) throw new KeyNotFoundException($"Consultation with id {id} not found.");
 
-            if (dto.PatientId != null)
-            {
-                var patient = await _patientRepository.GetByIdAsync(dto.PatientId.Value);
-                if (patient == null) throw new KeyNotFoundException($"Patient with id {dto.PatientId} not found.");
-                consultation.Patient = patient;
-            }
+            if (dto.PatientId.HasValue && !await ValidatePatient(dto.PatientId.Value))
+                throw new KeyNotFoundException($"Patient with id {dto.PatientId.Value} not found.");
 
             if (dto.DentistIds != null && dto.DentistIds.Any())
             {
-                var dentists = new List<Dentist>();
                 foreach (var dentistId in dto.DentistIds)
                 {
-                    var dentist = await _dentistRepository.GetByIdAsync(dentistId)
-                        ?? throw new KeyNotFoundException($"Dentist with id {dentistId} not found.");
-                    dentists.Add(dentist);
+                    if (!await ValidateDentist(dentistId))
+                        throw new KeyNotFoundException($"Dentist with id {dentistId} not found.");
                 }
-                consultation.Dentists = dentists;
+
+                consultation.ConsultationDentists = dto.DentistIds
+                    .Select(dentistId => new ConsultationDentist { DentistId = dentistId })
+                    .ToList();
             }
 
             _mapper.Map(dto, consultation);
@@ -97,6 +94,18 @@ namespace ConsultationService.Application.Services
             if (consultation == null) throw new KeyNotFoundException($"Consultation with id {id} not found.");
 
             await _consultationRepository.DeleteAsync(consultation);
+        }
+
+        private async Task<bool> ValidatePatient(Guid patientId)
+        {
+            var response = await _httpClient.GetAsync($"http://patient-service/api/patients/{patientId}");
+            return response.IsSuccessStatusCode;
+        }
+
+        private async Task<bool> ValidateDentist(Guid dentistId)
+        {
+            var response = await _httpClient.GetAsync($"http://dentist-service/api/dentists/{dentistId}");
+            return response.IsSuccessStatusCode;
         }
     }
 }
