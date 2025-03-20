@@ -11,25 +11,14 @@ namespace ConsultationService.Application.Services.HttpClients
 
 		public PatientServiceHttpClient(HttpClient client, IConfiguration configuration)
 		{
+			_client = client;
 			_configuration = configuration;
-
-			// Ignora a validação do certificado SSL
-			var handler = new HttpClientHandler
-			{
-				ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
-			};
-
-			_client = new HttpClient(handler)
-			{
-				BaseAddress = new Uri(_configuration["PatientService"])
-			};
 		}
 
 		public async Task<HttpResponseMessage> GetAsync(string url)
 		{
-			return await _client.GetAsync(_configuration["PatientService"]);
+			var fullUrl = $"{_configuration["PatientService"]}/{url}";
+			return await _client.GetAsync(fullUrl);
 		}
-
-
 	}
 }

@@ -1,4 +1,6 @@
 ﻿using ClaimService.Application.Services;
+using ClaimService.Application.Services.HttpClients;
+using ClaimService.Application.Services.HttpClients.Interface;
 using ClaimService.Application.Services.Profiles;
 using ClaimService.Domain.Interfaces;
 using ClaimService.Infra.Repositories;
@@ -25,6 +27,8 @@ namespace ClaimService
 
 			// Services
 			services.AddScoped<ClaimAppService>();
+
+			services.AddHttpClient<IConsultationHttpClient, ConsultationServiceHttpClient>();
 
 			return services;
 		}

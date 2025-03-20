@@ -8,10 +8,7 @@ namespace ClaimService.Application.Services.Profiles
 	{
 		public ClaimProfile()
 		{
-			CreateMap<Claim, ClaimResponseDTO>()
-				.ForMember(dest => dest.Consultation, opt => opt.MapFrom(src => src.Consultation));
-
-
+			CreateMap<Claim, ClaimResponseDTO>();
 
 			CreateMap<UpdateClaimDTO, Claim>();
 

@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
 using ConsultationService.Application.Dtos;
-using ConsultationService.Application.Services.HttpClients;
 using ConsultationService.Application.Services.HttpClients.Interfaces;
 using ConsultationService.Domain.Interfaces;
 using ConsultationService.Domain.Models;
-using System.Net.Http;
-using System.Text.Json;
 
 namespace ConsultationService.Application.Services
 {
@@ -15,7 +12,6 @@ namespace ConsultationService.Application.Services
 		private readonly IMapper _mapper;
 		private readonly IPatientHttpClient _patientHttpClient;
 		private readonly IDentistHttpClient _dentistHttpClient;
-		private readonly HttpClient _httpClient;
 
 		public ConsultationAppService(IConsultationRepository consultationRepository, IMapper mapper, IPatientHttpClient patientHttpClient, IDentistHttpClient dentistHttpClient, HttpClient httpClient)
 		{
@@ -23,19 +19,17 @@ namespace ConsultationService.Application.Services
 			_mapper = mapper;
 			_patientHttpClient = patientHttpClient;
 			_dentistHttpClient = dentistHttpClient;
-			_httpClient = httpClient;
 		}
 
 		public async Task<IEnumerable<ConsultationResponseDTO>> GetConsultationsAsync()
 		{
-			var consultations = await _consultationRepository.GetAllAsync();
-			Console.WriteLine("Consultations: " + JsonSerializer.Serialize(consultations));
+			var consultations = await _consultationRepository.GetConsultationsWithDentistAsync();
 			return _mapper.Map<IEnumerable<ConsultationResponseDTO>>(consultations);
 		}
 
 		public async Task<ConsultationResponseDTO> GetConsultationByIdAsync(Guid id)
 		{
-			var consultation = await _consultationRepository.GetByIdAsync(id);
+			var consultation = await _consultationRepository.GetConsultationWithDentistsByIdAsync(id);
 			if (consultation == null) throw new KeyNotFoundException($"Consultation with id {id} not found.");
 
 			return _mapper.Map<ConsultationResponseDTO>(consultation);
@@ -108,14 +102,15 @@ namespace ConsultationService.Application.Services
 
 		private async Task<bool> ValidatePatient(Guid patientId)
 		{
-			var response = await _patientHttpClient.GetAsync($"http://patient-service/api/patients/{patientId}");
+			var response = await _patientHttpClient.GetAsync($"{patientId}");
 			return response.IsSuccessStatusCode;
 		}
 
 		private async Task<bool> ValidateDentist(Guid dentistId)
 		{
-			var response = await _dentistHttpClient.GetAsync($"http://dentist-service/api/dentists/{dentistId}");
+			var response = await _dentistHttpClient.GetAsync($"{dentistId}");
 			return response.IsSuccessStatusCode;
 		}
+
 	}
 }

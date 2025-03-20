@@ -27,5 +27,24 @@ namespace ConsultationService.Infra.Repositories
 		{
 			return await _context.SaveChangesAsync();
 		}
+
+		public async Task<IEnumerable<Consultation>> GetConsultationsWithDentistAsync()
+		{
+			var consultations = await _context.Set<Consultation>()
+				.Include(c => c.ConsultationDentists)
+				.ToListAsync();
+
+			return consultations;
+		}
+
+		public async Task<Consultation> GetConsultationWithDentistsByIdAsync(Guid consultationId)
+		{
+			var consultation = await _context.Set<Consultation>()
+				.Include(c => c.ConsultationDentists)
+				.FirstOrDefaultAsync(c => c.Id == consultationId);
+
+			return consultation;
+		}
+
 	}
 }
