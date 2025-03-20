@@ -42,7 +42,7 @@ namespace ClaimService.Application.Services
 			var response = await _claimHttpClient.GetAsync($"{dto.ConsultationId}");
 			Console.WriteLine(response);
 			if (!response.IsSuccessStatusCode)
-				throw new Exception($"Consultation with id {dto.ConsultationId} not found.");
+				throw new KeyNotFoundException($"Consultation with id {dto.ConsultationId} not found.");
 
 			var claim = _mapper.Map<Claim>(dto);
 			await _repository.AddAsync(claim);

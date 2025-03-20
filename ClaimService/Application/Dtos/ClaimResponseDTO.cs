@@ -15,5 +15,6 @@ namespace ClaimService.Application.Dtos
 
 		public string SuggestedPreventiveAction { get; set; }
 
+		public Guid ConsultationId { get; set; }
 	}
 }

@@ -53,9 +53,16 @@ namespace ConsultationService.Application.Controllers
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 
-			var consultation = await _service.CreateConsultationAsync(dto);
-			var createdConsultationDto = _mapper.Map<ConsultationResponseDTO>(consultation);
-			return CreatedAtAction(nameof(GetConsultationById), new { id = createdConsultationDto.Id }, createdConsultationDto);
+			try {
+				var consultation = await _service.CreateConsultationAsync(dto);
+				var createdConsultationDto = _mapper.Map<ConsultationResponseDTO>(consultation);
+				return CreatedAtAction(nameof(GetConsultationById), new { id = createdConsultationDto.Id }, createdConsultationDto);
+			}
+			catch (KeyNotFoundException ex)
+			{
+				return NotFound(ex.Message);
+			}
+			
 		}
 
 		// PUT: api/Consultation/{id}

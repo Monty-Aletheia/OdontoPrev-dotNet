@@ -66,24 +66,8 @@ namespace ConsultationService.Application.Services
 
 		public async Task<ConsultationResponseDTO> UpdateConsultationAsync(Guid id, UpdateConsultationDTO dto)
 		{
-			var consultation = await _consultationRepository.GetByIdAsync(id);
+			var consultation = await _consultationRepository.GetConsultationWithDentistsByIdAsync(id);
 			if (consultation == null) throw new KeyNotFoundException($"Consultation with id {id} not found.");
-
-			if (dto.PatientId.HasValue && !await ValidatePatient(dto.PatientId.Value))
-				throw new KeyNotFoundException($"Patient with id {dto.PatientId.Value} not found.");
-
-			if (dto.DentistIds != null && dto.DentistIds.Any())
-			{
-				foreach (var dentistId in dto.DentistIds)
-				{
-					if (!await ValidateDentist(dentistId))
-						throw new KeyNotFoundException($"Dentist with id {dentistId} not found.");
-				}
-
-				consultation.ConsultationDentists = dto.DentistIds
-					.Select(dentistId => new ConsultationDentist { DentistId = dentistId })
-					.ToList();
-			}
 
 			_mapper.Map(dto, consultation);
 
