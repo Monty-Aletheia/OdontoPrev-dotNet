@@ -54,13 +54,6 @@ namespace ClaimService.Application.Services
 			var claim = await _repository.GetByIdAsync(id)
 				?? throw new KeyNotFoundException($"Claim with id {id} not found.");
 
-			if (dto.ConsultationId != null)
-			{
-				var response = await _claimHttpClient.GetAsync($"{dto.ConsultationId}");
-				if (!response.IsSuccessStatusCode)
-					throw new Exception($"Consultation with id {dto.ConsultationId} not found.");
-			}
-
 			_mapper.Map(dto, claim);
 			await _repository.UpdateAsync(claim);
 			return _mapper.Map<ClaimResponseDTO>(claim);
