@@ -7,27 +7,27 @@ using PatientService.Infra.Repositories;
 
 namespace PatientService
 {
-    public static class Startup
-    {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
-        {
+	public static class Startup
+	{
+		public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+		{
 
-            // Database Configuration
-            var connectionString = configuration.GetConnectionString("OracleFIAPDbContext");
+			// Database Configuration
+			var connectionString = configuration.GetConnectionString("OracleFIAPDbContext");
 
-            services.AddDbContext<FIAPDbContext>(options =>
-                options.UseOracle(connectionString));
+			services.AddDbContext<FIAPDbContext>(options =>
+				options.UseOracle(connectionString));
 
-            // Repositories
-            services.AddScoped<IPatientRepository, PatientRepository>();
+			// Repositories
+			services.AddScoped<IPatientRepository, PatientRepository>();
 
-            // Profile
-            services.AddAutoMapper(typeof(PatientProfile));
+			// Profile
+			services.AddAutoMapper(typeof(PatientProfile));
 
-            // Services
-            services.AddScoped<PatientAppService>();
+			// Services
+			services.AddScoped<PatientAppService>();
 
-            return services;
-        }
-    }
+			return services;
+		}
+	}
 }

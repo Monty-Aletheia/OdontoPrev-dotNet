@@ -4,29 +4,29 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DentistService.Domain.Models
 {
-    [Table("tb_dentist")]
+	[Table("tb_dentist")]
 
-    public class Dentist
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+	public class Dentist
+	{
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public Guid Id { get; set; }
 
-        [Required]
-        public string Name { get; set; }
+		[Required]
+		public string Name { get; set; }
 
-        public string Specialty { get; set; }
+		public string Specialty { get; set; }
 
-        [Required]
-        [Column("registration_number")]
-        public string RegistrationNumber { get; set; }
+		[Required]
+		[Column("registration_number")]
+		public string RegistrationNumber { get; set; }
 
-        [Column("claims_rate")]
-        public double? ClaimsRate { get; set; }
+		[Column("claims_rate")]
+		public double? ClaimsRate { get; set; }
 
-        [Required]
-        [Column("risk_status")]
-        public RiskStatus RiskStatus { get; set; }
+		[Required]
+		[Column("risk_status")]
+		public RiskStatus RiskStatus { get; set; }
 
-    }
+	}
 }

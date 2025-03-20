@@ -3,19 +3,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DentistService.Infra.Data
 {
-    public class FIAPDbContext(DbContextOptions<FIAPDbContext> options) : DbContext(options)
-    {
+	public class FIAPDbContext(DbContextOptions<FIAPDbContext> options) : DbContext(options)
+	{
 
-        public DbSet<Dentist> Dentists { get; set; }
+		public DbSet<Dentist> Dentists { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
 
-            modelBuilder.Entity<Dentist>()
-                .Property(d => d.RiskStatus)
-                .HasConversion<string>();
+			modelBuilder.Entity<Dentist>()
+				.Property(d => d.RiskStatus)
+				.HasConversion<string>();
 
-            base.OnModelCreating(modelBuilder);
-        }
-    }
+			base.OnModelCreating(modelBuilder);
+		}
+	}
 }

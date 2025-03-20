@@ -3,7 +3,7 @@ using Shared.Interfaces;
 
 namespace DentistService.Domain.Interfaces
 {
-    public interface IDentistRepository : IRepository<Dentist>
-    {
-    }
+	public interface IDentistRepository : IRepository<Dentist>
+	{
+	}
 }

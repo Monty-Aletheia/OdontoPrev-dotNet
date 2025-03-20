@@ -68,8 +68,6 @@ namespace ConsultationService.Migrations
 
                     b.HasKey("ConsultationId", "DentistId");
 
-                    b.HasIndex("DentistId");
-
                     b.ToTable("tb_consultation_dentists");
                 });
 
@@ -79,12 +77,6 @@ namespace ConsultationService.Migrations
                         .WithMany("ConsultationDentists")
                         .HasForeignKey("ConsultationId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ConsultationService.Domain.Models.Consultation", null)
-                        .WithMany()
-                        .HasForeignKey("DentistId")
-                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Consultation");

@@ -7,27 +7,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DentistService
 {
-    public static class Startup
-    {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
-        {
+	public static class Startup
+	{
+		public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+		{
 
-            // Database Configuration
-            var connectionString = configuration.GetConnectionString("OracleFIAPDbContext");
+			// Database Configuration
+			var connectionString = configuration.GetConnectionString("OracleFIAPDbContext");
 
-            services.AddDbContext<FIAPDbContext>(options =>
-                options.UseOracle(connectionString));
+			services.AddDbContext<FIAPDbContext>(options =>
+				options.UseOracle(connectionString));
 
-            // Repositories
-            services.AddScoped<IDentistRepository, DentistRepository>();
+			// Repositories
+			services.AddScoped<IDentistRepository, DentistRepository>();
 
-            // Profile
-            services.AddAutoMapper(typeof(DentistProfile));
+			// Profile
+			services.AddAutoMapper(typeof(DentistProfile));
 
-            // Services
-            services.AddScoped<DentistAppService>();
+			// Services
+			services.AddScoped<DentistAppService>();
 
-            return services;
-        }
-    }
+			return services;
+		}
+	}
 }

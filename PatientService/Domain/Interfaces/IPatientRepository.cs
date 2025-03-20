@@ -3,7 +3,7 @@ using Shared.Interfaces;
 
 namespace PatientService.Domain.Interfaces
 {
-    public interface IPatientRepository : IRepository<Patient>
-    {
-    }
+	public interface IPatientRepository : IRepository<Patient>
+	{
+	}
 }

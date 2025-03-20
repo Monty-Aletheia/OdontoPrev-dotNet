@@ -4,7 +4,7 @@ using DentistService.Infra.Data;
 
 namespace DentistService.Infra.Repositories
 {
-    public class DentistRepository(FIAPDbContext context) : Repository<Dentist>(context), IDentistRepository
-    {
-    }
+	public class DentistRepository(FIAPDbContext context) : Repository<Dentist>(context), IDentistRepository
+	{
+	}
 }

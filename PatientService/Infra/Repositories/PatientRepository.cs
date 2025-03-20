@@ -4,7 +4,7 @@ using PatientService.Infra.Data;
 
 namespace PatientService.Infra.Repositories
 {
-    public class PatientRepository(FIAPDbContext context) : Repository<Patient>(context), IPatientRepository
-    {
-    }
+	public class PatientRepository(FIAPDbContext context) : Repository<Patient>(context), IPatientRepository
+	{
+	}
 }
