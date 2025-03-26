@@ -1,4 +1,4 @@
-﻿using Shared.Enum;
+﻿using Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace DentistService.Application.Dtos

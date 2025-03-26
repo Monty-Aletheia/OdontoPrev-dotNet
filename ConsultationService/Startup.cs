@@ -42,6 +42,11 @@ namespace ConsultationService
 					ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
 				});
 
+			// Health Check
+			services.AddHealthChecks()
+			  .AddDbContextCheck<FIAPDbContext>("Database")
+			  .AddUrlGroup(new Uri(configuration["PatientService"]), "PatientService API")
+			  .AddUrlGroup(new Uri(configuration["DentistService"]), "DentistService API");
 
 			return services;
 		}

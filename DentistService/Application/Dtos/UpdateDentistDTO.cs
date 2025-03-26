@@ -1,5 +1,4 @@
-﻿
-using Shared.Enum;
+﻿using Shared.Enums;
 
 namespace DentistService.Application.Dtos
 {

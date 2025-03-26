@@ -30,6 +30,11 @@ namespace ClaimService
 
 			services.AddHttpClient<IConsultationHttpClient, ConsultationServiceHttpClient>();
 
+			// Health Check
+			services.AddHealthChecks()
+			  .AddDbContextCheck<FIAPDbContext>("Database")
+			  .AddUrlGroup(new Uri(configuration["ConsultationService"]), "ConsultationService API");
+
 			return services;
 		}
 	}

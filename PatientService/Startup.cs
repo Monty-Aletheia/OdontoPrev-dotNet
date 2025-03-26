@@ -27,6 +27,9 @@ namespace PatientService
 			// Services
 			services.AddScoped<PatientAppService>();
 
+			services.AddHealthChecks()
+			  .AddDbContextCheck<FIAPDbContext>("Database");
+
 			return services;
 		}
 	}

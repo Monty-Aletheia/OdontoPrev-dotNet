@@ -1,4 +1,4 @@
-﻿using Shared.Enum;
+﻿using Shared.Enums;
 
 namespace ConsultationService.Application.Dtos
 {

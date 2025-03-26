@@ -1,4 +1,4 @@
-﻿namespace Shared.Enum
+﻿namespace Shared.Enums
 {
 	public enum RiskStatus
 	{

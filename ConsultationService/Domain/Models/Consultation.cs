@@ -1,4 +1,4 @@
-﻿using Shared.Enum;
+﻿using Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -25,7 +25,6 @@ namespace ConsultationService.Domain.Models
 
 		public string Description { get; set; }
 
-		// Mantendo apenas o ID do paciente — a consulta ao paciente fica para outro microserviço
 		[Required]
 		[Column("patient_id")]
 		public Guid PatientId { get; set; }

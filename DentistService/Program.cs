@@ -1,4 +1,6 @@
 using DentistService;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,8 +27,20 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapHealthChecks("/health");
-
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+	ResponseWriter = async (context, report) =>
+	{
+		context.Response.ContentType = "application/json";
+		var result = JsonSerializer.Serialize(new
+		{
+			status = report.Status.ToString(),
+			checks = report.Entries.Select(e => new { key = e.Key, value = e.Value.Status.ToString() }),
+			duration = report.TotalDuration.TotalSeconds
+		});
+		await context.Response.WriteAsync(result);
+	}
+});
 app.MapControllers();
 
 app.Run();

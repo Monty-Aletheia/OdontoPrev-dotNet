@@ -53,7 +53,8 @@ namespace ConsultationService.Application.Controllers
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 
-			try {
+			try
+			{
 				var consultation = await _service.CreateConsultationAsync(dto);
 				var createdConsultationDto = _mapper.Map<ConsultationResponseDTO>(consultation);
 				return CreatedAtAction(nameof(GetConsultationById), new { id = createdConsultationDto.Id }, createdConsultationDto);
@@ -62,7 +63,7 @@ namespace ConsultationService.Application.Controllers
 			{
 				return NotFound(ex.Message);
 			}
-			
+
 		}
 
 		// PUT: api/Consultation/{id}

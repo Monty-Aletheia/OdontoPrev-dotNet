@@ -1,4 +1,4 @@
-﻿using Shared.Enum;
+﻿using Shared.Enums;
 
 namespace PatientService.Application.Dtos
 {

@@ -6,7 +6,7 @@ services:
     volumes:
       - shared_data:/app/shared
 
-  claimservice:
+  claim-service:
     build:
       context: .
       dockerfile: ./ClaimService/Dockerfile
@@ -17,8 +17,10 @@ services:
       - shared
     volumes:
       - shared_data:/app/shared
+    networks:
+       - app_net
 
-  consultationservice:
+  consultation-service:
     build:
       context: .
       dockerfile: ./ConsultationService/Dockerfile
@@ -29,8 +31,10 @@ services:
       - shared
     volumes:
       - shared_data:/app/shared
+    networks:
+       - app_net
 
-  dentistservice:
+  dentist-service:
     build:
       context: .
       dockerfile: ./DentistService/Dockerfile
@@ -41,8 +45,10 @@ services:
       - shared
     volumes:
       - shared_data:/app/shared
+    networks:
+       - app_net
 
-  patientservice:
+  patient-service:
     build:
       context: .
       dockerfile: ./PatientService/Dockerfile
@@ -53,6 +59,12 @@ services:
       - shared
     volumes:
       - shared_data:/app/shared
+    networks:
+       - app_net
+
+networks:
+    app_net:
+      driver: bridge
 
 volumes:
   shared_data:

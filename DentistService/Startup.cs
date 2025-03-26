@@ -27,6 +27,10 @@ namespace DentistService
 			// Services
 			services.AddScoped<DentistAppService>();
 
+			services.AddHealthChecks()
+			  .AddDbContextCheck<FIAPDbContext>("Database");
+
+
 			return services;
 		}
 	}
