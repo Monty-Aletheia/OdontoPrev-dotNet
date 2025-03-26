@@ -1,0 +1,60 @@
+services:
+  shared:
+    build:
+      context: .
+      dockerfile: ./Shared/Dockerfile
+    volumes:
+      - shared_data:/app/shared
+
+  claimservice:
+    build:
+      context: .
+      dockerfile: ./ClaimService/Dockerfile
+    ports:
+      - "5001:8080"
+      - "5002:8081" 
+    depends_on:
+      - shared
+    volumes:
+      - shared_data:/app/shared
+
+  consultationservice:
+    build:
+      context: .
+      dockerfile: ./ConsultationService/Dockerfile
+    ports:
+      - "5003:8080"
+      - "5004:8081"
+    depends_on:
+      - shared
+    volumes:
+      - shared_data:/app/shared
+
+  dentistservice:
+    build:
+      context: .
+      dockerfile: ./DentistService/Dockerfile
+    ports:
+      - "5005:8080"
+      - "5006:8081"
+    depends_on:
+      - shared
+    volumes:
+      - shared_data:/app/shared
+
+  patientservice:
+    build:
+      context: .
+      dockerfile: ./PatientService/Dockerfile
+    ports:
+      - "5007:8080"
+      - "5008:8081"
+    depends_on:
+      - shared
+    volumes:
+      - shared_data:/app/shared
+
+volumes:
+  shared_data:
+    driver: local
+
