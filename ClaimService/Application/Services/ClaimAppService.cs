@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using ClaimService.Application.Dtos;
-using ClaimService.Application.Services.HttpClients.Interface;
+using ClaimService.Application.Services.HttpClients.Interfaces;
 using ClaimService.Domain.Interfaces;
 using ClaimService.Domain.Models;
 

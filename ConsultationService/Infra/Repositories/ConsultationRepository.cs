@@ -1,7 +1,6 @@
 ﻿using ConsultationService.Domain.Interfaces;
 using ConsultationService.Domain.Models;
 using ConsultationService.Infra.Data;
-using DentistService.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConsultationService.Infra.Repositories

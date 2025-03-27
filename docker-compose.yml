@@ -6,13 +6,27 @@ services:
     volumes:
       - shared_data:/app/shared
 
+  api-gateway:
+    build:
+      context: .
+      dockerfile: ./OcelotApiGateway/Dockerfile
+    ports:
+      - "5000:8080"
+    depends_on:
+       - shared
+       - claim-service
+       - consultation-service
+       - dentist-service
+       - patient-service
+    volumes:
+      - shared_data:/app/shared
+    networks:
+       - app_net
+
   claim-service:
     build:
       context: .
       dockerfile: ./ClaimService/Dockerfile
-    ports:
-      - "5001:8080"
-      - "5002:8081" 
     depends_on:
       - shared
     volumes:
@@ -24,9 +38,6 @@ services:
     build:
       context: .
       dockerfile: ./ConsultationService/Dockerfile
-    ports:
-      - "5003:8080"
-      - "5004:8081"
     depends_on:
       - shared
     volumes:
@@ -38,9 +49,6 @@ services:
     build:
       context: .
       dockerfile: ./DentistService/Dockerfile
-    ports:
-      - "5005:8080"
-      - "5006:8081"
     depends_on:
       - shared
     volumes:
@@ -52,9 +60,6 @@ services:
     build:
       context: .
       dockerfile: ./PatientService/Dockerfile
-    ports:
-      - "5007:8080"
-      - "5008:8081"
     depends_on:
       - shared
     volumes:

@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcelotApiGateway", "OcelotApiGateway\OcelotApiGateway.csproj", "{93F191A2-7137-49BE-9D58-C2CEA0C214A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{BB6787A0-57DB-4BEC-8FD2-9E3B0D59B6A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB6787A0-57DB-4BEC-8FD2-9E3B0D59B6A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB6787A0-57DB-4BEC-8FD2-9E3B0D59B6A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93F191A2-7137-49BE-9D58-C2CEA0C214A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93F191A2-7137-49BE-9D58-C2CEA0C214A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93F191A2-7137-49BE-9D58-C2CEA0C214A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93F191A2-7137-49BE-9D58-C2CEA0C214A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

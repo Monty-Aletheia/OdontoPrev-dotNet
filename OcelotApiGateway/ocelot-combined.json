@@ -1,0 +1,209 @@
+{
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5000"
+  },
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/claim",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "claim-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/claims",
+      "UpstreamHttpMethod": [
+        "Get"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/claim/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "claim-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/claims/{id}",
+      "UpstreamHttpMethod": [
+        "Get"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/claim",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "claim-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/claims",
+      "UpstreamHttpMethod": [
+        "Post"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/claim/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "claim-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/claims/{id}",
+      "UpstreamHttpMethod": [
+        "Put"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/claim/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "claim-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/claims/{id}",
+      "UpstreamHttpMethod": [
+        "Delete"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/consultation",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "consultation-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/consultations",
+      "UpstreamHttpMethod": [
+        "Get"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/consultation/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "consultation-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/consultations/{id}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Put",
+        "Delete"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/consultation",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "consultation-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/consultations",
+      "UpstreamHttpMethod": [
+        "Post"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Dentist",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "dentist-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Dentists",
+      "UpstreamHttpMethod": [
+        "Get"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/dentist/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "dentist-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/dentists/{id}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Put",
+        "Delete"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/dentist",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "dentist-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/dentists",
+      "UpstreamHttpMethod": [
+        "Post"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Patient",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "patient-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/patients",
+      "UpstreamHttpMethod": [
+        "Get"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Patient/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "patient-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/patients/{id}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Put",
+        "Delete"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Patient",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "patient-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/patients",
+      "UpstreamHttpMethod": [
+        "Post"
+      ]
+    }
+  ]
+}

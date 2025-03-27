@@ -1,0 +1,64 @@
+﻿{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/claim",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "claim-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/claims",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/claim/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "claim-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/claims/{id}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/claim",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "claim-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/claims",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/claim/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "claim-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/claims/{id}",
+      "UpstreamHttpMethod": [ "Put" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/claim/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "claim-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/claims/{id}",
+      "UpstreamHttpMethod": [ "Delete" ]
+    }
+  ]
+}

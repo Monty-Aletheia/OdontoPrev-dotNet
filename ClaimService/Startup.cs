@@ -1,6 +1,6 @@
 ﻿using ClaimService.Application.Services;
 using ClaimService.Application.Services.HttpClients;
-using ClaimService.Application.Services.HttpClients.Interface;
+using ClaimService.Application.Services.HttpClients.Interfaces;
 using ClaimService.Application.Services.Profiles;
 using ClaimService.Domain.Interfaces;
 using ClaimService.Infra.Repositories;
