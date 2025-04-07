@@ -1,7 +1,7 @@
 ﻿using Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace AuthService.Application.Dtos
+namespace AuthService.Domain.Models
 {
 	public class Signup
 	{
