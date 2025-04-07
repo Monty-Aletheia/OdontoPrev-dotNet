@@ -1,4 +1,4 @@
-﻿namespace ConsultationService.Application.Services.HttpClients.Interfaces
+﻿namespace AuthService.Application.Services.HttpClients.Interfaces
 {
 	public interface IDentistHttpClient
 	{

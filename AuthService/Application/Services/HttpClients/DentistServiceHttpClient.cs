@@ -1,6 +1,6 @@
-﻿using ConsultationService.Application.Services.HttpClients.Interfaces;
+﻿using AuthService.Application.Services.HttpClients.Interfaces;
 
-namespace ConsultationService.Application.Services.HttpClients
+namespace AuthService.Application.Services.HttpClients
 {
 	public class DentistServiceHttpClient : IDentistHttpClient
 	{
