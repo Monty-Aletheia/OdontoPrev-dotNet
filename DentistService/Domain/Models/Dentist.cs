@@ -28,5 +28,9 @@ namespace DentistService.Domain.Models
 		[Column("risk_status")]
 		public RiskStatus RiskStatus { get; set; }
 
+		[Required]
+		public string Password { get; set; }
+
+
 	}
 }

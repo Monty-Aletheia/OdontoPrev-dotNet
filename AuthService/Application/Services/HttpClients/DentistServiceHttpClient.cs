@@ -19,5 +19,10 @@ namespace AuthService.Application.Services.HttpClients
 			return await _client.GetAsync(fullUrl);
 		}
 
+		public async Task<HttpResponseMessage> PostAsync<T>(string url, T data)
+		{
+			var fullUrl = $"{_configuration["DentistService"]}/{url}";
+			return await _client.PostAsJsonAsync(fullUrl, data);
+		}
 	}
 }
