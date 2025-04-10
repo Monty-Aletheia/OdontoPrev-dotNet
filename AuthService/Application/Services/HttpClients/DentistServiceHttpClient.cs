@@ -1,4 +1,4 @@
-﻿using AuthService.Application.Services.HttpClients.Interfaces;
+﻿using AuthService.Application.Interfaces;
 
 namespace AuthService.Application.Services.HttpClients
 {
@@ -19,9 +19,17 @@ namespace AuthService.Application.Services.HttpClients
 			return await _client.GetAsync(fullUrl);
 		}
 
-		public async Task<HttpResponseMessage> PostAsync<T>(string url, T data)
+		public async Task<HttpResponseMessage> PostAsync<T>(T data, string? url = null)
 		{
-			var fullUrl = $"{_configuration["DentistService"]}/{url}";
+			var fullUrl = "";
+
+			if (string.IsNullOrEmpty(url))
+			{
+				fullUrl = $"{_configuration["DentistService"]}";
+			} else
+			{
+				fullUrl = $"{_configuration["DentistService"]}/{url}";
+			}
 			return await _client.PostAsJsonAsync(fullUrl, data);
 		}
 	}
