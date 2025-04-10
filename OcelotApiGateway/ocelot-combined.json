@@ -4,6 +4,34 @@
   },
   "Routes": [
     {
+      "DownstreamPathTemplate": "/api/auth/login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "auth-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/auth/login",
+      "UpstreamHttpMethod": [
+        "Post"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/auth/register",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "auth-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/auth/register",
+      "UpstreamHttpMethod": [
+        "Post"
+      ]
+    },
+    {
       "DownstreamPathTemplate": "/api/claim",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -71,6 +99,20 @@
       "UpstreamPathTemplate": "/api/claims/{id}",
       "UpstreamHttpMethod": [
         "Delete"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/health",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "claim-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/claims/health",
+      "UpstreamHttpMethod": [
+        "Get"
       ]
     },
     {
