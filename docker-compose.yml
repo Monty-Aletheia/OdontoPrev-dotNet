@@ -18,6 +18,19 @@ services:
        - consultation-service
        - dentist-service
        - patient-service
+       - auth-service 
+    volumes:
+      - shared_data:/app/shared
+    networks:
+       - app_net
+
+  auth-service:
+    build:
+      context: .
+      dockerfile: ./AuthService/Dockerfile
+    depends_on:
+      - shared
+      - dentist-service 
     volumes:
       - shared_data:/app/shared
     networks:
@@ -33,6 +46,8 @@ services:
       - shared_data:/app/shared
     networks:
        - app_net
+    env_file:
+      - .env
 
   consultation-service:
     build:
@@ -44,6 +59,8 @@ services:
       - shared_data:/app/shared
     networks:
        - app_net
+    env_file:
+      - .env
 
   dentist-service:
     build:
@@ -55,6 +72,8 @@ services:
       - shared_data:/app/shared
     networks:
        - app_net
+    env_file:
+      - .env
 
   patient-service:
     build:
@@ -66,12 +85,13 @@ services:
       - shared_data:/app/shared
     networks:
        - app_net
+    env_file:
+      - .env
 
 networks:
-    app_net:
-      driver: bridge
+  app_net:
+    driver: bridge
 
 volumes:
   shared_data:
     driver: local
-
