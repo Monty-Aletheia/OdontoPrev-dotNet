@@ -9,7 +9,6 @@ namespace ConsultationService.Infra.Repositories
 	{
 		private readonly FIAPDbContext _context;
 
-		// Construtor corrigido
 		public ConsultationRepository(FIAPDbContext context) : base(context)
 		{
 			_context = context ?? throw new ArgumentNullException(nameof(context), "DbContext cannot be null");

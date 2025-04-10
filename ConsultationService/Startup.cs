@@ -30,17 +30,8 @@ namespace ConsultationService
 			services.AddScoped<ConsultationAppService>();
 
 			// HttpClients
-			services.AddHttpClient<IDentistHttpClient, DentistServiceHttpClient>()
-				.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
-				{
-					ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
-				});
-
-			services.AddHttpClient<IPatientHttpClient, PatientServiceHttpClient>()
-				.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
-				{
-					ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
-				});
+			services.AddHttpClient<IDentistHttpClient, DentistServiceHttpClient>();
+			services.AddHttpClient<IPatientHttpClient, PatientServiceHttpClient>();
 
 			// Health Check
 			services.AddHealthChecks()
