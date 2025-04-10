@@ -58,6 +58,29 @@ namespace DentistService.Application.Controllers
 			return CreatedAtAction(nameof(GetDentistById), new { id = createdDentistDto.Id }, createdDentistDto);
 		}
 
+		// POST: api/Dentist/validate
+		[HttpPost("validate")]
+		public async Task<IActionResult> ValidateDentist([FromBody] LoginDTO dto)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			try
+			{
+				var dentist = await _service.GetDentistByRegistrationNumberAndPassword(dto);
+				if (dentist == null)
+					return Unauthorized(new { message = "Invalid credentials." });
+
+				var dentistDto = _mapper.Map<DentistResponseDTO>(dentist);
+				return Ok(dentistDto);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new { message = "An error occurred while validating the dentist.", error = ex.Message });
+			}
+		}
+
+
 		// PUT: api/Dentist/{id}
 		[HttpPut("{id}")]
 		public async Task<IActionResult> UpdateDentist(Guid id, [FromBody] UpdateDentistDTO dto)

@@ -16,6 +16,9 @@ namespace DentistService.Application.Dtos
 		public double? ClaimsRate { get; set; }
 
 		[Required]
+		public string Password { get; set; }
+
+		[Required]
 		public RiskStatus RiskStatus { get; set; }
 	}
 }

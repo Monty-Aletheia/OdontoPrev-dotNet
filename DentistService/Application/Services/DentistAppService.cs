@@ -30,10 +30,10 @@ namespace DentistService.Application.Services
 			return _mapper.Map<DentistResponseDTO>(dentist);
 		}
 
-		public async Task<DentistResponseDTO> GetDentistBy(Guid id)
+		public async Task<DentistResponseDTO?> GetDentistByRegistrationNumberAndPassword(LoginDTO dto)
 		{
-			var dentist = await _dentistRepository.GetByIdAsync(id);
-			if (dentist == null) throw new KeyNotFoundException($"Dentist with id {id} not found.");
+			var dentist = await _dentistRepository.GetByRegistrationNumberAndPassword(dto.RegistrationNumber, dto.Password);
+			if (dentist == null) return null;
 
 			return _mapper.Map<DentistResponseDTO>(dentist);
 		}
