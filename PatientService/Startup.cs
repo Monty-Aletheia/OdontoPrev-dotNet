@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PatientService.Application.Services;
+using PatientService.Application.Services.Interfaces;
 using PatientService.Application.Services.Profiles;
 using PatientService.Domain.Interfaces;
 using PatientService.Infra.Data;
 using PatientService.Infra.Repositories;
+using Serilog;
 
 namespace PatientService
 {
@@ -25,12 +27,25 @@ namespace PatientService
 			services.AddAutoMapper(typeof(PatientProfile));
 
 			// Services
-			services.AddScoped<PatientAppService>();
+			services.AddScoped<IPatientAppService, PatientAppService>();
 
 			services.AddHealthChecks()
 			  .AddDbContextCheck<FIAPDbContext>("Database");
 
 			return services;
 		}
+
+		//public static Action<HostBuilderContext, LoggerConfiguration> GetSerilogConfig()
+		//{
+		//	return (context, config) =>
+		//	{
+		//		config
+		//			.ReadFrom.Configuration(context.Configuration)
+		//			.ReadFrom.Services(services)
+		//			.Enrich.FromLogContext();
+		//	};
+		//}
+
 	}
+
 }

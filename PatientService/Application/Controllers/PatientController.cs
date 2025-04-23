@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PatientService.Application.Dtos;
-using PatientService.Application.Services;
+using PatientService.Application.Services.Interfaces;
 
 namespace PatientService.Application.Controllers
 {
@@ -9,10 +9,10 @@ namespace PatientService.Application.Controllers
 	[Route("api/[controller]")]
 	public class PatientController : ControllerBase
 	{
-		private readonly PatientAppService _service;
+		private readonly IPatientAppService _service;
 		private readonly IMapper _mapper;
 
-		public PatientController(PatientAppService patientService, IMapper mapper)
+		public PatientController(IPatientAppService patientService, IMapper mapper)
 		{
 			_service = patientService;
 			_mapper = mapper;
@@ -31,12 +31,14 @@ namespace PatientService.Application.Controllers
 		[HttpGet("{id}")]
 		public async Task<IActionResult> Get(Guid id)
 		{
-			var patient = await _service.GetPatientByIdAsync(id);
-			if (patient == null)
+			try
+			{
+				var patient = await _service.GetPatientByIdAsync(id);
+				var patientDto = _mapper.Map<PatientResponseDTO>(patient);
+				return Ok(patientDto);
+			} catch (KeyNotFoundException ex) {
 				return NotFound();
-
-			var patientDto = _mapper.Map<PatientResponseDTO>(patient);
-			return Ok(patientDto);
+			}
 		}
 
 		// POST: api/Patient

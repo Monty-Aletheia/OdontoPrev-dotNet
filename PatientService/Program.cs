@@ -1,12 +1,20 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using PatientService;
+using PatientService.Application.Services;
 using PatientService.Infra.Data;
+using Serilog;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Host.UseSerilog((context, services, loggerConfiguration) =>
+{
+	loggerConfiguration
+		.ReadFrom.Configuration(context.Configuration)
+		.ReadFrom.Services(services)
+		.Enrich.FromLogContext();
+});
 
 //DI
 builder.Services.AddInfrastructureServices(builder.Configuration);
@@ -50,6 +58,8 @@ app.MapHealthChecks("/health", new HealthCheckOptions
 		await context.Response.WriteAsync(result);
 	}
 });
+
+app.UseMiddleware<RequestIdMiddleware>();
 
 app.MapControllers();
 
