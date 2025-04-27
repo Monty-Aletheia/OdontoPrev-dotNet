@@ -1,18 +1,23 @@
 ﻿using AuthService.Application.Interfaces;
 using AuthService.Domain.Models;
+using Microsoft.Extensions.Logging;
 
 namespace AuthService.Application.Services
 {
-
 	public class AuthAppService : IAuthAppService
 	{
 		private readonly ITokenService _tokenService;
 		private readonly IDentistHttpClient _dentistHttpClient;
+		private readonly ILogger<AuthAppService> _logger;
 
-		public AuthAppService(ITokenService tokenService, IDentistHttpClient dentistHttpClient)
+		public AuthAppService(
+			ITokenService tokenService,
+			IDentistHttpClient dentistHttpClient,
+			ILogger<AuthAppService> logger)
 		{
 			_tokenService = tokenService;
 			_dentistHttpClient = dentistHttpClient;
+			_logger = logger;
 		}
 
 		public async Task<string> LoginAsync(Login dto)
@@ -21,11 +26,9 @@ namespace AuthService.Application.Services
 
 			if (!response.IsSuccessStatusCode)
 			{
+				_logger.LogWarning("Failed login attempt for registration number {RegistrationNumber}.", dto.RegistrationNumber);
 				throw new UnauthorizedAccessException("Invalid credentials.");
 			}
-
-			// Se quiser recuperar algum dado do dentista, pode deserializar:
-			// var dentist = await response.Content.ReadFromJsonAsync<DentistDTO>();
 
 			return _tokenService.GenerateToken(dto.RegistrationNumber);
 		}
@@ -37,6 +40,7 @@ namespace AuthService.Application.Services
 			if (!response.IsSuccessStatusCode)
 			{
 				var error = await response.Content.ReadAsStringAsync();
+				_logger.LogError("Failed to register dentist with registration number {RegistrationNumber}: {Error}.", dto.RegistrationNumber, error);
 				throw new Exception($"Error registering dentist: {error}");
 			}
 		}

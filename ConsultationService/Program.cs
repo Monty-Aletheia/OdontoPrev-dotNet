@@ -4,10 +4,12 @@ using ConsultationService.Infra.Data;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
+using Shared.Logger;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Host.UseCentralizedSerilog("ConsultationService");
 
 // DI
 builder.Services.AddInfrastructureServices(builder.Configuration);
