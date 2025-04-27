@@ -35,17 +35,6 @@ namespace PatientService
 			return services;
 		}
 
-		//public static Action<HostBuilderContext, LoggerConfiguration> GetSerilogConfig()
-		//{
-		//	return (context, config) =>
-		//	{
-		//		config
-		//			.ReadFrom.Configuration(context.Configuration)
-		//			.ReadFrom.Services(services)
-		//			.Enrich.FromLogContext();
-		//	};
-		//}
-
 	}
 
 }

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PatientService.Application.Dtos;
 using PatientService.Application.Services.Interfaces;
 
@@ -10,12 +9,10 @@ namespace PatientService.Application.Controllers
 	public class PatientController : ControllerBase
 	{
 		private readonly IPatientAppService _service;
-		private readonly IMapper _mapper;
 
-		public PatientController(IPatientAppService patientService, IMapper mapper)
+		public PatientController(IPatientAppService patientService)
 		{
 			_service = patientService;
-			_mapper = mapper;
 		}
 
 		// GET: api/Patient
@@ -23,8 +20,7 @@ namespace PatientService.Application.Controllers
 		public async Task<IActionResult> GetAll()
 		{
 			var patients = await _service.GetAllPatientsAsync();
-			var patientDtos = _mapper.Map<IEnumerable<PatientResponseDTO>>(patients);
-			return Ok(patientDtos);
+			return Ok(patients);
 		}
 
 		// GET: api/Patient/{id}
@@ -34,8 +30,7 @@ namespace PatientService.Application.Controllers
 			try
 			{
 				var patient = await _service.GetPatientByIdAsync(id);
-				var patientDto = _mapper.Map<PatientResponseDTO>(patient);
-				return Ok(patientDto);
+				return Ok(patient);
 			} catch (KeyNotFoundException ex) {
 				return NotFound();
 			}
@@ -49,8 +44,7 @@ namespace PatientService.Application.Controllers
 				return BadRequest(ModelState);
 
 			var patient = await _service.CreatePatientAsync(patientDto);
-			var createdPatientDto = _mapper.Map<PatientResponseDTO>(patient);
-			return CreatedAtAction(nameof(Get), new { id = createdPatientDto.Id }, createdPatientDto);
+			return CreatedAtAction(nameof(Get), new { id = patient.Id }, patient);
 		}
 
 		// PUT: api/Patient/{id}
@@ -66,8 +60,7 @@ namespace PatientService.Application.Controllers
 				if (updatedPatient == null)
 					return NotFound($"Patient with id {id} not found.");
 
-				var updatedPatientDto = _mapper.Map<PatientResponseDTO>(updatedPatient);
-				return Ok(updatedPatientDto);
+				return Ok(updatedPatient);
 			}
 			catch (KeyNotFoundException ex)
 			{

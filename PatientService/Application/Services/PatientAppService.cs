@@ -26,7 +26,6 @@ namespace PatientService.Application.Services
 
 		public async Task<IEnumerable<PatientResponseDTO>> GetAllPatientsAsync()
 		{
-			_logger.LogInformation("Fetching all patients.");
 			var patients = await _patientRepository.GetAllAsync();
 			_logger.LogInformation("Retrieved {Count} patients.", patients.Count());
 			return _mapper.Map<IEnumerable<PatientResponseDTO>>(patients);
@@ -34,8 +33,6 @@ namespace PatientService.Application.Services
 
 		public async Task<PatientResponseDTO> GetPatientByIdAsync(Guid id)
 		{
-			_logger.LogInformation("Fetching patient with ID {PatientId}.", id);
-
 			var patient = await _patientRepository.GetByIdAsync(id);
 
 			if (patient == null)
@@ -50,8 +47,6 @@ namespace PatientService.Application.Services
 
 		public async Task<PatientResponseDTO> CreatePatientAsync(CreatePatientDTO dto)
 		{
-			_logger.LogInformation("Creating new patient");
-
 			var patient = _mapper.Map<Patient>(dto);
 			await _patientRepository.AddAsync(patient);
 
@@ -61,8 +56,6 @@ namespace PatientService.Application.Services
 
 		public async Task<PatientResponseDTO> UpdatePatientAsync(Guid id, UpdatePatientDTO dto)
 		{
-			_logger.LogInformation("Updating patient with ID {PatientId}.", id);
-
 			var patient = await _patientRepository.GetByIdAsync(id);
 			if (patient == null)
 			{
@@ -79,8 +72,6 @@ namespace PatientService.Application.Services
 
 		public async Task<bool> DeletePatientAsync(Guid id)
 		{
-			_logger.LogInformation("Deleting patient with ID {PatientId}.", id);
-
 			var patient = await _patientRepository.GetByIdAsync(id);
 			if (patient == null)
 			{
