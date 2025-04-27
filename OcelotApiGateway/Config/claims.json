@@ -59,6 +59,18 @@
       ],
       "UpstreamPathTemplate": "/api/claims/{id}",
       "UpstreamHttpMethod": [ "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/health",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "claim-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/claims/health",
+      "UpstreamHttpMethod": [ "Get" ]
     }
   ]
 }

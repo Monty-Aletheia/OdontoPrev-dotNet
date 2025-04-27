@@ -1,8 +1,11 @@
 using AuthService;
+using Shared.Logger;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Host.UseCentralizedSerilog("AuthService");
 
 // DI
 builder.Services.AddInfrastructureServices(builder.Configuration);

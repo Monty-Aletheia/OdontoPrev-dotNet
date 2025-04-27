@@ -26,7 +26,8 @@ namespace AuthService.Application.Services.HttpClients
 			if (string.IsNullOrEmpty(url))
 			{
 				fullUrl = $"{_configuration["DentistService"]}";
-			} else
+			}
+			else
 			{
 				fullUrl = $"{_configuration["DentistService"]}/{url}";
 			}

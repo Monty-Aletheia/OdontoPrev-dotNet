@@ -1,6 +1,7 @@
 ﻿using ConsultationService.Application.Services;
 using ConsultationService.Application.Services.HttpClients;
 using ConsultationService.Application.Services.HttpClients.Interfaces;
+using ConsultationService.Application.Services.Interfaces;
 using ConsultationService.Application.Services.Profiles;
 using ConsultationService.Domain.Interfaces;
 using ConsultationService.Infra.Data;
@@ -27,7 +28,7 @@ namespace ConsultationService
 			services.AddAutoMapper(typeof(ConsultationProfile));
 
 			// Services
-			services.AddScoped<ConsultationAppService>();
+			services.AddScoped<IConsultationAppService, ConsultationAppService>();
 
 			// HttpClients
 			services.AddHttpClient<IDentistHttpClient, DentistServiceHttpClient>();

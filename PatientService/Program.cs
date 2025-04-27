@@ -2,11 +2,12 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using PatientService;
 using PatientService.Infra.Data;
+using Shared.Logger;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Host.UseCentralizedSerilog("PatientService");
 
 //DI
 builder.Services.AddInfrastructureServices(builder.Configuration);

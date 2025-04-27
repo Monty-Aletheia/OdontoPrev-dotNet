@@ -13,7 +13,7 @@ namespace AuthService
 			services.AddHttpClient<IDentistHttpClient, DentistServiceHttpClient>();
 
 			// JWT Settings
-			services.Configure<JwtSettings>(configuration.GetSection("JwtSettings")); 
+			services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
 
 			// Services
 			services.AddScoped<IAuthAppService, AuthAppService>();

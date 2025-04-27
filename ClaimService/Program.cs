@@ -2,10 +2,13 @@ using ClaimService;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
+using Shared.Logger;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Host.UseCentralizedSerilog("ClaimService");
 
 //DI
 
