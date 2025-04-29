@@ -28,7 +28,12 @@ namespace ConsultationService.Application.Services.HttpClients
 		{
 			var fullUrl = $"{_baseUrl}/by-ids";
 
-			var content = JsonContent.Create(ids);
+			var body = new
+			{
+				dentistIds = ids
+			};
+
+			var content = JsonContent.Create(body);
 
 			var response = await _client.PostAsync(fullUrl, content);
 
@@ -38,6 +43,7 @@ namespace ConsultationService.Application.Services.HttpClients
 
 			return dentists ?? new List<DentistResponseDTO>();
 		}
+
 
 
 	}
