@@ -49,6 +49,20 @@ namespace ClaimService.Application.Services
 			return _mapper.Map<ClaimResponseDTO>(claim);
 		}
 
+
+		public async Task<IEnumerable<ClaimResponseDTO>> GetAllClaimsByConsultationId(Guid consultationId)
+		{
+			var claims = await _repository.GetAllClaimsFromConsultationIdAsync(consultationId);
+
+			if (claims == null || !claims.Any())
+			{
+				_logger.LogWarning("No claims found for Consultation ID {ConsultationId}.", consultationId);
+				throw new KeyNotFoundException($"No claims found for Consultation ID {consultationId}.");
+			}
+			_logger.LogInformation("Retrieved {Count} claims for Consultation ID {ConsultationId}.", claims.Count(), consultationId);
+			return _mapper.Map<IEnumerable<ClaimResponseDTO>>(claims);
+		}
+
 		public async Task<ClaimResponseDTO> CreateClaimAsync(CreateClaimDTO dto)
 		{
 			var response = await _claimHttpClient.GetAsync($"{dto.ConsultationId}");
@@ -97,5 +111,6 @@ namespace ClaimService.Application.Services
 
 			_logger.LogInformation("Claim with ID {ClaimId} deleted successfully.", id);
 		}
+
 	}
 }

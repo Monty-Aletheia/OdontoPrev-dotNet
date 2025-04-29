@@ -39,6 +39,21 @@ namespace ClaimService.Application.Controllers
 			}
 		}
 
+		// GET: api/Claim/consultation/{id}
+		[HttpGet("consultation/{id}")]
+		public async Task<IActionResult> GetClaimByConsultationId(Guid id)
+		{
+			try
+			{
+				var claim = await _service.GetAllClaimsByConsultationId(id);
+				return Ok(claim);
+			}
+			catch (KeyNotFoundException ex)
+			{
+				return NotFound(ex.Message);
+			}
+		}
+
 		// POST: api/Claim
 		[HttpPost]
 		public async Task<IActionResult> CreateClaim([FromBody] CreateClaimDTO dto)

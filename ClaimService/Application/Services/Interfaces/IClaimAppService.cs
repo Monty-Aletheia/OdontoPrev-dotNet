@@ -6,6 +6,7 @@ namespace ClaimService.Application.Services.Interfaces
 	{
 		Task<IEnumerable<ClaimResponseDTO>> GetAllClaimsAsync();
 		Task<ClaimResponseDTO> GetClaimByIdAsync(Guid id);
+		Task<IEnumerable<ClaimResponseDTO>> GetAllClaimsByConsultationId(Guid consultationId);
 		Task<ClaimResponseDTO> CreateClaimAsync(CreateClaimDTO dto);
 		Task<ClaimResponseDTO> UpdateClaimAsync(Guid id, UpdateClaimDTO dto);
 		Task DeleteClaimAsync(Guid id);
