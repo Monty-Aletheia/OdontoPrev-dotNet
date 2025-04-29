@@ -166,9 +166,7 @@
 
 			if (consultation.PatientId != Guid.Empty)
 			{
-				PatientResponseDTO a = await GetPatientByIdAsync(consultation.PatientId);
-				_logger.LogInformation("{fds}", a);
-				consultationResponse.Patient = a;
+				consultationResponse.Patient = await GetPatientByIdAsync(consultation.PatientId); ;
 			}
 			else
 			{

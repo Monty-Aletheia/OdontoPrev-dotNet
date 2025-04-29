@@ -29,12 +29,15 @@ namespace ConsultationService.Application.Services.HttpClients
 			}
 
 			var content = await response.Content.ReadAsStringAsync();
-			Console.WriteLine(content);
 
-	
-				var patient = JsonSerializer.Deserialize<PatientResponseDTO>(content);
-				Console.WriteLine(patient); 
-				return patient;
+
+			var options = new JsonSerializerOptions
+			{
+				PropertyNameCaseInsensitive = true
+			};
+
+			var patient = JsonSerializer.Deserialize<PatientResponseDTO>(content, options);
+			return patient;
 		
 		}
 

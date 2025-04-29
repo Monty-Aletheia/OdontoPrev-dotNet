@@ -17,5 +17,12 @@ namespace ConsultationService.Application.Dtos
 		public int? ConsultationFrequency { get; set; } = 0;
 
 		public string AssociatedClaims { get; set; }
+
+		public override string ToString()
+		{
+			return $"Id: {Id}, Name: {Name}, Birthday: {Birthday}, Gender: {Gender}, RiskStatus: {RiskStatus}, ConsultationFrequency: {ConsultationFrequency}, AssociatedClaims: {AssociatedClaims}";
+		}
 	}
+
+
 }
