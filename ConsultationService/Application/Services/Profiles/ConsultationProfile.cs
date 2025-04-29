@@ -11,9 +11,8 @@ namespace ConsultationService.Application.Services.Profiles
 			CreateMap<CreateConsultationDTO, Consultation>();
 
 			CreateMap<Consultation, ConsultationResponseDTO>()
-				.ForMember(dest => dest.Dentists, opt => opt.Ignore())
-				.ForMember(dest => dest.Patient, opt => opt.Ignore());
-
+					   .ForMember(dest => dest.Dentists, opt => opt.Ignore())
+					   .ForMember(dest => dest.Patient, opt => opt.Ignore());
 
 			CreateMap<UpdateConsultationDTO, Consultation>();
 		}

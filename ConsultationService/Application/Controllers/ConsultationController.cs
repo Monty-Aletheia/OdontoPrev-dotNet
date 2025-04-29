@@ -19,8 +19,15 @@ namespace ConsultationService.Application.Controllers
 		[HttpGet]
 		public async Task<IActionResult> GetConsultations()
 		{
-			var consultations = await _service.GetConsultationsAsync();
-			return Ok(consultations);
+			try
+			{
+				var consultations = await _service.GetConsultationsAsync();
+				return Ok(consultations);
+			} catch (KeyNotFoundException ex)
+			{
+				return NotFound(ex.Message);
+			}
+
 		}
 
 		// GET: api/Consultation/{id}

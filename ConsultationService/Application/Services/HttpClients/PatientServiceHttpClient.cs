@@ -20,16 +20,22 @@ namespace ConsultationService.Application.Services.HttpClients
 
 		public async Task<PatientResponseDTO> GetPatientByIdAsync(Guid id)
 		{
-			var fullUrl = $"{_baseUrl}/patients/{id}";
+			var fullUrl = $"{_baseUrl}/{id}";
 			var response = await _client.GetAsync(fullUrl);
 
 			if (!response.IsSuccessStatusCode)
 			{
-				throw new KeyNotFoundException($"Patient with id {id} not found.");
+				throw new KeyNotFoundException($"Patient with id {id} not found http client.");
 			}
 
 			var content = await response.Content.ReadAsStringAsync();
-			return JsonSerializer.Deserialize<PatientResponseDTO>(content);
+			Console.WriteLine(content);
+
+	
+				var patient = JsonSerializer.Deserialize<PatientResponseDTO>(content);
+				Console.WriteLine(patient); 
+				return patient;
+		
 		}
 
 		public async Task<HttpResponseMessage> ValidatePatientAsync(string id)
