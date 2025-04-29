@@ -23,7 +23,8 @@ namespace ConsultationService.Application.Controllers
 			{
 				var consultations = await _service.GetConsultationsAsync();
 				return Ok(consultations);
-			} catch (KeyNotFoundException ex)
+			}
+			catch (KeyNotFoundException ex)
 			{
 				return NotFound(ex.Message);
 			}

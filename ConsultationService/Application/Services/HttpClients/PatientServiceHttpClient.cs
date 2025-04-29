@@ -38,7 +38,7 @@ namespace ConsultationService.Application.Services.HttpClients
 
 			var patient = JsonSerializer.Deserialize<PatientResponseDTO>(content, options);
 			return patient;
-		
+
 		}
 
 		public async Task<HttpResponseMessage> ValidatePatientAsync(string id)

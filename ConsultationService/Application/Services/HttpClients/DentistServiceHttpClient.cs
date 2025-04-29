@@ -37,21 +37,21 @@ namespace ConsultationService.Application.Services.HttpClients
 			var content = JsonContent.Create(body);
 
 
-	
-				var response = await _client.PostAsync(fullUrl, content);
 
-				
-				response.EnsureSuccessStatusCode();
+			var response = await _client.PostAsync(fullUrl, content);
 
-				var dentists = await response.Content.ReadFromJsonAsync<IEnumerable<DentistResponseDTO>>();
 
-				if (dentists == null || !dentists.Any())
-				{
-					return new List<DentistResponseDTO>(); 
-				}
+			response.EnsureSuccessStatusCode();
 
-				return dentists;
-			
+			var dentists = await response.Content.ReadFromJsonAsync<IEnumerable<DentistResponseDTO>>();
+
+			if (dentists == null || !dentists.Any())
+			{
+				return new List<DentistResponseDTO>();
+			}
+
+			return dentists;
+
 		}
 
 
