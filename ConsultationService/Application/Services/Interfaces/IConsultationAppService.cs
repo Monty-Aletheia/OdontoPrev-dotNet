@@ -12,5 +12,5 @@ namespace ConsultationService.Application.Services.Interfaces
 		Task<bool> ValidatePatient(Guid patientId);
 		Task<bool> ValidateDentist(Guid dentistId);
 	}
-	
+
 }

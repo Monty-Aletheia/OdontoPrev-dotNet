@@ -28,7 +28,7 @@ namespace ConsultationService.Domain.Models
 		[Required]
 		[Column("patient_id")]
 		public Guid PatientId { get; set; }
-		public ICollection<ConsultationDentist> ConsultationDentists { get; set; } = new List<ConsultationDentist>();
+		public ICollection<ConsultationDentist> ConsultationDentists { get; set; }
 	}
 
 	// Tabela de junção para Consulta-Dentista (n:n)

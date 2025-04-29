@@ -31,7 +31,9 @@ namespace PatientService.Application.Controllers
 			{
 				var patient = await _service.GetPatientByIdAsync(id);
 				return Ok(patient);
-			} catch (KeyNotFoundException ex) {
+			}
+			catch (KeyNotFoundException ex)
+			{
 				return NotFound();
 			}
 		}

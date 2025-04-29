@@ -14,7 +14,14 @@ namespace DentistService.Infra.Repositories
 			_context = context ?? throw new ArgumentNullException(nameof(context), "DbContext cannot be null");
 		}
 
-		public async Task<Dentist> GetByRegistrationNumberAndPassword(string registrationNumber, string password)
+		public async Task<IEnumerable<Dentist>> GetDentistsByIds(IEnumerable<Guid> ids)
+		{
+			return await _context.Dentists
+				.Where(d => ids.Contains(d.Id))
+				.ToListAsync();
+		}
+
+		public async Task<Dentist> GetDentistsByRegistrationNumberAndPassword(string registrationNumber, string password)
 		{
 			return await _context.Dentists
 				.FirstOrDefaultAsync(d => d.RegistrationNumber == registrationNumber && d.Password == password);

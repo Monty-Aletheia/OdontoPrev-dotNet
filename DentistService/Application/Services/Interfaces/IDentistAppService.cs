@@ -6,6 +6,7 @@ namespace DentistService.Application.Services.Interfaces
 	{
 		Task<IEnumerable<DentistResponseDTO>> GetAllDentistsAsync();
 		Task<DentistResponseDTO> GetDentistByIdAsync(Guid id);
+		Task<IEnumerable<DentistResponseDTO>> GetDentistsByIdsAsync(IEnumerable<Guid> ids);
 		Task<DentistResponseDTO?> GetDentistByRegistrationNumberAndPassword(LoginDTO dto);
 		Task<DentistResponseDTO> CreateDentistAsync(CreateDentistDTO dto);
 		Task<DentistResponseDTO> UpdateDentistAsync(Guid id, UpdateDentistDTO dto);

@@ -26,7 +26,7 @@ namespace DentistService
 			services.AddAutoMapper(typeof(DentistProfile));
 
 			// Services
-			services.AddScoped<IDentistAppService,DentistAppService>();
+			services.AddScoped<IDentistAppService, DentistAppService>();
 
 			services.AddHealthChecks()
 			  .AddDbContextCheck<FIAPDbContext>("Database");

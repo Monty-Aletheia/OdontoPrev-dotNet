@@ -14,8 +14,8 @@ namespace ConsultationService.Application.Dtos
 
 		public string? Description { get; set; }
 
-		public Guid PatientId { get; set; }
+		public PatientResponseDTO Patient { get; set; }
 
-		public ICollection<Guid> DentistIds { get; set; } = new List<Guid>();
+		public IEnumerable<DentistResponseDTO> Dentists { get; set; }
 	}
 }

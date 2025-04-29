@@ -32,7 +32,16 @@ namespace ConsultationService.Application.Services
 
 		public async Task<IEnumerable<ConsultationResponseDTO>> GetConsultationsAsync()
 		{
-			return _mapper.Map<IEnumerable<ConsultationResponseDTO>>(await _consultationRepository.GetConsultationsWithDentistAsync());
+			var consultations = await _consultationRepository.GetConsultationsWithDentistAsync();
+
+			var consultationResponseDtos = _mapper.Map<IEnumerable<ConsultationResponseDTO>>(consultations);
+
+			foreach (var consultationResponse in consultationResponseDtos)
+			{
+				await PopulateConsultationDetails(consultationResponse, consultations);
+			}
+
+			return consultationResponseDtos;
 		}
 
 		public async Task<ConsultationResponseDTO> GetConsultationByIdAsync(Guid id)
@@ -44,34 +53,36 @@ namespace ConsultationService.Application.Services
 				throw new KeyNotFoundException($"Consultation with id {id} not found.");
 			}
 
+			var consultationResponse = _mapper.Map<ConsultationResponseDTO>(consultation);
+
+			await PopulateConsultationDetails(consultationResponse, new[] { consultation });
+
 			_logger.LogInformation("Consultation with ID {ConsultationId} found.", id);
-			return _mapper.Map<ConsultationResponseDTO>(consultation);
+
+			return consultationResponse;
 		}
 
 		public async Task<ConsultationResponseDTO> CreateConsultationAsync(CreateConsultationDTO dto)
 		{
 			try
 			{
-				if (!await ValidatePatient(dto.PatientId))
-					throw new KeyNotFoundException($"Patient with id {dto.PatientId} not found.");
-
-				foreach (var dentistId in dto.DentistIds)
-				{
-					if (!await ValidateDentist(dentistId))
-						throw new KeyNotFoundException($"Dentist with id {dentistId} not found.");
-				}
+				await ValidateEntitiesAsync(dto.PatientId, dto.DentistIds);
 
 				var consultation = _mapper.Map<Consultation>(dto);
-				consultation.ConsultationDentists = dto.DentistIds
-					.Select(dentistId => new ConsultationDentist { DentistId = dentistId, Consultation = consultation })
-					.ToList();
+				consultation.ConsultationDentists = CreateConsultationDentists(dto.DentistIds, consultation);
 
 				await _consultationRepository.AddAsync(consultation);
 				await _consultationRepository.SaveChangesAsync();
 
+				var consultationResponse = _mapper.Map<ConsultationResponseDTO>(consultation);
+
+				// Buscando dentistas e paciente
+				consultationResponse.Dentists = await GetDentistsByIdsAsync(dto.DentistIds);
+				consultationResponse.Patient = await GetPatientByIdAsync(dto.PatientId);
+
 				_logger.LogInformation("Created consultation with ID {ConsultationId}", consultation.Id);
 
-				return _mapper.Map<ConsultationResponseDTO>(consultation);
+				return consultationResponse;
 			}
 			catch (Exception ex)
 			{
@@ -118,16 +129,63 @@ namespace ConsultationService.Application.Services
 				throw;
 			}
 		}
+		
+		// HELPER METHODS
+
+		private async Task ValidateEntitiesAsync(Guid patientId, IEnumerable<Guid> dentistIds)
+		{
+			if (!await ValidatePatient(patientId))
+				throw new KeyNotFoundException($"Patient with id {patientId} not found.");
+
+			foreach (var dentistId in dentistIds)
+			{
+				if (!await ValidateDentist(dentistId))
+					throw new KeyNotFoundException($"Dentist with id {dentistId} not found.");
+			}
+		}
+
+		private async Task PopulateConsultationDetails(ConsultationResponseDTO consultationResponse, IEnumerable<Consultation> consultations)
+		{
+			var dentistIds = consultations
+				.First(c => c.Id == consultationResponse.Id)
+				.ConsultationDentists
+				.Select(cd => cd.DentistId)
+				.ToList();
+
+			consultationResponse.Dentists = await GetDentistsByIdsAsync(dentistIds);
+			consultationResponse.Patient = await GetPatientByIdAsync(consultationResponse.Patient.Id);
+		}
+
+		private async Task<IEnumerable<DentistResponseDTO>> GetDentistsByIdsAsync(IEnumerable<Guid> dentistIds)
+		{
+				var dentists = await _dentistHttpClient.GetDentistsByIdsAsync(dentistIds);
+			_logger.LogInformation("AAAAAAAAAAAAAAAAAA",dentists);
+				return dentists.ToList();
+		}
+
+		private async Task<PatientResponseDTO> GetPatientByIdAsync(Guid patientId)
+		{
+			return await _patientHttpClient.GetPatientByIdAsync(patientId);
+		}
+
+		private List<ConsultationDentist> CreateConsultationDentists(IEnumerable<Guid> dentistIds, Consultation consultation)
+		{
+			return dentistIds.Select(dentistId => new ConsultationDentist
+			{
+				DentistId = dentistId,
+				Consultation = consultation
+			}).ToList();
+		}
 
 		public async Task<bool> ValidatePatient(Guid patientId)
 		{
-			var response = await _patientHttpClient.GetAsync($"{patientId}");
+			var response = await _patientHttpClient.ValidatePatientAsync($"{patientId}");
 			return response.IsSuccessStatusCode;
 		}
 
 		public async Task<bool> ValidateDentist(Guid dentistId)
 		{
-			var response = await _dentistHttpClient.GetAsync($"{dentistId}");
+			var response = await _dentistHttpClient.ValidateDentistAsync($"{dentistId}");
 			return response.IsSuccessStatusCode;
 		}
 	}
