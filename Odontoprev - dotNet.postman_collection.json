@@ -14,6 +14,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"RegistrationNumber\": \"1234\",\r\n    \"Password\": \"seila123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{Host}}/api/auth/login",
 							"host": [
@@ -93,6 +102,34 @@
 								"api",
 								"dentists",
 								"{{DentistID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST get dentists",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dentistIds\": [\r\n        \"dff48b38-e7d1-45b8-a2a5-e2b21beae5a0\",\r\n        \"6a4e2cb9-e163-4ed9-9b42-171f9ec53738\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/dentists/by-ids",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"dentists",
+								"by-ids"
 							]
 						}
 					},
@@ -337,7 +374,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"consultationDate\": \"2025-03-20T14:30:00.000Z\",\r\n  \"consultationValue\": 150,\r\n  \"riskStatus\": 1,\r\n  \"patientId\": {{PatientID}},\r\n  \"dentistIds\": [\r\n    {{DentistID}}\r\n  ],\r\n  \"description\": \"Consulta de rotina e limpeza.\"\r\n}",
+							"raw": "{\r\n  \"consultationDate\": \"2025-03-20T14:30:00.000Z\",\r\n  \"consultationValue\": 150,\r\n  \"riskStatus\": 1,\r\n  \"patientId\": \"{{PatientID}}\",\r\n  \"dentistIds\": [\r\n    \"{{DentistID}}\",\r\n    \"{{DentistID2}}\"\r\n  ],\r\n  \"description\": \"Consulta de rotina e limpeza.\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -364,7 +401,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"consultationDate\": \"2025-03-20T14:30:00.000Z\",\r\n  \"consultationValue\": 150,\r\n  \"riskStatus\": 1,\r\n  \"patientId\": {{PatientID}},\r\n  \"dentistIds\": [\r\n    {{DentistID}}\r\n  ],\r\n  \"description\": \"Consulta de rotina e limpeza.\"\r\n}",
+							"raw": "{\r\n  \"consultationDate\": \"2025-03-20T14:30:00.000Z\",\r\n  \"consultationValue\": 150,\r\n  \"riskStatus\": 1,\r\n  \"patientId\": \"{{PatientID}}\",\r\n  \"dentistIds\": [\r\n    \"{{DentistID}}\"\r\n  ],\r\n  \"description\": \"Consulta de rotina e limpeza.\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -453,7 +490,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"occurrenceDate\": \"2025-03-20T10:45:00.000Z\",\r\n  \"value\": 500.75,\r\n  \"claimType\": 1,\r\n  \"suggestedPreventiveAction\": \"Revisão periódica a cada 3 meses.\",\r\n  \"consultationId\": {{ConsultationsID}}\r\n}",
+							"raw": "{\r\n  \"occurrenceDate\": \"2025-03-20T10:45:00.000Z\",\r\n  \"value\": 500.75,\r\n  \"claimType\": 1,\r\n  \"suggestedPreventiveAction\": \"Revisão periódica a cada 3 meses.\",\r\n  \"consultationId\": \"{{ConsultationsID}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -480,7 +517,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"occurrenceDate\": \"2025-03-20T10:45:00.000Z\",\r\n  \"value\": 500.75,\r\n  \"claimType\": 1,\r\n  \"suggestedPreventiveAction\": \"Revisão periódica a cada 3 meses.\",\r\n  \"consultationId\": {{ConsultationsID}}\r\n}",
+							"raw": "{\r\n  \"occurrenceDate\": \"2025-03-20T10:45:00.000Z\",\r\n  \"value\": 500.75,\r\n  \"claimType\": 1,\r\n  \"suggestedPreventiveAction\": \"Revisão periódica a cada 3 meses.\",\r\n  \"consultationId\": \"{{ConsultationsID}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -515,6 +552,24 @@
 								"api",
 								"claims",
 								"{{ClaimID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/claims",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"claims"
 							]
 						}
 					},
