@@ -3,8 +3,8 @@ using ConsultationService;
 using ConsultationService.Infra.Data;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
 using Shared.Logger;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -5,15 +5,15 @@ VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservices", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientService", "PatientService\PatientService.csproj", "{66E40D79-72A0-46D7-9750-D20A0658B7E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientService", "PatientService\PatientService.csproj", "{66E40D79-72A0-46D7-9750-D20A0658B7E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{943638A8-B249-48BD-83C2-740082458D9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{943638A8-B249-48BD-83C2-740082458D9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DentistService", "DentistService\DentistService.csproj", "{2BA8E981-8620-47C6-AA2F-07585C6387BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DentistService", "DentistService\DentistService.csproj", "{2BA8E981-8620-47C6-AA2F-07585C6387BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsultationService", "ConsultationService\ConsultationService.csproj", "{D8DE2073-0DD8-40B0-8903-D6F8731BD929}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsultationService", "ConsultationService\ConsultationService.csproj", "{D8DE2073-0DD8-40B0-8903-D6F8731BD929}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClaimService", "ClaimService\ClaimService.csproj", "{BB6787A0-57DB-4BEC-8FD2-9E3B0D59B6A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClaimService", "ClaimService\ClaimService.csproj", "{BB6787A0-57DB-4BEC-8FD2-9E3B0D59B6A2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{380A7511-A354-6D7A-0CC0-8FA1F1BA7B6C}"
 	ProjectSection(SolutionItems) = preProject
@@ -22,13 +22,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens
 		.env.example = .env.example
 		.gitignore = .gitignore
 		docker-compose.yml = docker-compose.yml
-		Odontoprev - dotNet.postman_collection.json = Odontoprev - dotNet.postman_collection.json
-		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcelotApiGateway", "OcelotApiGateway\OcelotApiGateway.csproj", "{93F191A2-7137-49BE-9D58-C2CEA0C214A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotApiGateway", "OcelotApiGateway\OcelotApiGateway.csproj", "{93F191A2-7137-49BE-9D58-C2CEA0C214A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService", "AuthService\AuthService.csproj", "{4E55FA2E-52B3-4F9C-90C1-43FB5F2AAD05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthService", "AuthService\AuthService.csproj", "{4E55FA2E-52B3-4F9C-90C1-43FB5F2AAD05}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{0B401746-A8A9-459D-B00E-28D397889330}"
+	ProjectSection(SolutionItems) = preProject
+		Odontoprev - dotNet.postman_collection.json = Odontoprev - dotNet.postman_collection.json
+		Odontoprev - dotNet.postman_environment.json = Odontoprev - dotNet.postman_environment.json
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +80,7 @@ Global
 		{D8DE2073-0DD8-40B0-8903-D6F8731BD929} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{BB6787A0-57DB-4BEC-8FD2-9E3B0D59B6A2} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{4E55FA2E-52B3-4F9C-90C1-43FB5F2AAD05} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{0B401746-A8A9-459D-B00E-28D397889330} = {380A7511-A354-6D7A-0CC0-8FA1F1BA7B6C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22A3042B-7A46-41FD-9D81-C6A120444D56}

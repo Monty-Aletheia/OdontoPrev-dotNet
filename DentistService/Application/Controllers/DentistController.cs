@@ -41,6 +41,29 @@ namespace DentistService.Application.Controllers
 			}
 		}
 
+
+		// POST: api/Dentist/by-ids
+		[HttpPost("by-ids")]
+		public async Task<ActionResult<IEnumerable<DentistResponseDTO>>> GetDentistsByIds([FromBody] DentistIdsRequestDTO requestDto)
+		{
+			try
+			{
+				var dentist = await _service.GetDentistsByIdsAsync(requestDto.DentistIds);
+				if (dentist == null)
+					return NotFound();
+
+				return Ok(dentist);
+			}
+			catch (KeyNotFoundException ex)
+			{
+				return NotFound(ex.Message);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, "An unexpected error occurred: " + ex.Message);
+			}
+		}
+
 		// POST: api/Dentist
 		[HttpPost]
 		public async Task<IActionResult> CreateDentist([FromBody] CreateDentistDTO dto)

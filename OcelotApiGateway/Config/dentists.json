@@ -25,16 +25,28 @@
       "UpstreamHttpMethod": [ "Get", "Put", "Delete" ]
     },
     {
-      "DownstreamPathTemplate": "/api/dentist",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "dentist-service",
-          "Port": 8080
-        }
-      ],
-      "UpstreamPathTemplate": "/api/dentists",
-      "UpstreamHttpMethod": [ "Post" ]
+        "DownstreamPathTemplate": "/api/dentist",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+                "Host": "dentist-service",
+                "Port": 8080
+            }
+        ],
+        "UpstreamPathTemplate": "/api/dentists",
+        "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+        "DownstreamPathTemplate": "/api/dentist/by-ids",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+            {
+                "Host": "dentist-service",
+                "Port": 8080
+            }
+        ],
+        "UpstreamPathTemplate": "/api/dentists/by-ids",
+        "UpstreamHttpMethod": [ "Post" ]
     }
   ]
 }
