@@ -3,12 +3,23 @@ using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adiciona os serviços do Ocelot
 builder.Services.AddOcelot();
 
-// Carrega o JSON final no Ocelot
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("AllowAll", policy =>
+	{
+		policy.AllowAnyOrigin()
+			  .AllowAnyMethod()
+			  .AllowAnyHeader();
+	});
+});
+
 builder.Configuration.AddJsonFile("ocelot-combined.json", optional: false, reloadOnChange: true);
 
 var app = builder.Build();
+
+app.UseCors("AllowAll");
+
 await app.UseOcelot();
 app.Run();
