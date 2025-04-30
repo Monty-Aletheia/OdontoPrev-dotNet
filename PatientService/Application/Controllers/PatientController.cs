@@ -49,6 +49,17 @@ namespace PatientService.Application.Controllers
 			return CreatedAtAction(nameof(Get), new { id = patient.Id }, patient);
 		}
 
+		[HttpPost]
+		public async Task<IActionResult> SendPrediction([FromBody] PatientRiskAssessmentDTO dto)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			await _service.RequestPredictionAsync(dto);
+			return Accepted();
+		}
+
+
 		// PUT: api/Patient/{id}
 		[HttpPut("{id}")]
 		public async Task<IActionResult> Update(Guid id, [FromBody] UpdatePatientDTO patientDto)
