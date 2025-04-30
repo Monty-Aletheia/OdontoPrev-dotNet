@@ -12,6 +12,10 @@ Pedro Lucca Medeiros Miranda - RM553873
 
 Optamos por uma arquitetura de microservices para a API, pois já estamos desenvolvendo um monolito em outra matéria, com a adaptação final necessária apenas para transformar o backend em .NET em uma API para uso no mobile. Microservices nos permite maior flexibilidade, escalabilidade e manutenção, já que cada serviço é independente. Isso facilita a implementação de novos recursos, a evolução das funcionalidades e a alocação de recursos de forma eficiente, sem impactar o sistema como um todo, além de ser mais alinhado com a necessidade de consumir a API em diferentes plataformas.
 
+## Serviço Externo Utilizado
+
+A aplicação utiliza o [Seq](https://datalust.co/seq), um serviço de centralização e análise de logs, para consolidar e monitorar os registros gerados pela aplicação de forma eficiente.
+
 
 ## Como Rodar:
 
@@ -39,3 +43,7 @@ docker-compose up --build
 
 - Importe o arquivo `OdontoPrev.postman_collection.json` (ou equivalente) no Postman.
 - Use os endpoints definidos na collection para testar as rotas da API facilmente.
+
+5. Acessar o Seq:
+
+- Apos rodar o docker compose acesse o endpoint `localhost:5341` para ver os logs da aplicação
