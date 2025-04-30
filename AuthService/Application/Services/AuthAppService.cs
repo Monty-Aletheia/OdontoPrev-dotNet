@@ -1,6 +1,7 @@
 ﻿using AuthService.Application.Interfaces;
 using AuthService.Domain.Models;
 using Microsoft.Extensions.Logging;
+using System.Net.Http.Json;
 
 namespace AuthService.Application.Services
 {
@@ -30,7 +31,10 @@ namespace AuthService.Application.Services
 				throw new UnauthorizedAccessException("Invalid credentials.");
 			}
 
-			return _tokenService.GenerateToken(dto.RegistrationNumber);
+			var dentist = await response.Content.ReadFromJsonAsync<DentistResponseDTO>();
+
+			// Você pode usar dados do payload aqui se quiser incluir no token
+			return _tokenService.GenerateToken(dentist);
 		}
 
 		public async Task RegisterAsync(Signup dto)

@@ -1,7 +1,9 @@
-﻿namespace AuthService.Application.Interfaces
+﻿using AuthService.Domain.Models;
+
+namespace AuthService.Application.Interfaces
 {
 	public interface ITokenService
 	{
-		string GenerateToken(string registrationNumber);
+		string GenerateToken(DentistResponseDTO dentist);
 	}
 }

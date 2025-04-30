@@ -18,16 +18,20 @@ namespace AuthService.Application.Services
 			_jwtSettings = jwtSettings.Value;
 		}
 
-		public string GenerateToken(string registrationNumber)
+		public string GenerateToken(DentistResponseDTO dentist)
 		{
 			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.SecretKey));
 			var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-			// TODO colocar as infos q o mobile precisa aqui
 			var claims = new[]
 			{
-				new Claim(ClaimTypes.Name, registrationNumber)
-			};
+		new Claim(ClaimTypes.Name, dentist.Name),
+		new Claim("id", dentist.Id.ToString()),
+		new Claim("registrationNumber", dentist.RegistrationNumber),
+		new Claim("specialty", dentist.Specialty),
+		new Claim("riskStatus", dentist.RiskStatus.ToString()),
+		new Claim("claimsRate", dentist.ClaimsRate?.ToString() ?? "0")
+	};
 
 			var token = new JwtSecurityToken(
 				issuer: _jwtSettings.Issuer,
@@ -37,9 +41,9 @@ namespace AuthService.Application.Services
 				signingCredentials: credentials
 			);
 
-
 			return new JwtSecurityTokenHandler().WriteToken(token);
 		}
-	}
 
+
+	}
 }
