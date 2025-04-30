@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{0B401746-A
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MlNetWorker", "MlNetWorker\MlNetWorker.csproj", "{9B1ECA06-22A7-4E21-AA52-C67F7C95AB93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{4E55FA2E-52B3-4F9C-90C1-43FB5F2AAD05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E55FA2E-52B3-4F9C-90C1-43FB5F2AAD05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E55FA2E-52B3-4F9C-90C1-43FB5F2AAD05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B1ECA06-22A7-4E21-AA52-C67F7C95AB93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B1ECA06-22A7-4E21-AA52-C67F7C95AB93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B1ECA06-22A7-4E21-AA52-C67F7C95AB93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B1ECA06-22A7-4E21-AA52-C67F7C95AB93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{BB6787A0-57DB-4BEC-8FD2-9E3B0D59B6A2} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{4E55FA2E-52B3-4F9C-90C1-43FB5F2AAD05} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{0B401746-A8A9-459D-B00E-28D397889330} = {380A7511-A354-6D7A-0CC0-8FA1F1BA7B6C}
+		{9B1ECA06-22A7-4E21-AA52-C67F7C95AB93} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22A3042B-7A46-41FD-9D81-C6A120444D56}

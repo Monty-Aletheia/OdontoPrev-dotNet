@@ -12,11 +12,23 @@ services:
     environment:
       - ACCEPT_EULA=Y
     ports:
-      - "5341:80" # 5341 externa, 80 interna no container
+      - "5341:80" 
     networks:
       - app_net
     volumes:
       - seq_data:/data
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"    
+      - "15672:15672"  
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
 
   api-gateway:
     build:
@@ -109,3 +121,4 @@ volumes:
     driver: local
   seq_data:
     driver: local
+  rabbitmq_data:
