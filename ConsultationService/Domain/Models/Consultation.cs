@@ -23,7 +23,7 @@ namespace ConsultationService.Domain.Models
 		[Column("risk_status")]
 		public RiskStatus RiskStatus { get; set; }
 
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
 		[Required]
 		[Column("patient_id")]
