@@ -10,18 +10,13 @@ namespace ConsultationService.Application.Dtos
 
 		public DateTime Birthday { get; set; }
 
-		public Gender Gender { get; set; }
+		public string Gender { get; set; }
 
-		public RiskStatus RiskStatus { get; set; }
+		public string RiskStatus { get; set; }
 
 		public int? ConsultationFrequency { get; set; } = 0;
 
 		public string AssociatedClaims { get; set; }
-
-		public override string ToString()
-		{
-			return $"Id: {Id}, Name: {Name}, Birthday: {Birthday}, Gender: {Gender}, RiskStatus: {RiskStatus}, ConsultationFrequency: {ConsultationFrequency}, AssociatedClaims: {AssociatedClaims}";
-		}
 	}
 
 

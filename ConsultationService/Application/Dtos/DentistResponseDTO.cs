@@ -14,7 +14,7 @@ namespace ConsultationService.Application.Dtos
 
 		public double? ClaimsRate { get; set; }
 
-		public RiskStatus RiskStatus { get; set; }
+		public string RiskStatus { get; set; }
 
 	}
 }

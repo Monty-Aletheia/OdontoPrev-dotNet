@@ -12,9 +12,11 @@ namespace PatientService.Application.Dtos
 		public DateTime Birthday { get; set; }
 
 		[Required]
-		public Gender Gender { get; set; }
+		[EnumDataType(typeof(Gender))]
+		public string Gender { get; set; }
 
 		[Required]
+		[EnumDataType(typeof(RiskStatus))]
 		public RiskStatus RiskStatus { get; set; }
 
 		public int? ConsultationFrequency { get; set; } = 0;

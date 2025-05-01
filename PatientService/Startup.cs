@@ -7,7 +7,6 @@ using PatientService.Domain.Interfaces;
 using PatientService.Infra.Data;
 using PatientService.Infra.Messaging;
 using PatientService.Infra.Repositories;
-using Serilog;
 
 namespace PatientService
 {
@@ -34,22 +33,19 @@ namespace PatientService
 			{
 				x.UsingRabbitMq((context, cfg) =>
 				{
-					cfg.Host("rabbitmq://localhost", h =>
+					cfg.Host("rabbitmq", "/", h =>
 					{
-						h.Username("guest");
-						h.Password("guest");
+						h.Username("admin");
+						h.Password("admin");
 					});
 				});
 			});
 
 			services.AddScoped<IMessagePublisher, RabbitMqPublisher>();
 
-
 			// Services
 			services.AddScoped<IPatientAppService, PatientAppService>();
 			services.AddScoped<IPredictionMessageService, PredictionMessageService>();
-
-
 
 			services.AddHealthChecks()
 			  .AddDbContextCheck<FIAPDbContext>("Database");

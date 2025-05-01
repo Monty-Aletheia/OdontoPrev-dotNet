@@ -13,7 +13,8 @@ namespace ClaimService.Application.Dtos
 		public double Value { get; set; }
 
 		[Required]
-		public ClaimType ClaimType { get; set; }
+		[EnumDataType(typeof(ClaimType))]
+		public string ClaimType { get; set; }
 
 		[StringLength(255)]
 		public string SuggestedPreventiveAction { get; set; }

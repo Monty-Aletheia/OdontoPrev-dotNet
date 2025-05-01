@@ -49,7 +49,8 @@ namespace PatientService.Application.Controllers
 			return CreatedAtAction(nameof(Get), new { id = patient.Id }, patient);
 		}
 
-		[HttpPost]
+		// POST: api/Patient/send-prediction
+		[HttpPost("send-prediction")]
 		public async Task<IActionResult> SendPrediction([FromBody] PatientRiskAssessmentDTO dto)
 		{
 			if (!ModelState.IsValid)

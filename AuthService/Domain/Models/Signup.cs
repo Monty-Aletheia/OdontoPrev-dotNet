@@ -18,6 +18,7 @@ namespace AuthService.Domain.Models
 		public string Password { get; set; }
 
 		[Required]
-		public RiskStatus RiskStatus { get; set; }
+		[EnumDataType(typeof(RiskStatus))]
+		public string RiskStatus { get; set; }
 	}
 }

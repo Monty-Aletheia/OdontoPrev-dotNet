@@ -10,7 +10,7 @@ namespace ConsultationService.Application.Dtos
 
 		public double? ConsultationValue { get; set; }
 
-		public RiskStatus RiskStatus { get; set; }
+		public string RiskStatus { get; set; }
 
 		public string? Description { get; set; }
 

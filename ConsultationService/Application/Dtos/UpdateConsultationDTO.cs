@@ -10,7 +10,7 @@ namespace ConsultationService.Application.Dtos
 		[Range(0.01, double.MaxValue)]
 		public double? ConsultationValue { get; set; }
 
-		public RiskStatus? RiskStatus { get; set; }
+		public string? RiskStatus { get; set; }
 
 		[StringLength(500)]
 		public string? Description { get; set; }
