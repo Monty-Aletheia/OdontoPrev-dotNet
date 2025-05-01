@@ -35,6 +35,18 @@
       ],
       "UpstreamPathTemplate": "/api/patients",
       "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Patient/send-prediction",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "patient-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/patients/send-prediction",
+      "UpstreamHttpMethod": [ "Post" ]
     }
   ]
 }
