@@ -50,14 +50,14 @@ services:
     networks:
        - app_net
 
-  # mlnet-service:
-  #    build:
-  #      context: .
-  #      dockerfile: ./MlNetWorker/Dockerfile
-  #    depends_on:
-  #      - patient-service
-  #    networks:
-  #      - app_net
+  mlnet-service:
+     build:
+       context: .
+       dockerfile: ./MlNetWorker/Dockerfile
+     depends_on:
+       - patient-service
+     networks:
+       - app_net
 
   auth-service:
     build:

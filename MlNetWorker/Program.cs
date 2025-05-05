@@ -13,7 +13,11 @@ builder.Services.AddMassTransit(x =>
 
 	x.UsingRabbitMq((ctx, cfg) =>
 	{
-		cfg.Host("rabbitmq://localhost");
+		cfg.Host("rabbitmq", "/", h =>
+		{
+			h.Username("admin");
+			h.Password("admin");
+		});
 
 		cfg.ReceiveEndpoint("predict-queue", e =>
 		{
