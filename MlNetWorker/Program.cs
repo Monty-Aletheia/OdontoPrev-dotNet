@@ -1,5 +1,4 @@
 using MassTransit;
-using MlNetWorker;
 using MlNetWorker.Consumers;
 using MlNetWorker.Services;
 
@@ -13,6 +12,7 @@ builder.Services.AddMassTransit(x =>
 
 	x.UsingRabbitMq((ctx, cfg) =>
 	{
+
 		cfg.Host("rabbitmq", "/", h =>
 		{
 			h.Username("admin");
@@ -26,7 +26,7 @@ builder.Services.AddMassTransit(x =>
 	});
 });
 
-builder.Services.AddHostedService<Worker>();
+Console.WriteLine("Worker iniciado. Aguardando mensagens...");
 
 var host = builder.Build();
 

@@ -1,23 +1,25 @@
-﻿namespace MlNetWorker.Models
+﻿using Microsoft.ML.Data;
+
+namespace MlNetWorker.Models
 {
 	public class InputData
 	{
-		public float Idade { get; set; }
-		public float FrequenciaConsultas { get; set; }
-		public float AderenciaTratamento { get; set; }
-		public float HistoricoCaries { get; set; }
-		public float DoencaPeriodontal { get; set; }
-		public float NumeroImplantes { get; set; }
-		public float TratamentosComplexosPrevios { get; set; }
-		public float Fumante { get; set; }
-		public float Alcoolismo { get; set; }
-		public float EscovacaoDiaria { get; set; }
-		public float UsoFioDental { get; set; }
-		public float MedicamentosUsoContinuo { get; set; }
-		public float NumeroSinistrosPrevios { get; set; }
-		public string Genero { get; set; }
-		public string TipoPlano { get; set; }
-		public string DoencasSistemicas { get; set; }
+		[LoadColumn(0)] public float Idade;
+		[LoadColumn(1)] public string Genero;
+		[LoadColumn(2)] public float FrequenciaConsultas;
+		[LoadColumn(3)] public float AderenciaTratamento;
+		[LoadColumn(4)] public bool HistoricoCaries;
+		[LoadColumn(5)] public bool DoencaPeriodontal;
+		[LoadColumn(6)] public float NumeroImplantes;
+		[LoadColumn(7)] public bool TratamentosComplexosPrevios;
+		[LoadColumn(8)] public bool Fumante;
+		[LoadColumn(9)] public bool Alcoolismo;
+		[LoadColumn(10)] public float EscovacaoDiaria;
+		[LoadColumn(11)] public bool UsoFioDental;
+		[LoadColumn(12)] public string DoencasSistemicas;
+		[LoadColumn(13)] public float MedicamentosUsoContinuo;
+		[LoadColumn(14)] public float NumeroSinistrosPrevios;
+		[LoadColumn(15)] public string TipoPlano;
+		[LoadColumn(16)] public float ProbabilidadeSinistro;
 	}
-
 }

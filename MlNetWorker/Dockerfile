@@ -1,12 +1,17 @@
-# Acesse https://aka.ms/customizecontainer para saber como personalizar seu contêiner de depuração e como o Visual Studio usa este Dockerfile para criar suas imagens para uma depuração mais rápida.
+# Etapa base modificada para instalar bibliotecas nativas antes de usar USER
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 
-# Esta fase é usada durante a execução no VS no modo rápido (Padrão para a configuração de Depuração)
-FROM mcr.microsoft.com/dotnet/runtime:8.0 AS base
-USER $APP_UID
+# Instala dependências do onnxruntime
+RUN apt-get update && apt-get install -y \
+    libgomp1 \
+    libprotobuf-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Só defina o usuário DEPOIS das instalações
 WORKDIR /app
+USER $APP_UID
 
-
-# Esta fase é usada para compilar o projeto de serviço
+# Etapa de build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
@@ -16,12 +21,12 @@ COPY . .
 WORKDIR "/src/MlNetWorker"
 RUN dotnet build "./MlNetWorker.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# Esta fase é usada para publicar o projeto de serviço a ser copiado para a fase final
+# Etapa de publish
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./MlNetWorker.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-# Esta fase é usada na produção ou quando executada no VS no modo normal (padrão quando não está usando a configuração de Depuração)
+# Etapa final: copie o que foi publicado e rode o app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .

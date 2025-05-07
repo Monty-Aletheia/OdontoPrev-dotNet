@@ -1,9 +1,9 @@
 ﻿using Microsoft.ML;
 using MlNetWorker.Models;
+using Shared.Common.Dtos;
 
 namespace MlNetWorker.Services
 {
-
 	public class PredictionService
 	{
 		private readonly PredictionEngine<InputData, PredictionResult> _predEngine;
@@ -11,17 +11,18 @@ namespace MlNetWorker.Services
 		public PredictionService()
 		{
 			var mlContext = new MLContext();
-			var dataView = mlContext.Data.LoadFromEnumerable(new List<InputData>());
-			var pipeline = mlContext.Transforms.ApplyOnnxModel("modelo.onnx");
-			var model = pipeline.Fit(dataView);
+			var modelPath = "AI/AletheIA.zip";
 
-			_predEngine = mlContext.Model.CreatePredictionEngine<InputData, PredictionResult>(model);
+			using var stream = new FileStream(modelPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+			var loadedModel = mlContext.Model.Load(stream, out var modelInputSchema);
+
+			_predEngine = mlContext.Model.CreatePredictionEngine<InputData, PredictionResult>(loadedModel);
 		}
 
-		public PredictionResult Predict(InputData input)
+		public PredictionResult Predict(PatientRiskAssessmentDTO input)
 		{
-			return _predEngine.Predict(input);
+			var inputData = PatientRiskAssessmentMapper.ToInputData(input);
+			return _predEngine.Predict(inputData);
 		}
 	}
-
 }

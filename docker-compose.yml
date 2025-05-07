@@ -12,7 +12,7 @@ services:
     environment:
       - ACCEPT_EULA=Y
     ports:
-      - "5341:80" 
+      - "5341:80"
     networks:
       - app_net
     volumes:
@@ -39,16 +39,16 @@ services:
     ports:
       - "5000:8080"
     depends_on:
-       - shared
-       - claim-service
-       - consultation-service
-       - dentist-service
-       - patient-service
-       - auth-service 
+      - shared
+      - claim-service
+      - consultation-service
+      - dentist-service
+      - patient-service
+      - auth-service 
     volumes:
       - shared_data:/app/shared
     networks:
-       - app_net
+      - app_net
 
   mlnet-service:
      build:
@@ -115,8 +115,7 @@ services:
       context: .
       dockerfile: ./PatientService/Dockerfile
     depends_on:
-      - shared
-      - rabbitmq 
+      - rabbitmq
     volumes:
       - shared_data:/app/shared
     networks:
@@ -134,3 +133,4 @@ volumes:
   seq_data:
     driver: local
   rabbitmq_data:
+    driver: local
