@@ -1,6 +1,6 @@
-﻿using PatientService.Application.Dtos;
-using PatientService.Application.Services.Interfaces;
+﻿using PatientService.Application.Services.Interfaces;
 using PatientService.Infra.Messaging;
+using Shared.Common.Dtos;
 
 namespace PatientService.Application.Services
 {

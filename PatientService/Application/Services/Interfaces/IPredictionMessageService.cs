@@ -1,4 +1,4 @@
-﻿using PatientService.Application.Dtos;
+﻿using Shared.Common.Dtos;
 
 namespace PatientService.Application.Services.Interfaces
 {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PatientService.Application.Dtos;
 using PatientService.Application.Services.Interfaces;
+using Shared.Common.Dtos;
 
 namespace PatientService.Application.Controllers
 {

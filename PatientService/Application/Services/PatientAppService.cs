@@ -3,6 +3,7 @@ using PatientService.Application.Dtos;
 using PatientService.Application.Services.Interfaces;
 using PatientService.Domain.Interfaces;
 using PatientService.Domain.Models;
+using Shared.Common.Dtos;
 
 namespace PatientService.Application.Services
 {

@@ -17,7 +17,7 @@ namespace PatientService.Application.Dtos
 
 		[Required]
 		[EnumDataType(typeof(RiskStatus))]
-		public RiskStatus RiskStatus { get; set; }
+		public string RiskStatus { get; set; }
 
 		public int? ConsultationFrequency { get; set; } = 0;
 

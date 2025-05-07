@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using PatientService.Application.Dtos;
 using PatientService.Application.Services;
 using PatientService.Application.Services.Interfaces;
 using PatientService.Application.Services.Profiles;
@@ -33,6 +34,7 @@ namespace PatientService
 			{
 				x.UsingRabbitMq((context, cfg) =>
 				{
+
 					cfg.Host("rabbitmq", "/", h =>
 					{
 						h.Username("admin");
