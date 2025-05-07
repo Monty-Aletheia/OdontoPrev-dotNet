@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PatientService.Application.Dtos;
 using PatientService.Application.Services.Interfaces;
+using Shared.Common.Dtos;
 
 namespace PatientService.Application.Controllers
 {
@@ -48,6 +49,18 @@ namespace PatientService.Application.Controllers
 			var patient = await _service.CreatePatientAsync(patientDto);
 			return CreatedAtAction(nameof(Get), new { id = patient.Id }, patient);
 		}
+
+		// POST: api/Patient/send-prediction
+		[HttpPost("send-prediction")]
+		public async Task<IActionResult> SendPrediction([FromBody] PatientRiskAssessmentDTO dto)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			await _service.RequestPredictionAsync(dto);
+			return Accepted();
+		}
+
 
 		// PUT: api/Patient/{id}
 		[HttpPut("{id}")]

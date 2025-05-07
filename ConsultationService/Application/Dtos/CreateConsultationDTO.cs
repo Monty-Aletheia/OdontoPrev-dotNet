@@ -12,7 +12,8 @@ namespace ConsultationService.Application.Dtos
 		public double? ConsultationValue { get; set; }
 
 		[Required]
-		public RiskStatus RiskStatus { get; set; }
+		[EnumDataType(typeof(RiskStatus))]
+		public string RiskStatus { get; set; }
 
 		[Required]
 		public Guid PatientId { get; set; }

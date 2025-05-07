@@ -12,11 +12,25 @@ services:
     environment:
       - ACCEPT_EULA=Y
     ports:
-      - "5341:80" # 5341 externa, 80 interna no container
+      - "5341:80"
     networks:
       - app_net
     volumes:
       - seq_data:/data
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"    
+      - "15672:15672"  
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+    networks:
+      - app_net
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
 
   api-gateway:
     build:
@@ -25,15 +39,24 @@ services:
     ports:
       - "5000:8080"
     depends_on:
-       - shared
-       - claim-service
-       - consultation-service
-       - dentist-service
-       - patient-service
-       - auth-service 
+      - shared
+      - claim-service
+      - consultation-service
+      - dentist-service
+      - patient-service
+      - auth-service 
     volumes:
       - shared_data:/app/shared
     networks:
+      - app_net
+
+  mlnet-service:
+     build:
+       context: .
+       dockerfile: ./MlNetWorker/Dockerfile
+     depends_on:
+       - patient-service
+     networks:
        - app_net
 
   auth-service:
@@ -92,7 +115,7 @@ services:
       context: .
       dockerfile: ./PatientService/Dockerfile
     depends_on:
-      - shared
+      - rabbitmq
     volumes:
       - shared_data:/app/shared
     networks:
@@ -108,4 +131,6 @@ volumes:
   shared_data:
     driver: local
   seq_data:
+    driver: local
+  rabbitmq_data:
     driver: local

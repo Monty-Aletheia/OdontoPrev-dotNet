@@ -3,7 +3,8 @@ using PatientService.Application.Dtos;
 using PatientService.Application.Services.Interfaces;
 using PatientService.Domain.Interfaces;
 using PatientService.Domain.Models;
-using Serilog;
+using Shared.Common.Dtos;
+using Shared.Enums;
 
 namespace PatientService.Application.Services
 {
@@ -12,15 +13,19 @@ namespace PatientService.Application.Services
 		private readonly IPatientRepository _patientRepository;
 		private readonly IMapper _mapper;
 		private readonly ILogger<PatientAppService> _logger;
+		private readonly IPredictionMessageService _messageService;
+
 
 		public PatientAppService(
 			IPatientRepository patientRepository,
 			IMapper mapper,
-			ILogger<PatientAppService> logger)
+			ILogger<PatientAppService> logger,
+			IPredictionMessageService messageService)
 		{
 			_patientRepository = patientRepository;
 			_mapper = mapper;
 			_logger = logger;
+			_messageService = messageService;
 		}
 
 
@@ -83,6 +88,39 @@ namespace PatientService.Application.Services
 
 			_logger.LogInformation("Patient with ID {PatientId} deleted successfully.", id);
 			return true;
+		}
+
+		public async Task RequestPredictionAsync(PatientRiskAssessmentDTO dto)
+		{
+			await _messageService.PublishMessageAsync(dto);
+		}
+
+		public async Task SavePredictionResultAsync(PredictionResultDTO result)
+		{
+			var patient = await _patientRepository.GetByIdAsync(result.PatientID);
+
+			if (patient == null)
+			{
+				throw new Exception($"Paciente com ID {result.PatientID} não encontrado.");
+			}
+
+			RiskStatus riskResult;
+			if (result.RiskScore <= 0.20)
+			{
+				riskResult = RiskStatus.Low;
+			} else if (result.RiskScore <= 0.50)
+			{
+				riskResult = RiskStatus.Medium;
+			}
+			else 
+			{
+				riskResult = RiskStatus.High;
+			}
+
+			patient.RiskStatus = riskResult;
+
+			await _patientRepository.UpdateAsync(patient);
+
 		}
 	}
 }

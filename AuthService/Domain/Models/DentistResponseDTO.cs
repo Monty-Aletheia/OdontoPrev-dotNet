@@ -14,7 +14,7 @@ namespace AuthService.Domain.Models
 
 		public double? ClaimsRate { get; set; }
 
-		public RiskStatus RiskStatus { get; set; }
+		public string RiskStatus { get; set; }
 
 	}
 }
