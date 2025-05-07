@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using MlNetWorker.Services;
+using MlNetWorker.Services.Interfaces;
 using Shared.Common.Dtos;
 
 namespace MlNetWorker.Consumers
@@ -7,11 +8,12 @@ namespace MlNetWorker.Consumers
 	public class PredictConsumer : IConsumer<PatientRiskAssessmentDTO>
 	{
 		private readonly PredictionService _service;
+		private readonly IPredictionResultSenderService _resultSender;
 
-		public PredictConsumer(PredictionService service)
+		public PredictConsumer(PredictionService service, IPredictionResultSenderService resultSender)
 		{
-			Console.WriteLine("✅ PredictConsumer inicializado.");
 			_service = service;
+			_resultSender = resultSender;
 		}
 
 		public async Task Consume(ConsumeContext<PatientRiskAssessmentDTO> context)
@@ -20,7 +22,13 @@ namespace MlNetWorker.Consumers
 			var result = _service.Predict(context.Message);
 			Console.WriteLine($"[Predição] Score: {result.Score}");
 
-			await context.RespondAsync(result);
+			var response = new PredictionResultDTO
+			{
+				PatientID = context.Message.PatientID,
+				RiskScore = result.Score,
+			};
+
+			await _resultSender.SendResultAsync(response); 
 		}
 	}
 

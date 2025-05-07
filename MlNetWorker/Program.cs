@@ -1,8 +1,11 @@
 using MassTransit;
 using MlNetWorker.Consumers;
 using MlNetWorker.Services;
+using MlNetWorker.Services.Interfaces;
 
 var builder = Host.CreateApplicationBuilder(args);
+
+builder.Services.AddScoped<IPredictionResultSenderService, PredictionResultSenderService>();
 
 builder.Services.AddSingleton<PredictionService>();
 
@@ -25,8 +28,6 @@ builder.Services.AddMassTransit(x =>
 		});
 	});
 });
-
-Console.WriteLine("Worker iniciado. Aguardando mensagens...");
 
 var host = builder.Build();
 
