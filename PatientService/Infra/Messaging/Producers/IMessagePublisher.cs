@@ -1,4 +1,4 @@
-﻿namespace PatientService.Infra.Messaging
+﻿namespace PatientService.Infra.Messaging.Producers
 {
 	public interface IMessagePublisher
 	{

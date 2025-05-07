@@ -5,6 +5,8 @@ namespace Shared.Common.Dtos
 {
 	public record PatientRiskAssessmentDTO
 	{
+		public Guid PatientID { get; set; }
+
 		[Range(0, 120)]
 		public float Age { get; init; }
 

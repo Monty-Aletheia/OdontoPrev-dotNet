@@ -11,5 +11,6 @@ namespace PatientService.Application.Services.Interfaces
 		Task<PatientResponseDTO> UpdatePatientAsync(Guid id, UpdatePatientDTO dto);
 		Task<bool> DeletePatientAsync(Guid id);
 		Task RequestPredictionAsync(PatientRiskAssessmentDTO dto);
+		Task SavePredictionResultAsync(PredictionResultDTO result);
 	}
 }

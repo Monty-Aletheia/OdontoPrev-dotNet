@@ -1,5 +1,5 @@
 ﻿using PatientService.Application.Services.Interfaces;
-using PatientService.Infra.Messaging;
+using PatientService.Infra.Messaging.Producers;
 using Shared.Common.Dtos;
 
 namespace PatientService.Application.Services

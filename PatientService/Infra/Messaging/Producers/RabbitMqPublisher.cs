@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 
-namespace PatientService.Infra.Messaging
+namespace PatientService.Infra.Messaging.Producers
 {
 	public class RabbitMqPublisher : IMessagePublisher
 	{
