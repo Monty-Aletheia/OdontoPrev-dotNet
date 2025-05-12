@@ -18,43 +18,44 @@ stages:
             auth-service:
               repository: auth-service
               dockerfilePath: ./AuthService/Dockerfile
-              buildContext: ./AuthService
+              buildContext: .
             claim-service:
               repository: claim-service
               dockerfilePath: ./ClaimService/Dockerfile
-              buildContext: ./ClaimService
+              buildContext: .
             consultation-service:
               repository: consultation-service
               dockerfilePath: ./ConsultationService/Dockerfile
-              buildContext: ./ConsultationService
+              buildContext: .
             dentist-service:
               repository: dentist-service
               dockerfilePath: ./DentistService/Dockerfile
-              buildContext: ./DentistService
+              buildContext: .
             patient-service:
               repository: patient-service
               dockerfilePath: ./PatientService/Dockerfile
-              buildContext: ./PatientService
+              buildContext: .
             mlnet-service:
               repository: mlnet-service
               dockerfilePath: ./MlNetWorker/Dockerfile
-              buildContext: ./MlNetWorker
+              buildContext: .
             api-gateway:
               repository: api-gateway
               dockerfilePath: ./OcelotApiGateway/Dockerfile
-              buildContext: ./OcelotApiGateway
+              buildContext: .
 
         pool:
           vmImage: 'ubuntu-latest'
 
         steps:
+          - checkout: self
+
           - task: Docker@2
             displayName: Login to ACR
             inputs:
               command: login
               containerRegistry: $(acrName)
-              username: $(ACR_USERNAME)
-              password: $(ACR_PASSWORD)
+
 
           - task: Docker@2
             displayName: Build & Push $(repository)
