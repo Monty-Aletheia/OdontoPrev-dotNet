@@ -4,7 +4,7 @@ trigger:
       - main
 
 variables:
-  acrName: aletheiadotnet.azurecr.io
+  acrName: ACR-Aletheia-dotnet
   tag: $(Build.BuildId)
 
 stages:
