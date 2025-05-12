@@ -1,11 +1,4 @@
 services:
-  shared:
-    build:
-      context: .
-      dockerfile: ./Shared/Dockerfile
-    volumes:
-      - shared_data:/app/shared
-
   seq:
     image: datalust/seq:latest
     container_name: seq
@@ -39,14 +32,11 @@ services:
     ports:
       - "5000:8080"
     depends_on:
-      - shared
       - claim-service
       - consultation-service
       - dentist-service
       - patient-service
       - auth-service 
-    volumes:
-      - shared_data:/app/shared
     networks:
       - app_net
 
@@ -64,10 +54,7 @@ services:
       context: .
       dockerfile: ./AuthService/Dockerfile
     depends_on:
-      - shared
       - dentist-service 
-    volumes:
-      - shared_data:/app/shared
     networks:
        - app_net
 
@@ -75,10 +62,6 @@ services:
     build:
       context: .
       dockerfile: ./ClaimService/Dockerfile
-    depends_on:
-      - shared
-    volumes:
-      - shared_data:/app/shared
     networks:
        - app_net
     env_file:
@@ -88,10 +71,6 @@ services:
     build:
       context: .
       dockerfile: ./ConsultationService/Dockerfile
-    depends_on:
-      - shared
-    volumes:
-      - shared_data:/app/shared
     networks:
        - app_net
     env_file:
@@ -101,10 +80,6 @@ services:
     build:
       context: .
       dockerfile: ./DentistService/Dockerfile
-    depends_on:
-      - shared
-    volumes:
-      - shared_data:/app/shared
     networks:
        - app_net
     env_file:
@@ -116,8 +91,6 @@ services:
       dockerfile: ./PatientService/Dockerfile
     depends_on:
       - rabbitmq
-    volumes:
-      - shared_data:/app/shared
     networks:
        - app_net
     env_file:
@@ -128,8 +101,6 @@ networks:
     driver: bridge
 
 volumes:
-  shared_data:
-    driver: local
   seq_data:
     driver: local
   rabbitmq_data:

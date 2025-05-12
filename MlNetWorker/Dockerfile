@@ -16,6 +16,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["MlNetWorker/MlNetWorker.csproj", "MlNetWorker/"]
+COPY ["Shared/Shared.csproj", "Shared/"]
 RUN dotnet restore "./MlNetWorker/MlNetWorker.csproj"
 COPY . .
 WORKDIR "/src/MlNetWorker"

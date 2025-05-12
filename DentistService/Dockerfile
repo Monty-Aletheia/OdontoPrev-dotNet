@@ -13,6 +13,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["DentistService/DentistService.csproj", "DentistService/"]
+COPY ["Shared/Shared.csproj", "Shared/"]
 RUN dotnet restore "./DentistService/DentistService.csproj"
 COPY . .
 WORKDIR "/src/DentistService"
