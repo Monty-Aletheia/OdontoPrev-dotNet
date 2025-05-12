@@ -14,5 +14,11 @@ namespace ClaimService.Infra.Repositories
 			_context = context;
 		}
 
+		public async Task<IEnumerable<Claim>> GetAllClaimsFromConsultationIdAsync(Guid consultationId)
+		{
+			return await _context.Claims
+				.Where(c => c.ConsultationId == consultationId)
+				.ToListAsync();
+		}
 	}
 }

@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PatientService.Application.Dtos;
-using PatientService.Application.Services;
+using PatientService.Application.Services.Interfaces;
+using Shared.Common.Dtos;
 
 namespace PatientService.Application.Controllers
 {
@@ -9,13 +9,11 @@ namespace PatientService.Application.Controllers
 	[Route("api/[controller]")]
 	public class PatientController : ControllerBase
 	{
-		private readonly PatientAppService _service;
-		private readonly IMapper _mapper;
+		private readonly IPatientAppService _service;
 
-		public PatientController(PatientAppService patientService, IMapper mapper)
+		public PatientController(IPatientAppService patientService)
 		{
 			_service = patientService;
-			_mapper = mapper;
 		}
 
 		// GET: api/Patient
@@ -23,20 +21,22 @@ namespace PatientService.Application.Controllers
 		public async Task<IActionResult> GetAll()
 		{
 			var patients = await _service.GetAllPatientsAsync();
-			var patientDtos = _mapper.Map<IEnumerable<PatientResponseDTO>>(patients);
-			return Ok(patientDtos);
+			return Ok(patients);
 		}
 
 		// GET: api/Patient/{id}
 		[HttpGet("{id}")]
 		public async Task<IActionResult> Get(Guid id)
 		{
-			var patient = await _service.GetPatientByIdAsync(id);
-			if (patient == null)
+			try
+			{
+				var patient = await _service.GetPatientByIdAsync(id);
+				return Ok(patient);
+			}
+			catch (KeyNotFoundException ex)
+			{
 				return NotFound();
-
-			var patientDto = _mapper.Map<PatientResponseDTO>(patient);
-			return Ok(patientDto);
+			}
 		}
 
 		// POST: api/Patient
@@ -47,9 +47,20 @@ namespace PatientService.Application.Controllers
 				return BadRequest(ModelState);
 
 			var patient = await _service.CreatePatientAsync(patientDto);
-			var createdPatientDto = _mapper.Map<PatientResponseDTO>(patient);
-			return CreatedAtAction(nameof(Get), new { id = createdPatientDto.Id }, createdPatientDto);
+			return CreatedAtAction(nameof(Get), new { id = patient.Id }, patient);
 		}
+
+		// POST: api/Patient/send-prediction
+		[HttpPost("send-prediction")]
+		public async Task<IActionResult> SendPrediction([FromBody] PatientRiskAssessmentDTO dto)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			await _service.RequestPredictionAsync(dto);
+			return Accepted();
+		}
+
 
 		// PUT: api/Patient/{id}
 		[HttpPut("{id}")]
@@ -64,8 +75,7 @@ namespace PatientService.Application.Controllers
 				if (updatedPatient == null)
 					return NotFound($"Patient with id {id} not found.");
 
-				var updatedPatientDto = _mapper.Map<PatientResponseDTO>(updatedPatient);
-				return Ok(updatedPatientDto);
+				return Ok(updatedPatient);
 			}
 			catch (KeyNotFoundException ex)
 			{

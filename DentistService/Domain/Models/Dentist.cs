@@ -1,4 +1,4 @@
-﻿using Shared.Enum;
+﻿using Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -27,6 +27,10 @@ namespace DentistService.Domain.Models
 		[Required]
 		[Column("risk_status")]
 		public RiskStatus RiskStatus { get; set; }
+
+		[Required]
+		public string Password { get; set; }
+
 
 	}
 }

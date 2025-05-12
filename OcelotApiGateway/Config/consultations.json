@@ -1,0 +1,40 @@
+﻿{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/consultation",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "consultation-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/consultations",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/consultation/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "consultation-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/consultations/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/consultation",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "consultation-service",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/consultations",
+      "UpstreamHttpMethod": [ "Post" ]
+    }
+  ]
+}

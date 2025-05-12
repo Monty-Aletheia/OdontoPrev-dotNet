@@ -1,4 +1,4 @@
-﻿using Shared.Enum;
+﻿using Shared.Enums;
 
 namespace PatientService.Application.Dtos
 {
@@ -8,9 +8,9 @@ namespace PatientService.Application.Dtos
 
 		public DateTime? Birthday { get; set; }
 
-		public Gender? Gender { get; set; }
+		public string? Gender { get; set; }
 
-		public RiskStatus? RiskStatus { get; set; }
+		public string? RiskStatus { get; set; }
 
 		public int? ConsultationFrequency { get; set; }
 

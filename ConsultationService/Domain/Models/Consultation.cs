@@ -1,4 +1,4 @@
-﻿using Shared.Enum;
+﻿using Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,13 +23,12 @@ namespace ConsultationService.Domain.Models
 		[Column("risk_status")]
 		public RiskStatus RiskStatus { get; set; }
 
-		public string Description { get; set; }
+		public string? Description { get; set; }
 
-		// Mantendo apenas o ID do paciente — a consulta ao paciente fica para outro microserviço
 		[Required]
 		[Column("patient_id")]
 		public Guid PatientId { get; set; }
-		public ICollection<ConsultationDentist> ConsultationDentists { get; set; } = new List<ConsultationDentist>();
+		public ICollection<ConsultationDentist> ConsultationDentists { get; set; }
 	}
 
 	// Tabela de junção para Consulta-Dentista (n:n)

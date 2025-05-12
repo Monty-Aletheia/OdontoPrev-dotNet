@@ -1,4 +1,5 @@
 ﻿using DentistService.Application.Services;
+using DentistService.Application.Services.Interfaces;
 using DentistService.Application.Services.Profiles;
 using DentistService.Domain.Interfaces;
 using DentistService.Infra.Data;
@@ -25,7 +26,11 @@ namespace DentistService
 			services.AddAutoMapper(typeof(DentistProfile));
 
 			// Services
-			services.AddScoped<DentistAppService>();
+			services.AddScoped<IDentistAppService, DentistAppService>();
+
+			services.AddHealthChecks()
+			  .AddDbContextCheck<FIAPDbContext>("Database");
+
 
 			return services;
 		}

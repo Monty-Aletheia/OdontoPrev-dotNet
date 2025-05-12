@@ -1,0 +1,581 @@
+{
+	"info": {
+		"_postman_id": "65ecb59e-aaf8-44e1-9920-6976880f2ca6",
+		"name": "Odontoprev - dotNet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28919659"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "POST Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"RegistrationNumber\": \"1234\",\r\n    \"Password\": \"seila123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/auth/login",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Dr. Ana Silva\",\r\n  \"specialty\": \"Cardiologia\",\r\n  \"registrationNumber\": \"1234\",\r\n  \"claimsRate\": 2.5,\r\n  \"password\": \"seila123\",\r\n  \"riskStatus\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/auth/register",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dentist",
+			"item": [
+				{
+					"name": "GET list dentists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/dentists",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"dentists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ID dentist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/dentists/{{DentistID}}",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"dentists",
+								"{{DentistID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST get dentists",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dentistIds\": [\r\n        \"dff48b38-e7d1-45b8-a2a5-e2b21beae5a0\",\r\n        \"6a4e2cb9-e163-4ed9-9b42-171f9ec53738\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/dentists/by-ids",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"dentists",
+								"by-ids"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST dentist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Dr. Ana Silva\",\r\n  \"specialty\": \"Cardiologia\",\r\n  \"registrationNumber\": \"CRM123456\",\r\n  \"claimsRate\": 2.5,\r\n  \"password\": \"seila123\",\r\n  \"riskStatus\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/dentists",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"dentists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT dentist",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Dr. Ana Silva\",\r\n  \"specialty\": \"Cardiologia\",\r\n  \"registrationNumber\": \"CRM123456\",\r\n  \"claimsRate\": 2.5,\r\n  \"riskStatus\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/dentists/{{DentistID}}",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"dentists",
+								"{{DentistID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE dentist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/dentists/{{DentistID}}",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"dentists",
+								"{{DentistID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patient",
+			"item": [
+				{
+					"name": "GET list patients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/patients",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"patients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ID patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/patients/{{PatientID}}",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"patients",
+								"{{PatientID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST patient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"João Pereira\",\r\n  \"birthday\": \"1985-07-12T00:00:00.000Z\",\r\n  \"gender\": 1,\r\n  \"riskStatus\": 2,\r\n  \"consultationFrequency\": 3,\r\n  \"associatedClaims\": \"Hipertensão, Diabetes\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/patients",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"patients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT patient",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"João Pereira\",\r\n  \"birthday\": \"1985-07-12T00:00:00.000Z\",\r\n  \"gender\": 1,\r\n  \"riskStatus\": 2,\r\n  \"consultationFrequency\": 3,\r\n  \"associatedClaims\": \"Hipertensão, Diabetes\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/patients/{{PatientID}}",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"patients",
+								"{{PatientID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE dentist Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/patients/{{PatientID}}",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"patients",
+								"{{PatientID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Consultation",
+			"item": [
+				{
+					"name": "GET list consultations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/consultations",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"consultations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ID consultation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/consultations/{{ConsultationsID}}",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"consultations",
+								"{{ConsultationsID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST consultation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"consultationDate\": \"2025-03-20T14:30:00.000Z\",\r\n  \"consultationValue\": 150,\r\n  \"riskStatus\": 1,\r\n  \"patientId\": \"{{PatientID}}\",\r\n  \"dentistIds\": [\r\n    \"{{DentistID}}\",\r\n    \"{{DentistID2}}\"\r\n  ],\r\n  \"description\": \"Consulta de rotina e limpeza.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/consultations",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"consultations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT consultation",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"consultationDate\": \"2025-03-20T14:30:00.000Z\",\r\n  \"consultationValue\": 150,\r\n  \"riskStatus\": 1,\r\n  \"patientId\": \"{{PatientID}}\",\r\n  \"dentistIds\": [\r\n    \"{{DentistID}}\"\r\n  ],\r\n  \"description\": \"Consulta de rotina e limpeza.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/consultations/{{ConsultationsID}}",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"consultations",
+								"{{ConsultationsID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE consultation",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/consultations/{{ConsultationsID}}",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"consultations",
+								"{{ConsultationsID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Claims",
+			"item": [
+				{
+					"name": "GET list claims",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/claims",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"claims"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ID claim",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/claims/{{ClaimID}}",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"claims",
+								"{{ClaimID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST claim",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"occurrenceDate\": \"2025-03-20T10:45:00.000Z\",\r\n  \"value\": 500.75,\r\n  \"claimType\": 1,\r\n  \"suggestedPreventiveAction\": \"Revisão periódica a cada 3 meses.\",\r\n  \"consultationId\": \"{{ConsultationsID}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/claims",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"claims"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT claim",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"occurrenceDate\": \"2025-03-20T10:45:00.000Z\",\r\n  \"value\": 500.75,\r\n  \"claimType\": 1,\r\n  \"suggestedPreventiveAction\": \"Revisão periódica a cada 3 meses.\",\r\n  \"consultationId\": \"{{ConsultationsID}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/claims/{{ClaimID}}",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"claims",
+								"{{ClaimID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE claim",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/claims/{{ClaimID}}",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"claims",
+								"{{ClaimID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/claims",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"claims"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

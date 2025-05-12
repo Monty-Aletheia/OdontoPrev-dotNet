@@ -1,6 +1,5 @@
-﻿using AutoMapper;
-using DentistService.Application.Dtos;
-using DentistService.Application.Services;
+﻿using DentistService.Application.Dtos;
+using DentistService.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DentistService.Application.Controllers
@@ -9,13 +8,11 @@ namespace DentistService.Application.Controllers
 	[ApiController]
 	public class DentistController : ControllerBase
 	{
-		private readonly DentistAppService _service;
-		private readonly IMapper _mapper;
+		private readonly IDentistAppService _service;
 
-		public DentistController(DentistAppService dentistService, IMapper mapper)
+		public DentistController(IDentistAppService dentistService)
 		{
 			_service = dentistService;
-			_mapper = mapper;
 		}
 
 		// GET: api/Dentist
@@ -23,8 +20,7 @@ namespace DentistService.Application.Controllers
 		public async Task<IActionResult> GetAllDentists()
 		{
 			var dentists = await _service.GetAllDentistsAsync();
-			var dentistDtos = _mapper.Map<IEnumerable<DentistResponseDTO>>(dentists);
-			return Ok(dentistDtos);
+			return Ok(dentists);
 		}
 
 		// GET: api/Dentist/{id}
@@ -37,12 +33,34 @@ namespace DentistService.Application.Controllers
 				if (dentist == null)
 					return NotFound();
 
-				var dentistDto = _mapper.Map<DentistResponseDTO>(dentist);
-				return Ok(dentistDto);
+				return Ok(dentist);
 			}
 			catch (KeyNotFoundException ex)
 			{
 				return NotFound(ex.Message);
+			}
+		}
+
+
+		// POST: api/Dentist/by-ids
+		[HttpPost("by-ids")]
+		public async Task<ActionResult<IEnumerable<DentistResponseDTO>>> GetDentistsByIds([FromBody] DentistIdsRequestDTO requestDto)
+		{
+			try
+			{
+				var dentist = await _service.GetDentistsByIdsAsync(requestDto.DentistIds);
+				if (dentist == null)
+					return NotFound();
+
+				return Ok(dentist);
+			}
+			catch (KeyNotFoundException ex)
+			{
+				return NotFound(ex.Message);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, "An unexpected error occurred: " + ex.Message);
 			}
 		}
 
@@ -54,9 +72,30 @@ namespace DentistService.Application.Controllers
 				return BadRequest(ModelState);
 
 			var dentist = await _service.CreateDentistAsync(dto);
-			var createdDentistDto = _mapper.Map<DentistResponseDTO>(dentist);
-			return CreatedAtAction(nameof(GetDentistById), new { id = createdDentistDto.Id }, createdDentistDto);
+			return CreatedAtAction(nameof(GetDentistById), new { id = dentist.Id }, dentist);
 		}
+
+		// POST: api/Dentist/validate
+		[HttpPost("validate")]
+		public async Task<IActionResult> ValidateDentist([FromBody] LoginDTO dto)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			try
+			{
+				var dentist = await _service.GetDentistByRegistrationNumberAndPassword(dto);
+				if (dentist == null)
+					return Unauthorized(new { message = "Invalid credentials." });
+
+				return Ok(dentist);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new { message = "An error occurred while validating the dentist.", error = ex.Message });
+			}
+		}
+
 
 		// PUT: api/Dentist/{id}
 		[HttpPut("{id}")]
@@ -71,8 +110,7 @@ namespace DentistService.Application.Controllers
 				if (dentist == null)
 					return NotFound($"Dentist with id {id} not found.");
 
-				var updatedDentistDto = _mapper.Map<DentistResponseDTO>(dentist);
-				return Ok(updatedDentistDto);
+				return Ok(dentist);
 			}
 			catch (KeyNotFoundException ex)
 			{

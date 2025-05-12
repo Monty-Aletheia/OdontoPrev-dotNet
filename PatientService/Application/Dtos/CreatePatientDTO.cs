@@ -1,4 +1,4 @@
-﻿using Shared.Enum;
+﻿using Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace PatientService.Application.Dtos
@@ -12,10 +12,12 @@ namespace PatientService.Application.Dtos
 		public DateTime Birthday { get; set; }
 
 		[Required]
-		public Gender Gender { get; set; }
+		[EnumDataType(typeof(Gender))]
+		public string Gender { get; set; }
 
 		[Required]
-		public RiskStatus RiskStatus { get; set; }
+		[EnumDataType(typeof(RiskStatus))]
+		public string RiskStatus { get; set; }
 
 		public int? ConsultationFrequency { get; set; } = 0;
 

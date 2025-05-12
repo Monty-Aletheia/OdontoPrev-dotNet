@@ -1,4 +1,4 @@
-﻿namespace ClaimService.Application.Services.HttpClients.Interface
+﻿namespace ClaimService.Application.Services.HttpClients.Interfaces
 {
 	public interface IConsultationHttpClient
 	{

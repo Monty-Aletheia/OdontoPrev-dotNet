@@ -1,7 +1,6 @@
 ﻿using ConsultationService.Domain.Interfaces;
 using ConsultationService.Domain.Models;
 using ConsultationService.Infra.Data;
-using DentistService.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConsultationService.Infra.Repositories
@@ -10,7 +9,6 @@ namespace ConsultationService.Infra.Repositories
 	{
 		private readonly FIAPDbContext _context;
 
-		// Construtor corrigido
 		public ConsultationRepository(FIAPDbContext context) : base(context)
 		{
 			_context = context ?? throw new ArgumentNullException(nameof(context), "DbContext cannot be null");

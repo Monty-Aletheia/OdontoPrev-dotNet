@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using ClaimService.Application.Dtos;
-using ClaimService.Application.Services;
+using ClaimService.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClaimService.Application.Controllers
@@ -9,13 +9,11 @@ namespace ClaimService.Application.Controllers
 	[Route("api/[controller]")]
 	public class ClaimController : ControllerBase
 	{
-		private readonly ClaimAppService _service;
-		private readonly IMapper _mapper;
+		private readonly IClaimAppService _service;
 
-		public ClaimController(ClaimAppService claimService, IMapper mapper)
+		public ClaimController(IClaimAppService claimService)
 		{
 			_service = claimService;
-			_mapper = mapper;
 		}
 
 		// GET: api/Claim
@@ -33,6 +31,21 @@ namespace ClaimService.Application.Controllers
 			try
 			{
 				var claim = await _service.GetClaimByIdAsync(id);
+				return Ok(claim);
+			}
+			catch (KeyNotFoundException ex)
+			{
+				return NotFound(ex.Message);
+			}
+		}
+
+		// GET: api/Claim/consultation/{id}
+		[HttpGet("consultation/{id}")]
+		public async Task<IActionResult> GetClaimByConsultationId(Guid id)
+		{
+			try
+			{
+				var claim = await _service.GetAllClaimsByConsultationId(id);
 				return Ok(claim);
 			}
 			catch (KeyNotFoundException ex)

@@ -1,9 +1,15 @@
 
 using ConsultationService;
+using ConsultationService.Infra.Data;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.EntityFrameworkCore;
+using Shared.Logger;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Host.UseCentralizedSerilog("ConsultationService");
 
 // DI
 builder.Services.AddInfrastructureServices(builder.Configuration);
@@ -15,6 +21,13 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Aplica as migrations
+using (var scope = app.Services.CreateScope())
+{
+	var db = scope.ServiceProvider.GetRequiredService<FIAPDbContext>();
+	db.Database.Migrate();
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -25,6 +38,22 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+// Health Check
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+	ResponseWriter = async (context, report) =>
+	{
+		context.Response.ContentType = "application/json";
+		var result = JsonSerializer.Serialize(new
+		{
+			status = report.Status.ToString(),
+			checks = report.Entries.Select(e => new { key = e.Key, value = e.Value.Status.ToString() }),
+			duration = report.TotalDuration.TotalSeconds
+		});
+		await context.Response.WriteAsync(result);
+	}
+});
 
 app.MapControllers();
 

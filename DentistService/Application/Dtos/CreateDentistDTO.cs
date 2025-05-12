@@ -1,4 +1,4 @@
-﻿using Shared.Enum;
+﻿using Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace DentistService.Application.Dtos
@@ -16,6 +16,10 @@ namespace DentistService.Application.Dtos
 		public double? ClaimsRate { get; set; }
 
 		[Required]
-		public RiskStatus RiskStatus { get; set; }
+		public string Password { get; set; }
+
+		[Required]
+		[EnumDataType(typeof(RiskStatus))]
+		public string RiskStatus { get; set; }
 	}
 }

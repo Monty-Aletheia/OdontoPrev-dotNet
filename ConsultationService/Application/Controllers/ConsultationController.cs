@@ -1,6 +1,5 @@
-﻿using AutoMapper;
-using ConsultationService.Application.Dtos;
-using ConsultationService.Application.Services;
+﻿using ConsultationService.Application.Dtos;
+using ConsultationService.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConsultationService.Application.Controllers
@@ -9,22 +8,27 @@ namespace ConsultationService.Application.Controllers
 	[ApiController]
 	public class ConsultationController : ControllerBase
 	{
-		private readonly ConsultationAppService _service;
-		private readonly IMapper _mapper;
+		private readonly IConsultationAppService _service;
 
-		public ConsultationController(ConsultationAppService consultationService, IMapper mapper)
+		public ConsultationController(IConsultationAppService consultationService)
 		{
 			_service = consultationService;
-			_mapper = mapper;
 		}
 
 		// GET: api/Consultation
 		[HttpGet]
 		public async Task<IActionResult> GetConsultations()
 		{
-			var consultations = await _service.GetConsultationsAsync();
-			var consultationDtos = _mapper.Map<IEnumerable<ConsultationResponseDTO>>(consultations);
-			return Ok(consultationDtos);
+			try
+			{
+				var consultations = await _service.GetConsultationsAsync();
+				return Ok(consultations);
+			}
+			catch (KeyNotFoundException ex)
+			{
+				return NotFound(ex.Message);
+			}
+
 		}
 
 		// GET: api/Consultation/{id}
@@ -37,8 +41,7 @@ namespace ConsultationService.Application.Controllers
 				if (consultation == null)
 					return NotFound();
 
-				var consultationDto = _mapper.Map<ConsultationResponseDTO>(consultation);
-				return Ok(consultationDto);
+				return Ok(consultation);
 			}
 			catch (KeyNotFoundException ex)
 			{
@@ -53,16 +56,16 @@ namespace ConsultationService.Application.Controllers
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 
-			try {
+			try
+			{
 				var consultation = await _service.CreateConsultationAsync(dto);
-				var createdConsultationDto = _mapper.Map<ConsultationResponseDTO>(consultation);
-				return CreatedAtAction(nameof(GetConsultationById), new { id = createdConsultationDto.Id }, createdConsultationDto);
+				return CreatedAtAction(nameof(GetConsultationById), new { id = consultation.Id }, consultation);
 			}
 			catch (KeyNotFoundException ex)
 			{
 				return NotFound(ex.Message);
 			}
-			
+
 		}
 
 		// PUT: api/Consultation/{id}
@@ -75,8 +78,7 @@ namespace ConsultationService.Application.Controllers
 			try
 			{
 				var updatedConsultation = await _service.UpdateConsultationAsync(id, dto);
-				var updatedConsultationDto = _mapper.Map<ConsultationResponseDTO>(updatedConsultation);
-				return Ok(updatedConsultationDto);
+				return Ok(updatedConsultation);
 			}
 			catch (KeyNotFoundException ex)
 			{

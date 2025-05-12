@@ -1,4 +1,4 @@
-﻿using Shared.Enum;
+﻿using Shared.Enums;
 
 namespace DentistService.Application.Dtos
 {
@@ -14,7 +14,7 @@ namespace DentistService.Application.Dtos
 
 		public double? ClaimsRate { get; set; }
 
-		public RiskStatus RiskStatus { get; set; }
+		public string RiskStatus { get; set; }
 
 	}
 }

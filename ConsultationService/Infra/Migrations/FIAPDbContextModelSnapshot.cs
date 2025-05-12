@@ -37,7 +37,6 @@ namespace ConsultationService.Migrations
                         .HasColumnName("consultation_value");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<Guid>("PatientId")

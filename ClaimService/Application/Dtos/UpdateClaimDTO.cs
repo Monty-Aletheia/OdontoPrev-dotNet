@@ -1,4 +1,4 @@
-﻿using Shared.Enum;
+﻿using Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace ClaimService.Application.Dtos
@@ -10,7 +10,8 @@ namespace ClaimService.Application.Dtos
 		[Range(0.01, double.MaxValue)]
 		public double? Value { get; set; }
 
-		public ClaimType? ClaimType { get; set; }
+		[EnumDataType(typeof(ClaimType))]
+		public string? ClaimType { get; set; }
 
 		[StringLength(255)]
 		public string? SuggestedPreventiveAction { get; set; }

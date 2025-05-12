@@ -1,4 +1,4 @@
-﻿using ClaimService.Application.Services.HttpClients.Interface;
+﻿using ClaimService.Application.Services.HttpClients.Interfaces;
 
 namespace ClaimService.Application.Services.HttpClients
 {

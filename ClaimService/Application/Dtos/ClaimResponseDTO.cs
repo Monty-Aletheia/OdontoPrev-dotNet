@@ -1,5 +1,4 @@
-﻿
-using Shared.Enum;
+﻿using Shared.Enums;
 
 namespace ClaimService.Application.Dtos
 {
@@ -11,7 +10,7 @@ namespace ClaimService.Application.Dtos
 
 		public double? Value { get; set; }
 
-		public ClaimType ClaimType { get; set; }
+		public string ClaimType { get; set; }
 
 		public string SuggestedPreventiveAction { get; set; }
 

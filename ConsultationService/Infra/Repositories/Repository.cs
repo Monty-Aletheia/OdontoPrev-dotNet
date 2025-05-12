@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Shared.Interfaces;
 
-namespace DentistService.Infra.Repositories
+namespace ConsultationService.Infra.Repositories
 {
 	public class Repository<T> : IRepository<T> where T : class
 	{

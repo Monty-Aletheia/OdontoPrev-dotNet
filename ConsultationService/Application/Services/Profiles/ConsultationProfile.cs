@@ -9,8 +9,10 @@ namespace ConsultationService.Application.Services.Profiles
 		public ConsultationProfile()
 		{
 			CreateMap<CreateConsultationDTO, Consultation>();
+
 			CreateMap<Consultation, ConsultationResponseDTO>()
-				.ForMember(dest => dest.DentistIds, opt => opt.MapFrom(src => src.ConsultationDentists.Select(cd => cd.DentistId)));
+					   .ForMember(dest => dest.Dentists, opt => opt.Ignore())
+					   .ForMember(dest => dest.Patient, opt => opt.Ignore());
 
 			CreateMap<UpdateConsultationDTO, Consultation>();
 		}

@@ -1,4 +1,4 @@
-﻿using Shared.Enum;
+﻿using Shared.Enums;
 
 namespace ConsultationService.Application.Dtos
 {
@@ -10,12 +10,12 @@ namespace ConsultationService.Application.Dtos
 
 		public double? ConsultationValue { get; set; }
 
-		public RiskStatus RiskStatus { get; set; }
+		public string RiskStatus { get; set; }
 
 		public string? Description { get; set; }
 
-		public Guid PatientId { get; set; }
+		public PatientResponseDTO Patient { get; set; }
 
-		public ICollection<Guid> DentistIds { get; set; } = new List<Guid>();
+		public IEnumerable<DentistResponseDTO> Dentists { get; set; }
 	}
 }

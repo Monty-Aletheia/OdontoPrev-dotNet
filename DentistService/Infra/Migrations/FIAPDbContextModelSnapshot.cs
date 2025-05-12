@@ -22,7 +22,7 @@ namespace DentistService.Migrations
 
             OracleModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DentistService.Models.Dentist", b =>
+            modelBuilder.Entity("DentistService.Domain.Models.Dentist", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,6 +33,10 @@ namespace DentistService.Migrations
                         .HasColumnName("claims_rate");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 

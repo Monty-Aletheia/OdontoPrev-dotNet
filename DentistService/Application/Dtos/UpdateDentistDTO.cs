@@ -1,6 +1,4 @@
 ﻿
-using Shared.Enum;
-
 namespace DentistService.Application.Dtos
 {
 	public class UpdateDentistDTO
@@ -13,6 +11,6 @@ namespace DentistService.Application.Dtos
 
 		public double? ClaimsRate { get; set; }
 
-		public RiskStatus? RiskStatus { get; set; }
+		public string? RiskStatus { get; set; }
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using ClaimService.Application.Services;
 using ClaimService.Application.Services.HttpClients;
-using ClaimService.Application.Services.HttpClients.Interface;
+using ClaimService.Application.Services.HttpClients.Interfaces;
+using ClaimService.Application.Services.Interfaces;
 using ClaimService.Application.Services.Profiles;
 using ClaimService.Domain.Interfaces;
 using ClaimService.Infra.Repositories;
@@ -26,9 +27,14 @@ namespace ClaimService
 			services.AddAutoMapper(typeof(ClaimProfile));
 
 			// Services
-			services.AddScoped<ClaimAppService>();
+			services.AddScoped<IClaimAppService, ClaimAppService>();
 
 			services.AddHttpClient<IConsultationHttpClient, ConsultationServiceHttpClient>();
+
+			// Health Check
+			services.AddHealthChecks()
+			  .AddDbContextCheck<FIAPDbContext>("Database")
+			  .AddUrlGroup(new Uri(configuration["ConsultationService"]), "ConsultationService API");
 
 			return services;
 		}

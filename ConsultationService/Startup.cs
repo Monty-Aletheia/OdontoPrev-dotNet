@@ -1,6 +1,7 @@
 ﻿using ConsultationService.Application.Services;
 using ConsultationService.Application.Services.HttpClients;
 using ConsultationService.Application.Services.HttpClients.Interfaces;
+using ConsultationService.Application.Services.Interfaces;
 using ConsultationService.Application.Services.Profiles;
 using ConsultationService.Domain.Interfaces;
 using ConsultationService.Infra.Data;
@@ -27,21 +28,17 @@ namespace ConsultationService
 			services.AddAutoMapper(typeof(ConsultationProfile));
 
 			// Services
-			services.AddScoped<ConsultationAppService>();
+			services.AddScoped<IConsultationAppService, ConsultationAppService>();
 
 			// HttpClients
-			services.AddHttpClient<IDentistHttpClient, DentistServiceHttpClient>()
-				.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
-				{
-					ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
-				});
+			services.AddHttpClient<IDentistHttpClient, DentistServiceHttpClient>();
+			services.AddHttpClient<IPatientHttpClient, PatientServiceHttpClient>();
 
-			services.AddHttpClient<IPatientHttpClient, PatientServiceHttpClient>()
-				.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
-				{
-					ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
-				});
-
+			// Health Check
+			services.AddHealthChecks()
+			  .AddDbContextCheck<FIAPDbContext>("Database")
+			  .AddUrlGroup(new Uri(configuration["PatientService"]), "PatientService API")
+			  .AddUrlGroup(new Uri(configuration["DentistService"]), "DentistService API");
 
 			return services;
 		}
