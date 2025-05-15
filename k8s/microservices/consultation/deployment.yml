@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consultation-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consultation-service
+  template:
+    metadata:
+      labels:
+        app: consultation-service
+    spec:
+      containers:
+        - name: consultation-service
+          image: aletheiadotnet.azurecr.io/acr-aletheia-dotnet/consultation-service:latest
+          ports:
+            - name: http
+              containerPort: 8080
+            - name: https
+              containerPort: 8081
+          envFrom:
+            - configMapRef:
+                name: bd-configmap
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+      imagePullSecrets:
+        - name: acr-secret
