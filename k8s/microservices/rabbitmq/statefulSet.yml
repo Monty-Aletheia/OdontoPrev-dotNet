@@ -32,6 +32,7 @@ spec:
         name: rabbitmq-data
       spec:
         accessModes: ["ReadWriteOnce"]
+        storageClassName: default
         resources:
           requests:
             storage: 1Gi

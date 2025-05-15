@@ -6,9 +6,10 @@ spec:
   selector:
     app: seq
   ports:
-    - name: http
+    - name: ui
       port: 80
       targetPort: 80
     - name: ingestion
+      protocol: TCP
       port: 5341
       targetPort: 5341
