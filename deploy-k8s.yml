@@ -23,8 +23,12 @@ stages:
                 echo "Conectando ao cluster AKS..."
                 az aks get-credentials --resource-group rg-cl-aletheia-dotnet --name aletheia-k8s --overwrite-existing
 
+                echo "Entrando na pasta k8s..."
+                cd k8s
+
                 echo "Dando permissão de execução ao deploy.sh..."
-                chmod +x ./k8s/deploy.sh
+                chmod +x deploy.sh
 
                 echo "Executando script de deploy..."
-                ./k8s/deploy.sh
+                ./deploy.sh
+
