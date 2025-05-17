@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: seq
+spec:
+  serviceName: "seq"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: seq
+  template:
+    metadata:
+      labels:
+        app: seq
+    spec:
+      containers:
+        - name: seq
+          image: datalust/seq:latest
+          ports:
+            - name: http
+              containerPort: 80
+            - name: ingestion
+              containerPort: 5341
+          env:
+            - name: ACCEPT_EULA
+              value: "Y"
+          volumeMounts:
+            - name: seq-data
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: seq-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: default
+        resources:
+          requests:
+            storage: 1Gi

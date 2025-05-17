@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlnet-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mlnet-service
+  template:
+    metadata:
+      labels:
+        app: mlnet-service
+    spec:
+      containers:
+        - name: mlnet-service
+          image: aletheiadotnet.azurecr.io/acr-aletheia-dotnet/mlnet-service:latest
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+      imagePullSecrets:
+        - name: acr-secret
