@@ -16,7 +16,7 @@ stages:
           - task: AzureCLI@2
             displayName: 'Login and apply manifests to AKS'
             inputs:
-              azureSubscription: Aletheia-k8s
+              azureSubscription: Aletheia-ARM
               scriptType: bash
               scriptLocation: inlineScript
               inlineScript: |
