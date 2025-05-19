@@ -23,8 +23,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: bd-configmap
-            - configMapRef:
-                name: dentist-config
           resources:
             requests:
               memory: "128Mi"

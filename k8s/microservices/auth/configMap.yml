@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: dentist-config
-data:
-  DENTISTSERVICE: "http://dentist-service/api/Dentist"
