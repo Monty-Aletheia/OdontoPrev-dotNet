@@ -13,10 +13,22 @@ namespace MlNetWorker.Services
 			var mlContext = new MLContext();
 			var modelPath = "AI/AletheIA.zip";
 
-			using var stream = new FileStream(modelPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-			var loadedModel = mlContext.Model.Load(stream, out var modelInputSchema);
+			if (!File.Exists(modelPath))
+			{
+				throw new FileNotFoundException($"Modelo de IA não encontrado em: {modelPath}. Execute o treinamento primeiro.");
+			}
 
-			_predEngine = mlContext.Model.CreatePredictionEngine<InputData, PredictionResult>(loadedModel);
+			try
+			{
+				using var stream = new FileStream(modelPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+				var loadedModel = mlContext.Model.Load(stream, out var modelInputSchema);
+
+				_predEngine = mlContext.Model.CreatePredictionEngine<InputData, PredictionResult>(loadedModel);
+			}
+			catch (Exception ex)
+			{
+				throw new InvalidOperationException("Erro ao carregar o modelo de IA.", ex);
+			}
 		}
 
 		public PredictionResult Predict(PatientRiskAssessmentDTO input)

@@ -1,12 +1,6 @@
 # Etapa base modificada para instalar bibliotecas nativas antes de usar USER
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 
-# Instala dependências do onnxruntime
-RUN apt-get update && apt-get install -y \
-    libgomp1 \
-    libprotobuf-dev \
-    && rm -rf /var/lib/apt/lists/*
-
 # Só defina o usuário DEPOIS das instalações
 WORKDIR /app
 USER $APP_UID

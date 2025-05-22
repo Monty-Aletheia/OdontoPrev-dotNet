@@ -33,8 +33,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="AI\AletheIA.zip" />
+    <None Remove="Data\dados_sinistro.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="AI\AletheIA.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\dados_sinistro.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   

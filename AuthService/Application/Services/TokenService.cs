@@ -25,13 +25,13 @@ namespace AuthService.Application.Services
 
 			var claims = new[]
 			{
-		new Claim(ClaimTypes.Name, dentist.Name),
-		new Claim("id", dentist.Id.ToString()),
-		new Claim("registrationNumber", dentist.RegistrationNumber),
-		new Claim("specialty", dentist.Specialty),
-		new Claim("riskStatus", dentist.RiskStatus.ToString()),
-		new Claim("claimsRate", dentist.ClaimsRate?.ToString() ?? "0")
-	};
+				new Claim(ClaimTypes.Name, dentist.Name),
+				new Claim("id", dentist.Id.ToString()),
+				new Claim("registrationNumber", dentist.RegistrationNumber),
+				new Claim("specialty", dentist.Specialty),
+				new Claim("riskStatus", dentist.RiskStatus.ToString()),
+				new Claim("claimsRate", dentist.ClaimsRate?.ToString() ?? "0")
+			};
 
 			var token = new JwtSecurityToken(
 				issuer: _jwtSettings.Issuer,

@@ -18,18 +18,26 @@ namespace MlNetWorker.Consumers
 
 		public async Task Consume(ConsumeContext<PatientRiskAssessmentDTO> context)
 		{
-			Console.WriteLine($"[Predição] Recebendo mensagem: {context.Message}");
-			var result = _service.Predict(context.Message);
-			Console.WriteLine($"[Predição] Score: {result.Score}");
-
-			var response = new PredictionResultDTO
+			try
 			{
-				PatientID = context.Message.PatientID,
-				RiskScore = result.Score,
-			};
+				Console.WriteLine($"[Predição] Recebendo mensagem: {context.Message}");
+				var result = _service.Predict(context.Message);
+				Console.WriteLine($"[Predição] Score: {result.Score}");
 
-			await _resultSender.SendResultAsync(response); 
+				var response = new PredictionResultDTO
+				{
+					PatientID = context.Message.PatientID,
+					RiskScore = result.Score,
+				};
+
+				await _resultSender.SendResultAsync(response);
+			}
+			catch (Exception ex)
+			{
+				Console.Error.WriteLine($"Erro ao processar predição: {ex.Message}");
+			}
 		}
+
 	}
 
 }
