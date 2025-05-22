@@ -118,6 +118,17 @@ docker compose run mlnetworker generate-ai
 Esse comando irá processar os dados em `MlNetWorker/Data/dados_sinistro.csv` e gerar o modelo em `MlNetWorker/AI/AletheIA.zip`.  
 Após a geração, o serviço MlNetWorker pode ser iniciado normalmente e estará pronto para realizar previsões.
 
+## Práticas de Clean Code
+
+Durante o desenvolvimento, foram aplicadas práticas de Clean Code, tais como:
+- Nomes de variáveis e métodos claros e descritivos
+- Separação de responsabilidades (SRP)
+- Redução de código duplicado
+- Utilização de injeção de dependência
+- Organização dos arquivos por domínio e contexto
+
+Essas práticas facilitam a manutenção, extensibilidade e legibilidade do código.
+
 ## Licença
 
 Este projeto está licenciado sob a licença [MIT](LICENSE).
