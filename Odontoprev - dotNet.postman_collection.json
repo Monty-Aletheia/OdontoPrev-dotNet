@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"RegistrationNumber\": \"1234\",\r\n    \"Password\": \"seila123\"\r\n}",
+							"raw": "{\r\n    \"RegistrationNumber\": \"CRM123456\",\r\n    \"Password\": \"seila123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -44,7 +44,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Dr. Ana Silva\",\r\n  \"specialty\": \"Cardiologia\",\r\n  \"registrationNumber\": \"1234\",\r\n  \"claimsRate\": 2.5,\r\n  \"password\": \"seila123\",\r\n  \"riskStatus\": 1\r\n}",
+							"raw": "{\r\n  \"name\": \"Dr. Ana Silva\",\r\n  \"specialty\": \"Cardiologia\",\r\n  \"registrationNumber\": \"1234\",\r\n  \"claimsRate\": 2.5,\r\n  \"password\": \"seila123\",\r\n  \"riskStatus\": \"Low\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -114,7 +114,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dentistIds\": [\r\n        \"dff48b38-e7d1-45b8-a2a5-e2b21beae5a0\",\r\n        \"6a4e2cb9-e163-4ed9-9b42-171f9ec53738\"\r\n    ]\r\n}",
+							"raw": "{\r\n    \"dentistIds\": [\r\n        \"{{DentistID}}\",\r\n        \"{{DentistID2}}\"\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -142,7 +142,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Dr. Ana Silva\",\r\n  \"specialty\": \"Cardiologia\",\r\n  \"registrationNumber\": \"CRM123456\",\r\n  \"claimsRate\": 2.5,\r\n  \"password\": \"seila123\",\r\n  \"riskStatus\": 1\r\n}",
+							"raw": "{\r\n  \"name\": \"sdasd\",\r\n  \"specialty\": \"Cardiologia\",\r\n  \"registrationNumber\": \"CRM123456\",\r\n  \"claimsRate\": 2.5,\r\n  \"password\": \"seila123\",\r\n  \"riskStatus\": \"Low\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -258,7 +258,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"João Pereira\",\r\n  \"birthday\": \"1985-07-12T00:00:00.000Z\",\r\n  \"gender\": 1,\r\n  \"riskStatus\": 2,\r\n  \"consultationFrequency\": 3,\r\n  \"associatedClaims\": \"Hipertensão, Diabetes\"\r\n}",
+							"raw": "{\r\n  \"name\": \"João Pereira\",\r\n  \"birthday\": \"1985-07-12T00:00:00.000Z\",\r\n  \"gender\": \"Male\",\r\n  \"riskStatus\": \"Low\",\r\n  \"consultationFrequency\": 3,\r\n  \"associatedClaims\": \"Hipertensão, Diabetes\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -307,7 +307,7 @@
 					"response": []
 				},
 				{
-					"name": "DELETE dentist Copy",
+					"name": "DELETE patient",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -320,6 +320,34 @@
 								"api",
 								"patients",
 								"{{PatientID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST send prediction",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"patientID\": \"{{PatientID}}\",\r\n  \"age\": 29,\r\n  \"gender\": \"Male\",\r\n  \"consultationFrequency\": 5,\r\n  \"aderenciaTratamento\": 0.8,\r\n  \"cavitiesHistory\": true,\r\n  \"periodontalDisease\": false,\r\n  \"numberOfImplants\": 3,\r\n  \"previousComplexTreatments\": true,\r\n  \"smoker\": false,\r\n  \"alcoholism\": false,\r\n  \"dailyBrushing\": 2,\r\n  \"flossing\": true,\r\n  \"systemicDiseases\": \"Diabetes\",\r\n  \"continuousMedicationUse\": 0.5,\r\n  \"planType\": \"Basico\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/patients/send-prediction",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"patients",
+								"send-prediction"
 							]
 						}
 					},
@@ -374,7 +402,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"consultationDate\": \"2025-03-20T14:30:00.000Z\",\r\n  \"consultationValue\": 150,\r\n  \"riskStatus\": 1,\r\n  \"patientId\": \"{{PatientID}}\",\r\n  \"dentistIds\": [\r\n    \"{{DentistID}}\",\r\n    \"{{DentistID2}}\"\r\n  ],\r\n  \"description\": \"Consulta de rotina e limpeza.\"\r\n}",
+							"raw": "{\r\n  \"consultationDate\": \"2025-03-20T14:30:00.000Z\",\r\n  \"consultationValue\": 150,\r\n  \"riskStatus\": \"Low\",\r\n  \"patientId\": \"{{PatientID}}\",\r\n  \"dentistIds\": [\r\n    \"{{DentistID}}\"\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -490,7 +518,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"occurrenceDate\": \"2025-03-20T10:45:00.000Z\",\r\n  \"value\": 500.75,\r\n  \"claimType\": 1,\r\n  \"suggestedPreventiveAction\": \"Revisão periódica a cada 3 meses.\",\r\n  \"consultationId\": \"{{ConsultationsID}}\"\r\n}",
+							"raw": "{\r\n  \"occurrenceDate\": \"2025-03-20T10:45:00.000Z\",\r\n  \"value\": 500.75,\r\n  \"claimType\": \"Low\",\r\n  \"suggestedPreventiveAction\": \"Revisão periódica a cada 3 meses.\",\r\n  \"consultationId\": \"{{ConsultationsID}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -552,24 +580,6 @@
 								"api",
 								"claims",
 								"{{ClaimID}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET health",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{Host}}/api/claims",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"api",
-								"claims"
 							]
 						}
 					},
