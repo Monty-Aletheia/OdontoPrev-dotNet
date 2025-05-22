@@ -105,17 +105,20 @@ namespace PatientService.Application.Services
 			}
 
 			RiskStatus riskResult;
-			if (result.RiskScore <= 0.20)
+
+			if (result.RiskScore < 0.20)
 			{
 				riskResult = RiskStatus.Low;
-			} else if (result.RiskScore <= 0.50)
+			}
+			else if (result.RiskScore < 0.50)
 			{
 				riskResult = RiskStatus.Medium;
 			}
-			else 
+			else
 			{
 				riskResult = RiskStatus.High;
 			}
+
 
 			patient.RiskStatus = riskResult;
 

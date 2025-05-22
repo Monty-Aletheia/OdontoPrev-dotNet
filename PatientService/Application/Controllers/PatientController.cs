@@ -58,7 +58,7 @@ namespace PatientService.Application.Controllers
 				return BadRequest(ModelState);
 
 			await _service.RequestPredictionAsync(dto);
-			return Accepted();
+			return Accepted("Message Sent to IA");
 		}
 
 
